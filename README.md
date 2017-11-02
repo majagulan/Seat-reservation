@@ -4,3 +4,5 @@
 
 A project task is an application that allows users to reserve places or tickets on a discount in a theater or cinema, 
 for a given term.
+
+Group Members: Smiljana Tedic, Milana Carapic and Maja Gulan
