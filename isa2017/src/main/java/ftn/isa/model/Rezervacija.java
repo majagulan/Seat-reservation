@@ -1,5 +1,11 @@
 package ftn.isa.model;
 
-public class Rezervacija {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+@SuppressWarnings("serial")
+@Entity
+public class Rezervacija implements Serializable {
 
 }
