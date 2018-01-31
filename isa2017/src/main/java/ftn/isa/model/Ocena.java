@@ -19,9 +19,9 @@ public class Ocena implements Serializable {
 	private int ocenaProjekcije;
 	
 	@Column
-	private int ocenaUstanove;
+	private int ocenaUstanove; 
 	
-	public Ocena() {
+	public Ocena() { 
 		
 	}
 
