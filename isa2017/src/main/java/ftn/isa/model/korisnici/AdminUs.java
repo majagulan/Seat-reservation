@@ -3,29 +3,37 @@ package ftn.isa.model.korisnici;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@SuppressWarnings("serial")
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
+import ftn.isa.model.Ustanova;
+
 @Entity
-public class AdminUs implements Serializable {
+@Table(name = "USTANOVA_MANAGER")
+public class AdminUs extends Korisnik implements Serializable {
 	
-	@Id
-	@GeneratedValue
-	private Long id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1875896751612635821L;
+	
+	@ManyToOne
+	private Ustanova ustanova;
+
 	
 	public AdminUs() {
-		
+
 	}
 
-	public Long getId() {
-		return id;
+	public Ustanova getUstanova() {
+		return ustanova;
+	}
+	
+	public void setUstanova(Ustanova u) {
+		this.ustanova = u;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
 
 }

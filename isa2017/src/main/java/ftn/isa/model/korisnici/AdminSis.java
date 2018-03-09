@@ -1,31 +1,32 @@
 package ftn.isa.model.korisnici;
 
-import java.io.Serializable;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Table;
 
-@SuppressWarnings("serial")
 @Entity
-public class AdminSis implements Serializable {
+@Table(name ="SYSTEM_MANAGER")
+public class AdminSis extends Korisnik {
 	
-	@Id
-	@GeneratedValue
-	private Long id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7388959791433064968L;
+	
+	@Column(name = "PREDEFINED", columnDefinition = "boolean default false", insertable = false)
+	private boolean predefined;
 	
 	public AdminSis() {
-		
+		super();
 	}
 
-	public Long getId() {
-		return id;
+	public boolean isPredefined() {
+		return predefined;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setPredefined(boolean predefined) {
+		this.predefined = predefined;
 	}
-	
 	
 
 }

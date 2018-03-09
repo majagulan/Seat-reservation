@@ -10,7 +10,7 @@ import ftn.isa.model.Projekcija;
 public interface ProjekcijaRepozitorijum  extends CrudRepository<Projekcija, Long>{
 	
 	@Query("select p from Ustanova r inner join r.repertoar as p where r.id= ?1")
-	List<Projekcija> getProjekcijaForUstanova(Long t);
+	List<Projekcija> getAllProjekcijaForUstanova(Long t);
 	
 	@Query("select p from Ustanova r inner join r.repertoar as p where r.id= ?2 and p.id = ?1")
 	Projekcija seeIfBelongsToUstanova(Long id, Long res_id);

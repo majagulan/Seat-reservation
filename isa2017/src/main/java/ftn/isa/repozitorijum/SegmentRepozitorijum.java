@@ -10,11 +10,11 @@ import ftn.isa.model.Segment;
 
 public interface SegmentRepozitorijum  extends CrudRepository<Segment, Long>{
 	
-	Segment findByBioskopAndId(Ustanova t, Long id);
-	List<Segment> findByBioskop(Ustanova r);
+	Segment findByUstanovaAndId(Ustanova t, Long id);
+	List<Segment> findByUstanova(Ustanova r);
 	
 	@Query("select s from Segment s where s.bioskop=?1")
-	public Iterable<Segment> getSegmentsForRestautant(Ustanova restaurant);
+	public Iterable<Segment> getSegmentsForUstanova(Ustanova restaurant);
 	
 
 }
