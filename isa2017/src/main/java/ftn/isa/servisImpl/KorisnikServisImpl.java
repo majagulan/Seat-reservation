@@ -11,11 +11,18 @@ import ftn.isa.servis.KorisnikServis;
 public class KorisnikServisImpl implements KorisnikServis {
 
 	@Autowired
-	private KorisnikRepozitorijum korisnikRepozitorijum;
+	private KorisnikRepozitorijum userRepository;
 	
 	@Override
-	public Korisnik logIn(String email) {
-		return korisnikRepozitorijum.findByEmail(email);
+	public Korisnik logIn(Korisnik user) {
+		String email = user.getEmail();
+		return this.userRepository.findByEmail(email);
+	}
+
+
+	@Override
+	public Korisnik updateUser(Korisnik user) {
+		return userRepository.save(user);
 	}
 
 }

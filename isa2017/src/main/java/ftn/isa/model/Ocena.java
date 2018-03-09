@@ -6,49 +6,92 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@SuppressWarnings("serial")
+import ftn.isa.model.korisnici.Posetilac;
+
 @Entity
+@Table(name = "GRADE")
 public class Ocena implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8335307552739844560L;
+
 	@Id
+	@Column(name = "GRD_ID")
 	@GeneratedValue
-	private Long id;
+	private long id;
 	
-	@Column
-	private int ocenaProjekcije;
+	@ManyToOne
+	private Pogledano pogledano;
 	
-	@Column
-	private int ocenaUstanove; 
+	@ManyToOne
+	private Posetilac guest;
 	
-	public Ocena() { 
-		
+	@ManyToOne
+	private Ustanova bioskop;
+
+
+	@Column(name = "GRD_PREDST_FILM")
+	private double gradeOfOrderItem;
+
+	@Column(name = "GRD_BIO")
+	private double gradeOfUstanove;
+
+	public Ocena() {
+
+	}
+	
+	public Ocena(double gradeOfOrderItem,double gradeOfRestaurant) {
+		this.gradeOfOrderItem=gradeOfOrderItem;
+		this.gradeOfUstanove=gradeOfRestaurant;
 	}
 
-	public Long getId() {
+	public Ustanova getUstanova() {
+		return bioskop;
+	}
+
+	public void setUstanova(Ustanova u) {
+		this.bioskop = u;
+	}
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setGradeOfOrderItem(double gradeOfOrderItem) {
+		this.gradeOfOrderItem = gradeOfOrderItem;
 	}
 
-	public int getOcenaProjekcije() {
-		return ocenaProjekcije;
+	public void setGradeOfUstanova(double gradeOfUstanova) {
+		this.gradeOfUstanove = gradeOfUstanova;
 	}
 
-	public void setOcenaProjekcije(int ocenaProjekcije) {
-		this.ocenaProjekcije = ocenaProjekcije;
+	public double getGradeOfOrderItem() {
+		return gradeOfOrderItem;
 	}
 
-	public int getOcenaUstanove() {
-		return ocenaUstanove;
+	public double getGradeOfUstanova() {
+		return gradeOfUstanove;
 	}
 
-	public void setOcenaUstanove(int ocenaUstanove) {
-		this.ocenaUstanove = ocenaUstanove;
+	public Pogledano getPogledano() {
+		return pogledano;
 	}
-	
-	
+
+	public void setPogledano(Pogledano pogledano) {
+		this.pogledano = pogledano;
+	}
+
+	public Posetilac getGuest() {
+		return guest;
+	}
+
+	public void setGuest(Posetilac guest) {
+		this.guest = guest;
+	}
 
 }

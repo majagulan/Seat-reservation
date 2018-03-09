@@ -1,65 +1,81 @@
 package ftn.isa.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-@SuppressWarnings("serial")
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 @Entity
-public class Mesto implements Serializable {
+@Table(name = "BIOSKOPSKO_MESTO", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "RED", "KOLONA", "SEGMENT_ID" }) })
+public class Mesto {
 	
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	@Column
-	private int red;
-	
-	@Column
-	private int kolona;
-	
-	@Column
-	private int redniBroj;
-	
+
+	@ManyToOne
+	private Segment segment;
+
+
+	@Min(1)
+	@Max(20)
+	@NotNull
+	@Column(name = "RES_CHAIR")
+	private int brojMesta;
+
+
+	@Column(name = "MESTO_ROW")
+	private int redMesta;
+
+	@Column(name = "MESTO_COLUMN")
+	private int redKolone;
+
 	public Mesto() {
-		
+		this.id = null;
+	}
+
+
+	public int getBrojMesta() {
+		return brojMesta;
+	}
+
+	public void setBrojMesta(int brojMesta) {
+		this.brojMesta = brojMesta;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public Segment getSegment() {
+		return segment;
 	}
 
-	public int getRed() {
-		return red;
-	}
-
-	public void setRed(int red) {
-		this.red = red;
-	}
-
-	public int getKolona() {
-		return kolona;
-	}
-
-	public void setKolona(int kolona) {
-		this.kolona = kolona;
-	}
-
-	public int getRedniBroj() {
-		return redniBroj;
-	}
-
-	public void setRedniBroj(int redniBroj) {
-		this.redniBroj = redniBroj;
-	}
 	
-	
+	public void setSegment(Segment segment) {
+		this.segment = segment;
+	}
+
+	public int getMestoRed() {
+		return redMesta;
+	}
+
+	public void setMestoRed(int red) {
+		this.redMesta = red;
+	}
+
+	public int getMestoKolona() {
+		return redKolone;
+	}
+
+	public void setMestoKolona(int kolona) {
+		this.redKolone = kolona;
+	}
 
 }
