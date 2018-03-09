@@ -1,6 +1,7 @@
 package ftn.isa.model.korisnici;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,103 +9,126 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
-@SuppressWarnings("serial")
+import org.hibernate.validator.constraints.Email;
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 @Entity
+@Table(name="USER")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Korisnik implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -578540193667096720L;
+
 	@Id
+	@Column(name="USER_ID")
 	@GeneratedValue
-	private Long id;
+	private long id;
 	
-	@Column
+	@NotNull
+	@Email(message = "Email must be a well-formed address")
+	@Column(name="USER_EMAIL",unique=true,nullable=false)
 	private String email;
 	
-	@Column
-	private String lozinka;
+	@Pattern(regexp="^[A-Z][a-z A-Z]*")
+	@NotNull
+	@Column(name="USER_NAME",unique=false,nullable=false)
+	private String userName;
 	
-	@Column
-	private String ime;
-	
-	@Column
-	private String prezime;
-	
-	@Column
-	private String grad;
-	
-	@Column
-	private String brojTelefona;
-	
-	@Enumerated(EnumType.STRING)
-	private KorisnikTip korisnikRola;
-
-	
-	public Korisnik(){
-		
-	}
-
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	@Pattern(regexp="^[A-Z][a-z A-Z]*")
+	@NotNull
+	@Column(name="USER_SURNAME",unique=false,nullable=false)
+	private String surname;
+	
+	@Pattern(regexp="\\w*")
+	@NotNull
+	@Column(name="USER_PASS",unique=false,nullable=false)
+	private String password;
+	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="mm.dd.yyyy") 
+	@Column(name="USER_DATE")
+	private Date dateOfBirth;
+	
+	@Enumerated(EnumType.STRING)
+	private KorisnikTip userRole;
+	
+	public KorisnikTip getUserRole() {
+		return userRole;
 	}
 
-	public String getEmail() {
-		return email;
+	public void setUserRole(KorisnikTip userRole) {
+		this.userRole = userRole;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getLozinka() {
-		return lozinka;
+	public void setUserName(String name) {
+		this.userName = name;
 	}
 
-	public void setLozinka(String lozinka) {
-		this.lozinka = lozinka;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
-	public String getIme() {
-		return ime;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public void setIme(String ime) {
-		this.ime = ime;
-	}
-
-	public String getPrezime() {
-		return prezime;
-	}
-
-	public void setPrezime(String prezime) {
-		this.prezime = prezime;
-	}
-
-	public String getGrad() {
-		return grad;
-	}
-
-	public void setGrad(String grad) {
-		this.grad = grad;
-	}
-
-	public String getBrojTelefona() {
-		return brojTelefona;
-	}
-
-	public void setBrojTelefona(String brojTelefona) {
-		this.brojTelefona = brojTelefona;
-	}
-
-	public KorisnikTip getKorisnikRola() {
-		return korisnikRola;
-	}
-
-	public void setKorisnikRola(KorisnikTip korisnikRola) {
-		this.korisnikRola = korisnikRola;
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 	
+	public Korisnik(String name, String surname, String email, String password, Date dateOfBirth) {
+		this.userName = name;
+		this.surname = surname;
+		this.email = email;
+		this.password = password;
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public Korisnik() {
+	}
+	
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	
+	public String getUserName() {
+		return userName;
+	}
+	
+	public String getSurname() {
+		return surname;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setId(long id){
+		this.id=id;
+	}
 }
