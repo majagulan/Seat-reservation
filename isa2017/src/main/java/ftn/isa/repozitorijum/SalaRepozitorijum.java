@@ -1,5 +1,9 @@
 package ftn.isa.repozitorijum;
 
-public interface SalaRepozitorijum {
+import org.springframework.data.repository.CrudRepository;
+
+import ftn.isa.model.Sala;
+
+public interface SalaRepozitorijum  extends CrudRepository<Sala, Long>{
 
 }
