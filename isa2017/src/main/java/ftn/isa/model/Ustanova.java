@@ -21,6 +21,8 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import ftn.isa.model.korisnici.AdminUs;
+
 @SuppressWarnings("serial")
 @Entity
 public class Ustanova implements Serializable {
@@ -56,19 +58,16 @@ public class Ustanova implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<Ocena> grades = new HashSet<Ocena>();
-/*
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
-	private Set<RestaurantManager> restaurantManagers = new HashSet<RestaurantManager>();
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonIgnore
-	private Set<Worker> workers = new HashSet<Worker>();
-	*/
+	private Set<AdminUs> restaurantManagers = new HashSet<AdminUs>();
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<Rezervacija> reservations=new HashSet<Rezervacija>();
 
+	@Column
 	@Enumerated(EnumType.STRING)
 	private UstanovaTip ustanovaTip;
 	

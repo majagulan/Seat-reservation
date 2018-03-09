@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -63,6 +65,10 @@ public class Rezervacija implements Serializable {
 	@NotNull
 	@Column(name = "RESERVATION_END")
 	private double endTime;
+	
+	@Column(name= "REZ_ST")
+	@Enumerated(EnumType.STRING)
+	private RezervacijaStanje rez_st;
 	
 	@ManyToOne(optional = false)
 	private Ustanova ustanova;

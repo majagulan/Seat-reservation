@@ -78,6 +78,7 @@ public class Projekcija implements Serializable {
 	@Column(name = "POP")
 	private int popust;
 	
+	@Column(name= "ZA")
 	@Enumerated(EnumType.STRING)
 	private Zanr zanr;
 

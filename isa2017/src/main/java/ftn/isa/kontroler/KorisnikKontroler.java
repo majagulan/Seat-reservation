@@ -17,7 +17,7 @@ import ftn.isa.servis.KorisnikServis;
 
 
 @RestController
-@RequestMapping(value="/users")
+@RequestMapping(value="/korisnik")
 public class KorisnikKontroler {
 	
 	@Autowired

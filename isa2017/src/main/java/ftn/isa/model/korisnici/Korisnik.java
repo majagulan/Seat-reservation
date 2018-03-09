@@ -44,7 +44,7 @@ public class Korisnik implements Serializable {
 	@Pattern(regexp="^[A-Z][a-z A-Z]*")
 	@NotNull
 	@Column(name="USER_NAME",unique=false,nullable=false)
-	private String userName;
+	private String ime;
 	
 	public long getId() {
 		return id;
@@ -53,27 +53,27 @@ public class Korisnik implements Serializable {
 	@Pattern(regexp="^[A-Z][a-z A-Z]*")
 	@NotNull
 	@Column(name="USER_SURNAME",unique=false,nullable=false)
-	private String surname;
+	private String prezime;
 	
 	@Pattern(regexp="\\w*")
 	@NotNull
 	@Column(name="USER_PASS",unique=false,nullable=false)
-	private String password;
+	private String lozinka;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="mm.dd.yyyy") 
 	@Column(name="USER_DATE")
-	private Date dateOfBirth;
+	private Date datum_rodjenja;
 	
 	@Enumerated(EnumType.STRING)
-	private KorisnikTip userRole;
+	private KorisnikTip korisnik_rola;
 	
 	public KorisnikTip getUserRole() {
-		return userRole;
+		return korisnik_rola;
 	}
 
 	public void setUserRole(KorisnikTip userRole) {
-		this.userRole = userRole;
+		this.korisnik_rola = userRole;
 	}
 
 	public void setEmail(String email) {
@@ -81,43 +81,43 @@ public class Korisnik implements Serializable {
 	}
 
 	public void setUserName(String name) {
-		this.userName = name;
+		this.ime = name;
 	}
 
 	public void setSurname(String surname) {
-		this.surname = surname;
+		this.prezime = surname;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.lozinka = password;
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+		this.datum_rodjenja = dateOfBirth;
 	}
 	
 	public Korisnik(String name, String surname, String email, String password, Date dateOfBirth) {
-		this.userName = name;
-		this.surname = surname;
+		this.ime = name;
+		this.prezime = surname;
 		this.email = email;
-		this.password = password;
-		this.dateOfBirth = dateOfBirth;
+		this.lozinka = password;
+		this.datum_rodjenja = dateOfBirth;
 	}
 
 	public Korisnik() {
 	}
 	
 	public Date getDateOfBirth() {
-		return dateOfBirth;
+		return datum_rodjenja;
 	}
 
 	
 	public String getUserName() {
-		return userName;
+		return ime;
 	}
 	
 	public String getSurname() {
-		return surname;
+		return prezime;
 	}
 	
 	public String getEmail() {
@@ -125,7 +125,7 @@ public class Korisnik implements Serializable {
 	}
 
 	public String getPassword() {
-		return password;
+		return lozinka;
 	}
 	
 	public void setId(long id){

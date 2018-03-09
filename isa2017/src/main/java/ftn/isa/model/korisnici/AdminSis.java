@@ -1,12 +1,14 @@
 package ftn.isa.model.korisnici;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name ="SYSTEM_MANAGER")
-public class AdminSis extends Korisnik {
+public class AdminSis extends Korisnik implements Serializable {
 	
 	/**
 	 * 
