@@ -1,5 +1,9 @@
 package ftn.isa.repozitorijum;
 
-public interface PonudaRepozitorijum {
+import org.springframework.data.repository.CrudRepository;
+
+import ftn.isa.model.Ponuda;
+
+public interface PonudaRepozitorijum  extends CrudRepository<Ponuda, Long>{
 
 }
