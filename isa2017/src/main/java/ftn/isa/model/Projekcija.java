@@ -42,17 +42,17 @@ public class Projekcija implements Serializable {
 	@Size(min = 3, max = 30)
 	@Pattern(regexp = "^[A-Z][a-z_ A-Z]*")
 	@NotNull
-	@Column(name = "PR_NAME", nullable = false)
+	@Column(nullable = false)
 	private String imeProjekcije;
 
-	@Column(name = "PR_DES")
+	@Column
 	@Pattern(regexp = "^[A-Z][a-z_ A-Z0-9]*")
 	@Size(max = 60)
 	private String description;
 
 	@NotNull
 	@Digits(integer=6, fraction=2)
-	@Column(name = "PR_PRICE", nullable = false)
+	@Column(nullable = false)
 	private Double price;
 
 	@Enumerated(EnumType.STRING)
@@ -63,22 +63,22 @@ public class Projekcija implements Serializable {
 	@JsonIgnore
 	private Set<Ustanova> ustanove = new HashSet<Ustanova>();
 	
-	@Column(name = "IME_RED")
+	@Column
 	private String imeReditelja;
 	
-	@Column(name = "TRAJ")
+	@Column
 	private int trajanje;
 	
-	@Column(name = "POS")
+	@Column
 	private String poster;
 	
-	@Column(name = "POR_OC")
+	@Column
 	private double prosecnaOcena;
 	
-	@Column(name = "POP")
+	@Column
 	private int popust;
 	
-	@Column(name= "ZA")
+	@Column
 	@Enumerated(EnumType.STRING)
 	private Zanr zanr;
 
@@ -95,7 +95,7 @@ public class Projekcija implements Serializable {
 		return projekcijaTip;
 	}
 
-	public String getProductName() {
+	public String getImeProjekcije() {
 		return imeProjekcije;
 	}
 
@@ -115,8 +115,8 @@ public class Projekcija implements Serializable {
 		this.ustanove = ustanove;
 	}
 
-	public void setProductName(String name) {
-		this.imeProjekcije = name;
+	public void setImeProjekcije(String imeProjekcije) {
+		this.imeProjekcije = imeProjekcije;
 	}
 
 	public void setDescription(String description) {

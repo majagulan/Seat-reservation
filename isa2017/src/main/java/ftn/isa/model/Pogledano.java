@@ -50,7 +50,7 @@ public class Pogledano implements Serializable{
 	@Column(name = "PRICE")
 	private double price;
 
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="order",cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="pogledano",cascade=CascadeType.ALL)
 	@JsonIgnore
 	private Set<Ocena> grades;
 

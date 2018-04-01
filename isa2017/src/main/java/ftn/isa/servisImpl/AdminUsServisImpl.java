@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import ftn.isa.model.Mesto;
 import ftn.isa.model.Pogledano;
@@ -25,6 +26,7 @@ import ftn.isa.repozitorijum.SegmentRepozitorijum;
 import ftn.isa.repozitorijum.UstanovaRepozitorijum;
 import ftn.isa.servis.AdminUsServis;
 
+@Service
 public class AdminUsServisImpl implements AdminUsServis{
 
 	private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
@@ -110,7 +112,7 @@ public class AdminUsServisImpl implements AdminUsServis{
 	public ResponseEntity<Mesto> addMestoToSegment(Mesto t, Long segment_id) {
 		Segment s = this.segmentRepository.findOne(segment_id);
 		t.setSegment(s);
-		if (this.restaurantTableRepository.findBySegmentAndTableRowAndTableColumn(s, t.getMestoRed(),
+		if (this.restaurantTableRepository.findBySegmentAndRedMestaAndKolonaMesta(s, t.getMestoRed(),
 				t.getMestoKolona()) != null)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<Mesto>(this.restaurantTableRepository.save(t), HttpStatus.OK);
@@ -132,10 +134,10 @@ public class AdminUsServisImpl implements AdminUsServis{
 	@Override
 	public ResponseEntity<Mesto> updateMesto(Mesto t, Long id) {
 		t.setSegment(this.segmentRepository.findOne(id));
-		if (this.restaurantTableRepository.findBySegmentAndTableRowAndTableColumn(t.getSegment(), t.getMestoRed(),
+		if (this.restaurantTableRepository.findBySegmentAndRedMestaAndKolonaMesta(t.getSegment(), t.getMestoRed(),
 				t.getMestoKolona()) != null)
 			if (this.restaurantTableRepository
-					.findBySegmentAndTableRowAndTableColumn(t.getSegment(), t.getMestoRed(), t.getMestoKolona())
+					.findBySegmentAndRedMestaAndKolonaMesta(t.getSegment(), t.getMestoRed(), t.getMestoKolona())
 					.getId() != t.getId())
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<Mesto>(this.restaurantTableRepository.save(t), HttpStatus.OK);

@@ -13,7 +13,7 @@ public interface SegmentRepozitorijum  extends CrudRepository<Segment, Long>{
 	Segment findByUstanovaAndId(Ustanova t, Long id);
 	List<Segment> findByUstanova(Ustanova r);
 	
-	@Query("select s from Segment s where s.bioskop=?1")
+	@Query("select s from Segment s where s.ustanova=?1")
 	public Iterable<Segment> getSegmentsForUstanova(Ustanova restaurant);
 	
 

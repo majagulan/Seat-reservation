@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -22,13 +21,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
-@Table(name="USER")
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Korisnik implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -578540193667096720L;
 
 	@Id
@@ -38,38 +33,63 @@ public class Korisnik implements Serializable {
 	
 	@NotNull
 	@Email(message = "Email must be a well-formed address")
-	@Column(name="USER_EMAIL",unique=true,nullable=false)
+	@Column(unique=true,nullable=false)
 	private String email;
 	
 	@Pattern(regexp="^[A-Z][a-z A-Z]*")
 	@NotNull
-	@Column(name="USER_NAME",unique=false,nullable=false)
+	@Column(unique=false,nullable=false)
 	private String ime;
 	
-	public long getId() {
-		return id;
-	}
 
 	@Pattern(regexp="^[A-Z][a-z A-Z]*")
 	@NotNull
-	@Column(name="USER_SURNAME",unique=false,nullable=false)
+	@Column(unique=false,nullable=false)
 	private String prezime;
 	
 	@Pattern(regexp="\\w*")
 	@NotNull
-	@Column(name="USER_PASS",unique=false,nullable=false)
+	@Column(unique=false,nullable=false)
 	private String lozinka;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="mm.dd.yyyy") 
-	@Column(name="USER_DATE")
+	@Column
 	private Date datum_rodjenja;
 	
+
+	@Column
+	private String brojTelefona;
+	
+	@Column
+	private String grad;
+	
+
 	@Enumerated(EnumType.STRING)
 	private KorisnikTip korisnik_rola;
 	
+	public String getGrad() {
+		return grad;
+	}
+
+	public void setGrad(String grad) {
+		this.grad = grad;
+	}
+	
+	public long getId() {
+		return id;
+	}
+	
 	public KorisnikTip getUserRole() {
 		return korisnik_rola;
+	}
+	
+	public String getBrojTelefona() {
+		return brojTelefona;
+	}
+
+	public void setBrojTelefona(String brojTelefona) {
+		this.brojTelefona = brojTelefona;
 	}
 
 	public void setUserRole(KorisnikTip userRole) {

@@ -39,24 +39,24 @@ public class Posetilac extends Korisnik {
 	@JsonIgnore
 	private Set<Prijatelj> recieved;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "guest", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "posetilac", cascade=CascadeType.ALL)
 	@JsonIgnore
-	private Set<Ocena> grades;
+	private Set<Ocena> ocene;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "people", cascade=CascadeType.ALL)
 	@JsonIgnore
-	private Set<Rezervacija> reservations;
+	private Set<Rezervacija> rezervacije;
 	
 	
 	@JsonIgnore
-	public Set<Rezervacija> getReservations() {
-		return reservations;
+	public Set<Rezervacija> getRezervacije() {
+		return rezervacije;
 	}
 
 
 	@JsonProperty
-	public void setReservations(Set<Rezervacija> reservations) {
-		this.reservations = reservations;
+	public void setRezervacije(Set<Rezervacija> rezervacije) {
+		this.rezervacije = rezervacije;
 	}
 
 
@@ -100,13 +100,13 @@ public class Posetilac extends Korisnik {
 	}
 
 	@JsonIgnore
-	public Set<Ocena> getGrades() {
-		return grades;
+	public Set<Ocena> getOcene() {
+		return ocene;
 	}
 
 	@JsonProperty
-	public void setGrades(Set<Ocena> grades) {
-		this.grades = grades;
+	public void setOcene(Set<Ocena> ocene) {
+		this.ocene = ocene;
 	}
 	
 	

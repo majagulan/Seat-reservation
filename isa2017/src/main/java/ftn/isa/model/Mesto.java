@@ -11,7 +11,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 @Entity
-@Table(name = "BIOSKOPSKO_MESTO", uniqueConstraints = {
+@Table(uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "RED", "KOLONA", "SEGMENT_ID" }) })
 public class Mesto {
 	
@@ -26,15 +26,28 @@ public class Mesto {
 	@Min(1)
 	@Max(20)
 	@NotNull
-	@Column(name = "RES_CHAIR")
+	@Column
 	private int brojMesta;
 
 
-	@Column(name = "MESTO_ROW")
+	@Column(name = "RED")
 	private int redMesta;
 
-	@Column(name = "MESTO_COLUMN")
-	private int redKolone;
+	@Column(name = "KOLONA")
+	private int kolonaMesta;
+	
+	@Column
+	private boolean free;
+
+	public boolean isFree() {
+		return free;
+	}
+
+
+	public void setFree(boolean free) {
+		this.free = free;
+	}
+
 
 	public Mesto() {
 		this.id = null;
@@ -71,11 +84,11 @@ public class Mesto {
 	}
 
 	public int getMestoKolona() {
-		return redKolone;
+		return kolonaMesta;
 	}
 
-	public void setMestoKolona(int kolona) {
-		this.redKolone = kolona;
+	public void setMestoKolona(int kolonaMesta) {
+		this.kolonaMesta = kolonaMesta;
 	}
 
 }

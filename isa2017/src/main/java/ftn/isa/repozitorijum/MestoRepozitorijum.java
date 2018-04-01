@@ -14,12 +14,12 @@ public interface MestoRepozitorijum extends CrudRepository<Mesto, Long> {
 
 	public Iterable<Mesto> findBySegment(Segment segment);
 
-	@Query("select t from Segment s inner join s.mesta as t where s.bioskop = ?1")
+	@Query("select t from Segment s inner join s.mesta as t where s.ustanova = ?1")
 	List<Mesto> getAllMestoForUstanova(Ustanova r);
 
 	@Query("select t from Segment s inner join s.mesta as t where s.id = ?1 and t.free = 'true'")
 	List<Mesto> seeIfCanDeleteSegment(Long id);
 	
 	@Query()
-	Mesto findBySegmentAndTableRowAndTableColumn(Segment s,int row, int column);
+	Mesto findBySegmentAndRedMestaAndKolonaMesta(Segment s,int row, int column);
 }

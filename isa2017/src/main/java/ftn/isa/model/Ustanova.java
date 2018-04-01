@@ -31,39 +31,53 @@ public class Ustanova implements Serializable {
 	
 	
 	@Id
-	@Column(name = "RES_ID")
+	@Column(name = "UST_ID")
 	@GeneratedValue
 	private long id;
 
 	@Size(min = 3, max = 30)
 	@Pattern(regexp = "^[A-Z][a-z_ A-Z]*")
 	@NotNull
-	@Column(name = "RES_NAME", unique = false, nullable = false)
+	@Column( unique = false, nullable = false)
 	private String ustanovaIme;
 
 	@Size(max = 50)
 	@Pattern(regexp = "^[A-Z][a-z_ A-Z0-9]*")
 	@NotNull
-	@Column(name = "RES_DESC", unique = false, nullable = false)
+	@Column( unique = false, nullable = false)
 	private String description;
+	
+	@Size(max = 50)
+	@Pattern(regexp = "^[A-Z][a-z_ A-Z0-9]*")
+	@NotNull
+	@Column( unique = false, nullable = false)
+	private String adresa;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "restaurants", cascade = { CascadeType.REMOVE, CascadeType.MERGE })
+	public String getAdresa() {
+		return adresa;
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "ustanove", cascade = { CascadeType.REMOVE, CascadeType.MERGE })
 	@JsonIgnore
 	private Set<Projekcija> repertoar = new HashSet<Projekcija>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ustanova", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<Segment> segments = new HashSet<Segment>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ustanova", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
-	private Set<Ocena> grades = new HashSet<Ocena>();
+	private Set<Ocena> ocene = new HashSet<Ocena>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ustanova", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<AdminUs> restaurantManagers = new HashSet<AdminUs>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ustanova", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<Rezervacija> reservations=new HashSet<Rezervacija>();
 
@@ -91,7 +105,7 @@ public class Ustanova implements Serializable {
 	}
 	@JsonIgnore
 	public Set<Ocena> getGrades() {
-		return grades;
+		return ocene;
 	}
 	@JsonIgnore
 	public Set<Projekcija> getRepertoar() {
@@ -128,8 +142,8 @@ public class Ustanova implements Serializable {
 		this.segments = segments;
 	}
 	@JsonProperty
-	public void setGrades(Set<Ocena> grades) {
-		this.grades = grades;
+	public void setGrades(Set<Ocena> ocene) {
+		this.ocene = ocene;
 	}
 	/*
 	@JsonIgnore

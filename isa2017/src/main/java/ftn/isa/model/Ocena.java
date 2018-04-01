@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import ftn.isa.model.korisnici.Posetilac;
 
 @Entity
-@Table(name = "GRADE")
+@Table(name = "OCENA")
 public class Ocena implements Serializable {
 	
 	/**
@@ -21,7 +21,6 @@ public class Ocena implements Serializable {
 	private static final long serialVersionUID = 8335307552739844560L;
 
 	@Id
-	@Column(name = "GRD_ID")
 	@GeneratedValue
 	private long id;
 	
@@ -29,53 +28,53 @@ public class Ocena implements Serializable {
 	private Pogledano pogledano;
 	
 	@ManyToOne
-	private Posetilac guest;
+	private Posetilac posetilac;
 	
 	@ManyToOne
-	private Ustanova bioskop;
+	private Ustanova ustanova;
 
 
-	@Column(name = "GRD_PREDST_FILM")
-	private double gradeOfOrderItem;
+	@Column
+	private double ocenaProjekcije;
 
-	@Column(name = "GRD_BIO")
-	private double gradeOfUstanove;
+	@Column
+	private double ocenaUstanove;
 
 	public Ocena() {
 
 	}
 	
-	public Ocena(double gradeOfOrderItem,double gradeOfRestaurant) {
-		this.gradeOfOrderItem=gradeOfOrderItem;
-		this.gradeOfUstanove=gradeOfRestaurant;
+	public Ocena(double ocenaProjekcije,double ocenaUstanove) {
+		this.ocenaUstanove=ocenaUstanove;
+		this.ocenaProjekcije=ocenaProjekcije;
 	}
 
 	public Ustanova getUstanova() {
-		return bioskop;
+		return ustanova;
 	}
 
 	public void setUstanova(Ustanova u) {
-		this.bioskop = u;
+		this.ustanova = u;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public void setGradeOfOrderItem(double gradeOfOrderItem) {
-		this.gradeOfOrderItem = gradeOfOrderItem;
+	public void setOcenaProjekcije(double ocenaProjekcije) {
+		this.ocenaProjekcije = ocenaProjekcije;
 	}
 
-	public void setGradeOfUstanova(double gradeOfUstanova) {
-		this.gradeOfUstanove = gradeOfUstanova;
+	public void setOcenaUstanove(double ocenaUstanove) {
+		this.ocenaUstanove = ocenaUstanove;
 	}
 
-	public double getGradeOfOrderItem() {
-		return gradeOfOrderItem;
+	public double getOcenaProjekcije() {
+		return ocenaProjekcije;
 	}
 
-	public double getGradeOfUstanova() {
-		return gradeOfUstanove;
+	public double getOcenaUstanove() {
+		return ocenaUstanove;
 	}
 
 	public Pogledano getPogledano() {
@@ -86,12 +85,12 @@ public class Ocena implements Serializable {
 		this.pogledano = pogledano;
 	}
 
-	public Posetilac getGuest() {
-		return guest;
+	public Posetilac getPosetilac() {
+		return posetilac;
 	}
 
-	public void setGuest(Posetilac guest) {
-		this.guest = guest;
+	public void setPosetilac(Posetilac posetilac) {
+		this.posetilac = posetilac;
 	}
 
 }

@@ -34,7 +34,7 @@ public class Segment implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "segment", orphanRemoval = true)
 	@JsonIgnore
-	private Set<Mesto> mesto = new HashSet<Mesto>();
+	private Set<Mesto> mesta = new HashSet<Mesto>();
 
 	@ManyToOne
 	private Ustanova ustanova;
@@ -45,7 +45,7 @@ public class Segment implements Serializable {
 	@Column(name = "HEIGHT")
 	private int height;
 	
-	@Column(name= "SEG_TIP")
+	@Column(name= "SEGMENT_TIP")
 	@Enumerated(EnumType.STRING)
 	private SegmentTip seg_tip;
 
@@ -56,8 +56,8 @@ public class Segment implements Serializable {
 
 	
 	@JsonProperty
-	public void setMesto(Set<Mesto> mesto) {
-		this.mesto = mesto;
+	public void setMesta(Set<Mesto> mesta) {
+		this.mesta = mesta;
 	}
 
 	public void setUstanova(Ustanova u) {
@@ -70,8 +70,8 @@ public class Segment implements Serializable {
 	}
 
 	@JsonIgnore
-	public Set<Mesto> getMesto() {
-		return mesto;
+	public Set<Mesto> getMesta() {
+		return mesta;
 	}
 
 	public Ustanova getUstanova() {

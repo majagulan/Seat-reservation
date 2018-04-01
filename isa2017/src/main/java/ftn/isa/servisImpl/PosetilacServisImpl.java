@@ -245,10 +245,10 @@ public class PosetilacServisImpl implements PosetilacServis {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		for(Pogledano order:reservation.getPogledano()){
-			Ocena g=new Ocena(grade.getGradeOfOrderItem(), grade.getGradeOfUstanova());
+			Ocena g=new Ocena(grade.getOcenaProjekcije(), grade.getOcenaUstanove());
 			g.setPogledano(order);
 			g.setUstanova(order.getMesto().getSegment().getUstanova());
-			g.setGuest((Posetilac)user);
+			g.setPosetilac((Posetilac)user);
 			gradeRepository.save(g);
 		}
 		return new ResponseEntity<Ocena>(grade, HttpStatus.OK);
@@ -265,8 +265,8 @@ public class PosetilacServisImpl implements PosetilacServis {
 			Ocena g=gradeRepository.findOcenaByProjekcija(order, (Posetilac)user);
 			if(g==null)
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			g.setGradeOfOrderItem(grade.getGradeOfOrderItem());
-			g.setGradeOfUstanova(grade.getGradeOfUstanova());
+			g.setOcenaProjekcije(grade.getOcenaProjekcije());
+			g.setOcenaUstanove(grade.getOcenaUstanove());
 			gradeRepository.save(g);
 		}
 		return new ResponseEntity<Ocena>(grade, HttpStatus.OK);

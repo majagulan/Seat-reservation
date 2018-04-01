@@ -16,7 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
@@ -29,7 +28,6 @@ import ftn.isa.model.korisnici.Posetilac;
 
 
 @Entity
-@Table(name="RESERVATION")
 public class Rezervacija implements Serializable {
 	
 	/**
@@ -43,7 +41,7 @@ public class Rezervacija implements Serializable {
 	@GeneratedValue
 	private Long id;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rezervacija", cascade=CascadeType.ALL)
 	@JsonIgnore
 	private Set<Pogledano> pogledano;
 		
@@ -56,21 +54,29 @@ public class Rezervacija implements Serializable {
 	@DecimalMax("24.00")
 	@Digits(integer = 2, fraction = 2)
 	@NotNull
-	@Column(name = "RESERVATION_START")
+	@Column
 	private double startTime;
 
 	@DecimalMin("00.00")
 	@DecimalMax("24.00")
 	@Digits(integer = 2, fraction = 2)
 	@NotNull
-	@Column(name = "RESERVATION_END")
+	@Column
 	private double endTime;
 	
-	@Column(name= "REZ_ST")
+	@Column
 	@Enumerated(EnumType.STRING)
-	private RezervacijaStanje rez_st;
+	private RezervacijaStanje stanjeRez;
 	
-	@ManyToOne(optional = false)
+	public RezervacijaStanje getStanjeRez() {
+		return stanjeRez;
+	}
+
+	public void setStanjeRez(RezervacijaStanje stanjeRez) {
+		this.stanjeRez = stanjeRez;
+	}
+
+	@ManyToOne
 	private Ustanova ustanova;
 	
 	public double getStartTime() {

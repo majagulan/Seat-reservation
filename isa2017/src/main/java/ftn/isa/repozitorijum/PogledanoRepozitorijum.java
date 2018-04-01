@@ -15,10 +15,10 @@ public interface PogledanoRepozitorijum extends CrudRepository<Pogledano, Long>{
 	
 	public Iterable<Pogledano> findByMesto(Mesto t);	
 	
-	@Query("select sum(g.gradeOfOrderItem)/count(g.gradeOfOrderItem) from Pogledano o inner join o.orderedItems as oi inner join o.grades as g where oi.product.id = ?1 and o.table.segment.restaurant.id = ?2 and o.orderStatus='PAID' and oi.product.productType != 'DRINK'")
+	@Query("select sum(g.ocenaUstanove)/count(g.ocenaUstanove) from Pogledano o inner join o.orderedItems as oi inner join o.grades as g where oi.product.id = ?1 and o.table.segment.restaurant.id = ?2 and o.orderStatus='PAID' and oi.product.productType != 'DRINK'")
 	Double getGradeForPogledano(Long t, Long id);
 	
-	@Query("select o from Order o inner join o.table as table inner join table.segment as segment inner join segment.restaurant as res where res=?1")
+	@Query("select o from Order o inner join o.table as table inner join table.segment as segment inner join segment.ustanova as ust where ust=?1")
 	public Iterable<Pogledano> getPogledano(Ustanova restaurant);
 
 	@Query("select o from Reservation r inner join r.orders as o where r.restaurant = ?1 and o.date = ?2")
