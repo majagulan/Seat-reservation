@@ -2,13 +2,25 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Pocetna stranica</title>
+<title>WEB</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="js/angular-route.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
 </head>
 <body>
 
-<div>
+<div ng-app="webApp">
 	<input type = "submit" id = "dugmePozorsta" value="Prikaz pozorsta">
 	<input type = "submit" id = "dugmeBioskopi" value="Prikaz bioskopa">
+	<a href = "#!/login">LINK</a>
+	
+	
+	<div id="main">
+	     <div ng-view></div>
+	
+	</div>
 </div>
 
 </body>
