@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -78,6 +79,16 @@ public class Projekcija implements Serializable {
 	@Column
 	private int popust;
 	
+	@OneToOne(mappedBy= "projekcija")
+	private Pogledano pogledano;
+	
+	public Pogledano getPogledano() {
+		return pogledano;
+	}
+
+	public void setPogledano(Pogledano pogledano) {
+		this.pogledano = pogledano;
+	}
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Zanr zanr;

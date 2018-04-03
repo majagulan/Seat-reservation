@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,6 +47,17 @@ public class Pogledano implements Serializable{
 	@ManyToOne
 	private Rezervacija rezervacija;
 	
+	@OneToOne
+	private Projekcija projekcija;
+	
+
+	public Projekcija getProjekcija() {
+		return projekcija;
+	}
+
+	public void setProjekcija(Projekcija projekcija) {
+		this.projekcija = projekcija;
+	}
 
 	@Column(name = "PRICE")
 	private double price;

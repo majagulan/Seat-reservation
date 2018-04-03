@@ -12,7 +12,7 @@ public interface OcenaRepozitorijum  extends CrudRepository<Ocena, Long>{
 
 	Ocena findOne(Long id);
 
-	@Query("select g from Ocena g where g.projekcija=?1 and g.posetilac=?2")
+	@Query("select o from Ocena o where o.pogledano=?1 and o.posetilac=?2")
 	public Ocena findOcenaByProjekcija(Pogledano pogledano,Posetilac guest);
 
 	

@@ -177,10 +177,11 @@ public class AdminUsServisImpl implements AdminUsServis{
 	
 	@Override
 	public double getGradeForPogledano(Long id, Long res_id) {
-		if (this.projekcijaRepository.seeIfBelongsToUstanova(id, res_id) == null
+		/*if (this.projekcijaRepository.seeIfBelongsToUstanova(id, res_id) == null
 				|| this.orderRepository.getGradeForPogledano(id, res_id) == null)
 			return -1;
-		return this.orderRepository.getGradeForPogledano(id, res_id);
+		return this.orderRepository.getGradeForPogledano(id, res_id);*/
+		return -1;
 	}
 
 	@Override

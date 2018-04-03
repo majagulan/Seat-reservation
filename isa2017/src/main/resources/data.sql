@@ -27,11 +27,6 @@ insert into korisnik (user_id,email,lozinka,ime,prezime,grad,broj_telefona,datum
 insert into glumac (id,ime,prezime) values (1,'Pera','Peric');
 insert into glumac (id,ime,prezime) values (2,'Zika','Sarenica');
 
---Karta
-insert into karta (id,datum,originalna_cena,popust,vreme) values (1,'16-10-17',35.8,35,'11:30:00');
-insert into karta (id,datum,originalna_cena,popust,vreme) values (2,'16-11-17',42.6,40,'8:37:00');
-insert into karta (id,datum,originalna_cena,popust,vreme) values (3,'17-12-17',55.5,60,'12:30:00');
-
 --Mesto
 insert into mesto (id,kolona,red,broj_Mesta,free) values (1,17,4,2,true);
 insert into mesto (id,kolona,red,broj_Mesta,free) values (2,3,6,8,true);
