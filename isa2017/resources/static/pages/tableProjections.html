@@ -1,0 +1,31 @@
+<h1 class="page-header">Projections of {{$parent.institution.institutionName}}</h1>
+<div class="container">
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Actor</th>
+					<th>Duration</th>
+					<th>Price</th>
+					<th>Projection type</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="projection in institutionProjections"
+					ng-click="setSelectedinstitutionProjection(projection)"
+					ng-class="{'info' : selectedinstitutionProjection===projection}">
+					<td>{{projection.id}}</td>
+					<td>{{projection.projectionName}}</td>
+					<td>{{projection.description}}</td>
+					<td>{{projection.actor}}</td>
+					<td>{{projection.duration}}</td>
+					<td>{{projection.price}}</td>
+					<td>{{projection.projectionType}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
