@@ -1,0 +1,21 @@
+package ftn.isa.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import ftn.isa.entity.Reservation;
+import ftn.isa.entity.users.Guest;
+
+public interface ReservationRepository extends CrudRepository<Reservation, Long> {
+	
+	@Query("select friends from Reservation r join r.people friends where r=?1")
+	List<Guest> getHistoryFriends(Reservation r);
+	
+	@Query("select r from Reservation r join r.people p where p=?1")
+	List<Reservation>getReservationsForGuest(Guest g);
+
+}
+
+
