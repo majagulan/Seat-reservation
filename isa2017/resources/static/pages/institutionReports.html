@@ -1,0 +1,204 @@
+<div class="container" ng-controller="institutionManagerController">
+	<br />
+	<div class="form-group">
+		<h2 class="page-header">Institution grade :</h2>
+		<input type="text" class="form-control" id="des" readonly=true
+			ng-model="grade">
+	</div>
+	<h2 class="page-header">Show institution earnings for period :</h2>
+	<form name="myForm" novalidate>
+		<div class="form-group">
+			<label>From:</label> <input type="date" ng-Model="institutionStart"
+				class="form-control" placeholder="Enter waiter" required /> <label>To:</label>
+			<input type="date" ng-Model="institutionEnd" class="form-control"
+				placeholder="Enter waiter" required />
+			<button type="submit" class="btn btn-success"
+				ng-disabled="myForm.$invalid" ng-Click="getinstitutionEarnings()">Submit</button>
+		</div>
+	</form>
+	<div class="form-group">
+		<label>institution earnings:</label> <input type="text"
+			class="form-control" id="des" readonly=true
+			ng-value="institutionEarnings">
+	</div>
+	<h2 class="page-header">Enter waiter name, to get his grade:</h2>
+	<form name="myFormNew" novalidate>
+		<div class="form-group">
+			<input type="text" ng-Model="waiterName" class="form-control"
+				placeholder="Enter waiter" required />
+			<button type="submit" class="btn btn-success"
+				ng-disabled="myFormNew.$invalid"
+				ng-Click="getAllWaitersByNameAndInstitution()">Submit</button>
+		</div>
+	</form>
+	<div ng-if="!onlyWithThatName">
+		<h2 class="page-header">Waiters named {{waiterName}} :</h2>
+		<div class="container">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Surname</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="waiter in namedWaiters"
+							ng-click="setSelectedWaiter(waiter)"
+							ng-class="{'info' : selectedWaiter===waiter}">
+							<td>{{waiter.id}}</td>
+							<td>{{waiter.userName}}</td>
+							<td>{{waiter.surname}}</td>
+							<td>{{waiter.email}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="conteinter">
+			<div class="row">
+				<div class="col-xs-12 offset3">
+					<div class="text-left">
+						<button type="button" class="btn btn-success"
+							ng-Click="getGradeOfWaiter()" ng-disabled="!selectedWaiter">Waiter
+							grade</button>
+					</div>
+				</div>
+			</div>
+			<br />
+		</div>
+	</div>
+	<div class="form-group">
+		<label>Waiter grade:</label> <input type="text" class="form-control"
+			id="des" readonly=true ng-value="waiterGrade" />
+	</div>
+
+	<h2 class="page-header">institution waiters :</h2>
+	<div class="container">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Surname</th>
+						<th>Email</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-if="worker.userRole == 'WAITER'"
+						ng-repeat="worker in institutionWorkers"
+						ng-click="setSelectedWorker(worker)"
+						ng-class="{'info' : selectedWorker===worker}">
+						<td>{{worker.id}}</td>
+						<td>{{worker.userName}}</td>
+						<td>{{worker.surname}}</td>
+						<td>{{worker.email}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="conteinter">
+		<div class="row">
+			<div class="col-xs-12 offset3">
+				<div class="text-left">
+					<button type="button" class="btn btn-primary"
+						ng-click="getEarningForWaiter()" ng-disabled="!selectedWorker">Waiter
+						earnings</button>
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
+	<div class="form-group">
+		<label>Selected waiters earnings:</label> <input type="text"
+			class="form-control" id="des" readonly=true ng-value="waiterEarnings"
+			ng-model="waiterEarnings">
+	</div>
+	<br /> <br /> <br />
+	<h2 class="page-header">Enter projection name, to get his grade:</h2>
+	<form name="myFormPro" novalidate>
+		<div class="form-group">
+			<input type="text" ng-Model="projectionName" class="form-control"
+				placeholder="Enter projection" required />
+			<button type="submit" class="btn btn-success"
+				ng-disabled="myFormPro.$invalid"
+				ng-Click="getAllProjectionsByNameAndInstitution()">Submit</button>
+		</div>
+	</form>
+	<div ng-if="showProjections">
+		<h1 class="page-header">Projections named {{projectionName}}</h1>
+		<div class="container">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Description</th>
+							<th>Projection type</th>
+							<th>Address</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="projection in namedProjections"
+							ng-click="setSelectedNamedProjection(projection)"
+							ng-class="{'info' : selectedNamedProjection===projection}">
+							<td>{{projection.id}}</td>
+							<td>{{projection.projectionName}}</td>
+							<td>{{projection.description}}</td>
+							<td>{{projection.projectionType}}</td>
+							<td>{{projection.adresaIns}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="conteinter">
+			<div class="row">
+				<div class="col-xs-12 offset3">
+					<div class="text-left">
+						<button type="button" class="btn btn-primary"
+							ng-click="getProjectionGrade()" ng-disabled="!selectedNamedProjection">Projection
+							grade</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label>Projection grade:</label> <input type="text" class="form-control"
+			id="des" readonly=true ng-model="gradeProjection">
+	</div>
+	<br /> <br />
+	<h1 class="page-header">To get chart fill the form</h1>
+	<form name="myFormDay" novalidate>
+		<div class="form-group">
+			<label>Select date :</label> <input type="date"
+				ng-model="dailyChart.date" class="form-control" required />
+		</div>
+		<br /> <label>Whole week, or only for this date?</label>
+		<div class="form-group">
+			<label class="radio-inline"> <input type="radio" value=true
+				ng-model="dailyChart.base" required /> Whole week
+			</label> <label class="radio-inline"> <input type="radio" value=false
+				ng-model="dailyChart.base" required /> Only day
+			</label>
+		</div>
+		<button type="submit" class="btn btn-success"
+			ng-disabled="myFormDay.$invalid" ng-Click="getReservations()">Submit</button>
+	</form>
+	<div ng-if="!showChart">There is no visitations for this
+		period/day.</div>
+	<div ng-if="showChart">
+		<canvas id="line" class="chart chart-line" chart-data="data"
+			chart-labels="labels" chart-series="series" chart-options="options"
+			chart-dataset-override="datasetOverride">
+</canvas>
+	</div>
+</div>
+
+
