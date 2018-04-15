@@ -56,8 +56,8 @@ insert into institution_projections(pr_id, res_id) values (3, 2);
 insert into institution_projections(pr_id, res_id) values (2, 2);
 insert into institution_projections(pr_id, res_id) values (4, 1);
 
-insert into request_offer(id, expiration_date, start_date, status, institution_manager_user_id)  values (1, '12-12-17', '10-12-15', true, 9);
-insert into request_offer(id, expiration_date, start_date, status, institution_manager_user_id)  values (2, '12-12-15', '10-12-15', true, 9);
+insert into request_offer(id, expiration_date, start_date, status, fun_manager_user_id)  values (1, '12-12-17', '10-12-15', true,11);
+insert into request_offer(id, expiration_date, start_date, status, fun_manager_user_id)  values (2, '12-12-15', '10-12-15', true, 11);
 
 insert into offered_projections(ro_id, pr_id) values (1, 1);
 

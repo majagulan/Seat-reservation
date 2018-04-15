@@ -5,6 +5,12 @@
 			<button type="button" class="btn btn-primary" ng-click=showView(1)>History</button>
 			<button type="button" class="btn btn-primary" ng-click=showView(2)>Institutions</button>
 			<button type="button" class="btn btn-primary" ng-click=showView(3)>Friends</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(9)>Active
+				request offers</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(15)>All
+				your request offers</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(10)>Your
+				bidder offer</button>
 		</div>
 		<div id="waiterButtons" ng-if="loggedUser.userRole=='WAITER'">
 			<button type="button" class="btn btn-primary" ng-click=showView(4)>Segments</button>
@@ -14,22 +20,16 @@
 			<button type="button" class="btn btn-primary" ng-click=showView(7)>Institutions</button>
 			<button type="button" class="btn btn-primary" ng-click=showView(8)>System managers</button>
 		</div>
-		<div id="bidderButtons" ng-if="loggedUser.userRole=='BIDDER'">
-			<button type="button" class="btn btn-primary" ng-click=showView(9)>Active
-				request offers</button>
-			<button type="button" class="btn btn-primary" ng-click=showView(10)>Your
-				bidder offer</button>
+		<div id="bidderButtons" ng-if="loggedUser.userRole=='FUNMANAGER'">
+			<button type="button" class="btn btn-primary" ng-click=showView(15)>All
+				your requisite offers</button>
 		</div>
 		<div id="institutionManagerButtons"
 			ng-if="loggedUser.userRole=='INSTITUTIONMANAGER'">
 			<button type="button" class="btn btn-primary" ng-click=showView(11)>Managed
 				institution</button>
-			<button type="button" class="btn btn-primary" ng-click=showView(13)>All
-				institution workers</button>
 			<button type="button" class="btn btn-primary" ng-click=showView(14)>All
 				institution segments</button>
-			<button type="button" class="btn btn-primary" ng-click=showView(15)>All
-				your request offers</button>
 				<button type="button" class="btn btn-primary" ng-click=showView(16)>Reports</button>
 		</div>
 	</div>

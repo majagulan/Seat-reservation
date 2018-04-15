@@ -11,9 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import ftn.isa.entity.users.InstitutionManager;
+import ftn.isa.entity.users.FunManager;
 
 @Entity
 @Table(name = "REQUEST_OFFER")
@@ -41,11 +38,6 @@ public class RequestOffer implements Serializable {
 	@Column(name = "ID")
 	@GeneratedValue
 	private Long id;
-
-	@ManyToMany(cascade = { CascadeType.REMOVE, CascadeType.MERGE })
-	@JoinTable(name = "OFFERED_PROJECTIONS", joinColumns = @JoinColumn(name = "RO_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PR_ID", referencedColumnName = "PR_ID"))
-	@JsonIgnore
-	private Set<Projection> projections = new HashSet<Projection>();
 
 	@Column(name = "STATUS", columnDefinition = "boolean default true", insertable = true)
 	private boolean status = true;
@@ -64,10 +56,10 @@ public class RequestOffer implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "requestOffer", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
-	private Set<BidderOffer> bidderOffers = new HashSet<BidderOffer>();
+	private Set<RequisiteOffer> bidderOffers = new HashSet<RequisiteOffer>();
 
 	@ManyToOne
-	private InstitutionManager institutionManager;
+	private FunManager funManager;
 
 	public RequestOffer() {
 
@@ -89,40 +81,33 @@ public class RequestOffer implements Serializable {
 		this.startDate = startDate;
 	}
 	@JsonIgnore
-	public Set<BidderOffer> getBidderOffers() {
+	public Set<RequisiteOffer> getBidderOffers() {
 		return bidderOffers;
 	}
 	@JsonProperty
-	public void setBidderOffers(Set<BidderOffer> bidderOffers) {
+	public void setBidderOffers(Set<RequisiteOffer> bidderOffers) {
 		this.bidderOffers = bidderOffers;
 	}
 
 	public Long getId() {
 		return id;
 	}
-	@JsonProperty
-	public void setProjections(Set<Projection> projections) {
-		this.projections = projections;
-	}
 
 	public void setExpirationDate(Date expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 
-	public void setinstitutionManager(InstitutionManager institutionManager) {
-		this.institutionManager = institutionManager;
+	public void setFunManager(FunManager funManager) {
+		this.funManager = funManager;
 	}
-	@JsonIgnore
-	public Set<Projection> getProjections() {
-		return projections;
-	}
+
 
 	public Date getExpirationDate() {
 		return expirationDate;
 	}
 
-	public InstitutionManager getinstitutionManager() {
-		return institutionManager;
+	public FunManager getFunManager() {
+		return funManager;
 	}
 
 }

@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.isa.entity.BidderOffer;
 import ftn.isa.entity.Institution;
 import ftn.isa.entity.InstitutionTable;
 import ftn.isa.entity.Order;
 import ftn.isa.entity.Projection;
 import ftn.isa.entity.RequestOffer;
+import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.FunManager;
 import ftn.isa.entity.users.InstitutionManager;
@@ -173,7 +173,7 @@ public class InstitutionManagerController {
 	@RequestMapping(value = "/getAllBidderOffersForRequestOffer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	public ResponseEntity<List<BidderOffer>> getAllBidderOffersForRequestOffer(@RequestParam(value = "id") Long id) {
+	public ResponseEntity<List<RequisiteOffer>> getAllBidderOffersForRequestOffer(@RequestParam(value = "id") Long id) {
 		return institutionManagerService.getAllBidderOffersForRequestOffer(id);
 	}
 
@@ -198,6 +198,13 @@ public class InstitutionManagerController {
 		return institutionManagerService.getAllProjectionsForInstitution(id);
 	}
 
+	@RequestMapping(value = "/registerRequestOffer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<RequestOffer> registerRequestOffer(@RequestBody RequestOffer ro,@RequestParam(value = "rm_id") Long id) {
+		return institutionManagerService.registerRequestOffer(ro,id);
+	}
+	
 	@RequestMapping(value = "/getAllProjections", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
@@ -205,19 +212,19 @@ public class InstitutionManagerController {
 		return institutionManagerService.getAllProjections();
 	}
 
-	@RequestMapping(value = "/getAllProjectionsForRequestOffer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	/*@RequestMapping(value = "/getAllProjectionsForRequestOffer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
 	public ResponseEntity<List<Projection>> getAllProjectionsForRequestOffer(@RequestParam(value = "id") Long id) {
 		return institutionManagerService.getAllProjectionsForRequestOffer(id);
-	}
+	}*/
 
 	@RequestMapping(value = "/acceptBidderOffer", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
 	public ResponseEntity<RequestOffer> acceptBidderOffer(@RequestParam(value = "bid_id") Long r_id,
 			@RequestParam(value = "req_id") Long q_id) {
-		List<BidderOffer> biddings = this.institutionManagerService.getAllBidderOffersForRequestOffer(q_id).getBody();
+		List<RequisiteOffer> biddings = this.institutionManagerService.getAllBidderOffersForRequestOffer(q_id).getBody();
 		for (int i = 0; i < biddings.size(); i++) {
 			if (biddings.get(i).getId() == r_id) {
 				new SendEmail(biddings.get(i).getBidder().getEmail(),
@@ -291,7 +298,7 @@ public class InstitutionManagerController {
 	@RequestMapping(value = "/getBidderOffer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	public ResponseEntity<BidderOffer> getBidderOffer(@RequestParam(value = "id") Long id) {
+	public ResponseEntity<RequisiteOffer> getBidderOffer(@RequestParam(value = "id") Long id) {
 		return institutionManagerService.getBidderOffer(id);
 	}
 	

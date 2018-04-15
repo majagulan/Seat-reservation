@@ -13,25 +13,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ftn.isa.entity.BidderOffer;
-import ftn.isa.entity.BidderOfferStatus;
 import ftn.isa.entity.Institution;
 import ftn.isa.entity.InstitutionTable;
 import ftn.isa.entity.Order;
 import ftn.isa.entity.Projection;
-import ftn.isa.entity.RequestOffer;
+import ftn.isa.entity.RequisiteOffer;
+import ftn.isa.entity.RequisiteOfferStatus;
 import ftn.isa.entity.Segment;
+import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.users.FunManager;
 import ftn.isa.entity.users.InstitutionManager;
-import ftn.isa.repository.BidderOfferRepository;
-import ftn.isa.repository.BidderRepository;
+import ftn.isa.repository.FunManagerRepository;
 import ftn.isa.repository.InstitutionManagerRepository;
 import ftn.isa.repository.InstitutionRepository;
 import ftn.isa.repository.InstitutionTableRepository;
 import ftn.isa.repository.OrderRepository;
 import ftn.isa.repository.ProjectionRepository;
-import ftn.isa.repository.RequestOfferRepository;
+import ftn.isa.repository.RequisiteOfferRepository;
 import ftn.isa.repository.SegmentRepository;
+import ftn.isa.repository.RequestOfferRepository;
 import ftn.isa.service.InstitutionManagerService;
 import ftn.isa.service.UserRepository;
 
@@ -58,7 +58,7 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 
 
 	@Autowired
-	private BidderRepository bidderRepository;
+	private FunManagerRepository bidderRepository;
 
 	@Autowired
 	private InstitutionManagerRepository institutionManagerRepository;
@@ -67,7 +67,7 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 	private RequestOfferRepository requestOfferRepository;
 
 	@Autowired
-	private BidderOfferRepository bidderOfferRepository;
+	private RequisiteOfferRepository bidderOfferRepository;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -194,28 +194,12 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 			if (ro.getStartDate().before(new Date()))
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		InstitutionManager rm = this.institutionManagerRepository.findOne(r_id);
-		ro.setinstitutionManager(rm);
+		FunManager rm = this.bidderRepository.findOne(r_id);
+		ro.setFunManager(rm);
 		return new ResponseEntity<RequestOffer>(this.requestOfferRepository.save(ro), HttpStatus.OK);
 	}
 
-	@Override
-	public ResponseEntity<Projection> addProjectionToRequestOffer(Long p_id, Long r_id) {
-		RequestOffer t = this.requestOfferRepository.findOne(r_id);
-		Projection p = this.projectionRepository.findOne(p_id);
-		t.getProjections().add(p);
-		p.getRequestOffers().add(t);
-		return new ResponseEntity<Projection>(this.projectionRepository.save(p), HttpStatus.OK);
-	}
 
-	@Override
-	public ResponseEntity<Projection> removeProjectionFromRequestOffer(Long p_id, Long r_id) {
-		RequestOffer t = this.requestOfferRepository.findOne(r_id);
-		Projection p = this.projectionRepository.findOne(p_id);
-		t.getProjections().remove(p);
-		p.getRequestOffers().remove(t);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
 
 	@Override
 	public ResponseEntity<RequestOffer> updateRequestOffer(RequestOffer ro) {
@@ -246,13 +230,13 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 	@Override
 	public ResponseEntity<List<RequestOffer>> getAllRequestOffersForManager(Long id) {
 		return new ResponseEntity<List<RequestOffer>>(
-				this.requestOfferRepository.findByInstitutionManager(this.institutionManagerRepository.findOne(id)),
+				this.requestOfferRepository.findByFunManager(this.bidderRepository.findOne(id)),
 				HttpStatus.OK);
 	}
 
 	@Override
-	public ResponseEntity<List<BidderOffer>> getAllBidderOffersForRequestOffer(Long id) {
-		return new ResponseEntity<List<BidderOffer>>(
+	public ResponseEntity<List<RequisiteOffer>> getAllBidderOffersForRequestOffer(Long id) {
+		return new ResponseEntity<List<RequisiteOffer>>(
 				this.bidderOfferRepository.findByRequestOffer(this.requestOfferRepository.findOne(id)), HttpStatus.OK);
 	}
 
@@ -284,21 +268,15 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 	public ResponseEntity<RequestOffer> acceptBidderOffer(Long r_id, Long q_id) {
 		RequestOffer ro = this.requestOfferRepository.findOne(q_id);
 		ro.setStatus(false);
-		List<BidderOffer> ibo = this.bidderOfferRepository.findByRequestOffer(ro);
+		List<RequisiteOffer> ibo = this.bidderOfferRepository.findByRequestOffer(ro);
 		for (int i = 0; i < ibo.size(); i++) {
 			if (!ibo.get(i).getId().equals(r_id))
-				ibo.get(i).setOfferStatus(BidderOfferStatus.DECLINED);
+				ibo.get(i).setOfferStatus(RequisiteOfferStatus.DECLINED);
 			else
-				ibo.get(i).setOfferStatus(BidderOfferStatus.ACCEPTED);
+				ibo.get(i).setOfferStatus(RequisiteOfferStatus.ACCEPTED);
 		}
 		this.bidderOfferRepository.save(ibo);
 		return new ResponseEntity<RequestOffer>(this.requestOfferRepository.save(ro), HttpStatus.OK);
-	}
-
-
-	@Override
-	public ResponseEntity<List<Projection>> getAllProjectionsForRequestOffer(Long id) {
-		return new ResponseEntity<List<Projection>>(this.projectionRepository.getProjectionsForRequestOffer(id), HttpStatus.OK);
 	}
 
 	@Override
@@ -317,9 +295,9 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 			String date = formatter.format(of.get(i).getStartDate());
 			if (of.get(i).getExpirationDate().before(new Date())) {
 				of.get(i).setStatus(false);
-				List<BidderOffer> it = this.bidderOfferRepository.findByRequestOffer(of.get(i));
+				List<RequisiteOffer> it = this.bidderOfferRepository.findByRequestOffer(of.get(i));
 				for (int j = 0; j < it.size(); j++) {
-					it.get(j).setOfferStatus(BidderOfferStatus.DECLINED);
+					it.get(j).setOfferStatus(RequisiteOfferStatus.DECLINED);
 				}
 				this.bidderOfferRepository.save(it);
 				this.requestOfferRepository.save(of.iterator().next());
@@ -359,8 +337,8 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 	}
 
 	@Override
-	public ResponseEntity<BidderOffer> getBidderOffer(Long id) {
-		return new ResponseEntity<BidderOffer>(this.bidderOfferRepository.findOne(id), HttpStatus.OK);
+	public ResponseEntity<RequisiteOffer> getBidderOffer(Long id) {
+		return new ResponseEntity<RequisiteOffer>(this.bidderOfferRepository.findOne(id), HttpStatus.OK);
 	}
 	
 	@Override
@@ -389,5 +367,17 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 	public double institutionEarnings(Long id, Date startDate, Date endDate) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ResponseEntity<Projection> addProjectionToRequestOffer(Long ro_id, Long p_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<Projection> removeProjectionFromRequestOffer(Long ro_id, Long p_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

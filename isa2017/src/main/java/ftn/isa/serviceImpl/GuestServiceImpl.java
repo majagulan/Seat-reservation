@@ -420,7 +420,8 @@ public class GuestServiceImpl implements GuestService {
 	public Grade getGradeForUser(Long userId,Long reservationId) {
 		Guest g = guestRepository.findOne(userId);
 		Reservation r = reservationRepository.findOne(reservationId);
-		return gradeRepository.getGradeForUser(g,r);
+		Grade gg = gradeRepository.getGradeForUser(g,r);
+		return gg;
 	}
 
 }

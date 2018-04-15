@@ -22,12 +22,12 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import ftn.isa.entity.users.FunManager;
+import ftn.isa.entity.users.Guest;
 
 @Entity
 @Table(name="BIDDER_OFFER", uniqueConstraints = { @UniqueConstraint(columnNames = 
 { "BIDDER_USER_ID", "REQUEST_OFFER_ID"})})
-public class BidderOffer implements Serializable {
+public class RequisiteOffer implements Serializable {
 
 	/**
 	 * 
@@ -58,15 +58,25 @@ public class BidderOffer implements Serializable {
 	
 	@Column(columnDefinition = "varchar(10) default 'UN_DECIDED'", insertable = true)
 	@Enumerated(EnumType.STRING)
-	private BidderOfferStatus offerStatus = BidderOfferStatus.UN_DECIDED;
+	private RequisiteOfferStatus offerStatus = RequisiteOfferStatus.UN_DECIDED;
 	
 	@ManyToOne
-	private FunManager bidder;
+	private Guest bidder;
 	
+	public Guest getBidder() {
+		return bidder;
+	}
+
+	public void setBidder(Guest bidder) {
+		this.bidder = bidder;
+	}
+
+
+
 	@ManyToOne
 	private RequestOffer requestOffer;
 	
-	public BidderOffer() {
+	public RequisiteOffer() {
 		
 	}
 
@@ -86,11 +96,11 @@ public class BidderOffer implements Serializable {
 		return id;
 	}
 
-	public BidderOfferStatus getOfferStatus() {
+	public RequisiteOfferStatus getOfferStatus() {
 		return offerStatus;
 	}
 
-	public void setOfferStatus(BidderOfferStatus offerStatus) {
+	public void setOfferStatus(RequisiteOfferStatus offerStatus) {
 		this.offerStatus = offerStatus;
 	}
 
@@ -106,9 +116,7 @@ public class BidderOffer implements Serializable {
 		this.garanty = garanty;
 	}
 
-	public void setBidder(FunManager bidder) {
-		this.bidder = bidder;
-	}
+
 
 	public void setRequestOffer(RequestOffer requestOffer) {
 		this.requestOffer = requestOffer;
@@ -118,9 +126,7 @@ public class BidderOffer implements Serializable {
 		return garanty;
 	}
 
-	public FunManager getBidder() {
-		return bidder;
-	}
+
 
 	public RequestOffer getRequestOffer() {
 		return requestOffer;

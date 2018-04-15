@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.isa.entity.BidderOffer;
+import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.users.FunManager;
 import ftn.isa.service.BidderService;
 
 @RestController
 @RequestMapping(value="/bidders")
-public class BidderController {
+public class FunManagerController {
 	
 	@Autowired
 	private BidderService bidderService;
@@ -42,7 +42,7 @@ public class BidderController {
 	@RequestMapping(value = "/getBiddingsForBidder", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	public ResponseEntity<List<BidderOffer>> getBiddings(@RequestParam(value = "id") Long bidder_id) {
+	public ResponseEntity<List<RequisiteOffer>> getBiddings(@RequestParam(value = "id") Long bidder_id) {
 		return bidderService.getAllBiddingsForThisBidder(bidder_id);
 	}
 	
@@ -56,28 +56,28 @@ public class BidderController {
 	@RequestMapping(value = "/getActiveBiddingsForBidder", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	public ResponseEntity<List<BidderOffer>> getActiveBiddings(@RequestParam(value = "id") Long bidder_id) {
+	public ResponseEntity<List<RequisiteOffer>> getActiveBiddings(@RequestParam(value = "id") Long bidder_id) {
 		return bidderService.getAllBiddingsForThisBidder(bidder_id);
 	}
 	
 	@RequestMapping(value = "/registerBid", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	public ResponseEntity<BidderOffer> registerBid(@RequestBody @Valid BidderOffer bo, @RequestParam(value="request_offer_id") Long ro_id, @RequestParam(value="bidder_id") Long b_id) {
+	public ResponseEntity<RequisiteOffer> registerBid(@RequestBody @Valid RequisiteOffer bo, @RequestParam(value="request_offer_id") Long ro_id, @RequestParam(value="bidder_id") Long b_id) {
 		return bidderService.registerBidderOffer(bo, ro_id, b_id);
 	}
 	
 	@RequestMapping(value = "/updateBid", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	public ResponseEntity<BidderOffer> UpdateBid(@RequestBody @Valid BidderOffer bo) {
+	public ResponseEntity<RequisiteOffer> UpdateBid(@RequestBody @Valid RequisiteOffer bo) {
 		return bidderService.updateBidderOffer(bo);
 	}
 	
 	@RequestMapping(value = "/deleteBid", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	public ResponseEntity<BidderOffer> DeleteBid(@RequestParam(value = "id") Long bidder_id) {
+	public ResponseEntity<RequisiteOffer> DeleteBid(@RequestParam(value = "id") Long bidder_id) {
 		return bidderService.deleteBidderOffer(bidder_id);
 	}
 	
@@ -91,14 +91,14 @@ public class BidderController {
 	@RequestMapping(value = "/getBidderOfferForBidderAndRequestOffer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	public ResponseEntity<BidderOffer> getBidderOfferForBidderAndRequestOffer(@RequestParam(value = "b_id") Long bidder_id, @RequestParam(value = "ro_id") Long request_offer_id) {
+	public ResponseEntity<RequisiteOffer> getBidderOfferForBidderAndRequestOffer(@RequestParam(value = "b_id") Long bidder_id, @RequestParam(value = "ro_id") Long request_offer_id) {
 		return bidderService.getBidderOfferByBidderAndRequestOffer(bidder_id, request_offer_id);
 	}
 	
 	@RequestMapping(value = "/getBidderOffer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	public ResponseEntity<BidderOffer> getBidderOffer(@RequestParam(value = "id") Long id) {
+	public ResponseEntity<RequisiteOffer> getBidderOffer(@RequestParam(value = "id") Long id) {
 		return bidderService.getBidderOffer(id);
 	}
 	

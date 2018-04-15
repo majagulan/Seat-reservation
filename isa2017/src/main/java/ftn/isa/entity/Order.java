@@ -7,12 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,8 +39,7 @@ public class Order implements Serializable {
 	private Reservation reservation;
 	
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "projection_id")
+    @ManyToOne
 	private Projection projection;
 
     public void setProjection(Projection projection) {

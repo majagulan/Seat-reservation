@@ -16,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -77,14 +76,10 @@ public class Projection implements Serializable {
 	@JoinTable(name = "institution_PROJECTIONS", joinColumns = @JoinColumn(name = "PR_ID", referencedColumnName = "PR_ID"), inverseJoinColumns = @JoinColumn(name = "RES_ID", referencedColumnName = "RES_ID"))
 	@JsonIgnore
 	private Set<Institution> institutions = new HashSet<Institution>();
-
-	@ManyToMany(cascade = { CascadeType.REMOVE, CascadeType.MERGE }, mappedBy = "projections")
-	@JsonIgnore
-	private Set<RequestOffer> requestOffers = new HashSet<RequestOffer>();
 	
-    @OneToOne(mappedBy = "projection", cascade = CascadeType.ALL, 
-            fetch = FetchType.LAZY, optional = false)
-	private Order order;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "projection", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private Set<Order> orders;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "projection", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
@@ -98,11 +93,13 @@ public class Projection implements Serializable {
 	public void setGrades(Set<Grade> grades) {
 		this.grades = grades;
 	}
-	public Order getOrder() { return order; }
-
-
-	public void setOrder(Order order) {
-		this.order = order;
+	@JsonIgnore
+	public Set<Order> getOrders() {
+		return orders;
+	}
+	@JsonProperty
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
 	}
 	public Projection() {
 
@@ -134,7 +131,7 @@ public class Projection implements Serializable {
 		return price;
 	}
 	public Projection(long id, String projectionName, String description, String actor, String duration, Double price,
-			ProjectionType projectionType, Set<Institution> institutions, Set<RequestOffer> requestOffers) {
+			ProjectionType projectionType, Set<Institution> institutions) {
 		super();
 		this.id = id;
 		this.projectionName = projectionName;
@@ -144,7 +141,6 @@ public class Projection implements Serializable {
 		this.price = price;
 		this.projectionType = projectionType;
 		this.institutions = institutions;
-		this.requestOffers = requestOffers;
 	}
 	@JsonIgnore
 	public Set<Institution> getinstitutions() {
@@ -154,14 +150,7 @@ public class Projection implements Serializable {
 	public void setinstitutions(Set<Institution> institutions) {
 		this.institutions = institutions;
 	}
-	@JsonIgnore
-	public Set<RequestOffer> getRequestOffers() {
-		return requestOffers;
-	}
-	@JsonProperty
-	public void setRequestOffers(Set<RequestOffer> requestOffers) {
-		this.requestOffers = requestOffers;
-	}
+
 
 	public void setProjectionName(String name) {
 		this.projectionName = name;

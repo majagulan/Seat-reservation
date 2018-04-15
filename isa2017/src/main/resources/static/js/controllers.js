@@ -31,7 +31,7 @@ app.controller('appController',['$rootScope','$scope','$location','SessionServic
 		if (!$rootScope.loggedUser) {
 			$location.path('/login');
 		} else {
-			if(($rootScope.loggedUser.userRole == 'BIDDER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
+			if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
 				$location.path('/changePassword');
 			else
 				$location.path('/home');
@@ -55,7 +55,7 @@ app.controller('loginController',['$rootScope','$scope','$location','SessionServ
 	if (!$rootScope.loggedUser) {
 		$location.path('/login');
 	} else {
-		if(($rootScope.loggedUser.userRole == 'BIDDER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
+		if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
 			$location.path('/changePassword');
 		else
 			$location.path('/home');
@@ -78,7 +78,7 @@ app.controller('loginController',['$rootScope','$scope','$location','SessionServ
     			  timer: 2000
  
     			});
-    		if(($rootScope.loggedUser.userRole == 'BIDDER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
+    		if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
 				$location.path('/changePassword');
 			else
 				$location.path('/home');
@@ -122,7 +122,7 @@ app.controller('homeController',['$rootScope','$scope','$location','$http', 'ins
 	
 	if (!$rootScope.loggedUser) {
 		$location.path('/login');
-	}  else if(($rootScope.loggedUser.userRole == 'BIDDER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
+	}  else if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
 		$location.path('/changePassword');
 	else
 		$location.path('/home');
@@ -154,7 +154,7 @@ app.controller('profileController',['$rootScope','$scope','$location','$http','S
 	
 	if (!$rootScope.loggedUser) {
 		$location.path('/login');
-	} else if(($rootScope.loggedUser.userRole == 'BIDDER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
+	} else if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
 		$location.path('/changePassword');
 	else
 		$location.path('/home');
@@ -184,7 +184,7 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 	
 	if (!$rootScope.loggedUser) {
 		$location.path('/login');
-	} else if(($rootScope.loggedUser.userRole == 'BIDDER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
+	} else if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
 		$location.path('/changePassword');
 	else
 		$location.path('/home');
@@ -352,15 +352,11 @@ app.controller('historyController',['$rootScope','$scope','$location','$http','G
 				guestService.getFriendsForHistory(value.id).then(function(response){
 					value.friends=response.data;
 				});
-				guestService.getAverageGradeForInstitution(value.institution.id).then(function(response){
-					value.averageGrade=response.data;
-				});
-				
 				guestService.getGradeForUser($rootScope.loggedUser.id,value.id).then(function(response){
-					value.userGrade=response.data;
+					value.userGrade=data;
+					alert("CAO");
 				});
-				
-				guestService.getGrade(value.institution.id).then(function(response){
+				guestService.getAverageGradeForInstitution(value.institution.id).then(function(response){
 					value.averageGrade=response.data;
 				});
 		 });

@@ -11,8 +11,8 @@ insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,
 insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (9,'16-10-15','tamara.mrskic@gmail.com','sifra','Tamara','Mrksic','INSTITUTIONMANAGER');
 insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (10,'16-10-15','stefan.varajic@gmail.com','sifra','Stevan','Varaja','INSTITUTIONMANAGER');
 
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (11,'16-10-15','bider.bidic@gmail.com','sifra','Batko','Batkic','BIDDER');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (12,'16-10-15','bider2.bidic@gmail.com','sifra','Batko','Batkic','BIDDER');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (11,'16-10-15','bider.bidic@gmail.com','sifra','Batko','Batkic','FUNMANAGER');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (12,'16-10-15','bider2.bidic@gmail.com','sifra','Batko','Batkic','FUNMANAGER');
 
 
 
@@ -56,13 +56,11 @@ insert into institution_projections(pr_id, res_id) values (3, 2);
 insert into institution_projections(pr_id, res_id) values (2, 2);
 insert into institution_projections(pr_id, res_id) values (4, 1);
 
-insert into request_offer(id, expiration_date, start_date, status, institution_manager_user_id)  values (1, '12-12-17', '10-12-15', true, 9);
-insert into request_offer(id, expiration_date, start_date, status, institution_manager_user_id)  values (2, '12-12-15', '10-12-15', true, 9);
+insert into request_offer(id, expiration_date, start_date, status, fun_manager_user_id)  values (1, '12-12-17', '10-12-15', true, 11);
+insert into request_offer(id, expiration_date, start_date, status, fun_manager_user_id)  values (2, '12-12-15', '10-12-15', true, 11);
 
-insert into offered_projections(ro_id, pr_id) values (1, 1);
-
-insert into bidder_offer(id, bo_dod, bo_garanty, bo_price, bidder_user_id, request_offer_id) values (1, '13-12-15', 'Return money', 300.3, 11, 1);
-insert into bidder_offer(id, bo_dod, bo_garanty, bo_price, bidder_user_id, request_offer_id) values (2, '13-12-15', 'Return money', 300.3, 11, 2);
+insert into bidder_offer(id, bo_dod, bo_garanty, bo_price, bidder_user_id, request_offer_id) values (1, '13-12-15', 'Return money', 300.3, 1, 1);
+insert into bidder_offer(id, bo_dod, bo_garanty, bo_price, bidder_user_id, request_offer_id) values (2, '13-12-15', 'Return money', 300.3, 1, 2);
 
 insert into segment(id, sgm_pos, institution_res_id, height, width) values(1,'VIP',1,4,3);
 insert into segment(id, sgm_pos, institution_res_id, height, width) values(2,'BOX',1,5,3);
@@ -92,12 +90,12 @@ insert into reservation(id, RESERVATION_START, RESERVATION_END,institution_res_i
 insert into guest_reservations(user_id,res_id) values (1,1);
 insert into guest_reservations(user_id,res_id) values (2,1);
 
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_id) values(1,'17-03-02',10.0,1,0,'NOTPAID',1);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_id) values(2,'17-03-02',17.47,3,0,'NOTPAID',2);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_id) values(3,'17-02-28',12.0,11,990.6,'PAID',1,3);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_id) values(4,'17-02-27',17.47,3,0,'PAID',1,3);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_id) values(5,'17-02-18',17.47,3,0,'NOTPAID',2,3);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status, reservation_id,projection_id) values(6,'17-02-28',17.47,3,0,'NOTPAID',3,3);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_pr_id) values(1,'17-03-02',10.0,1,0,'NOTPAID',1);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_pr_id) values(2,'17-03-02',17.47,3,0,'NOTPAID',2);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id) values(3,'17-02-28',12.0,11,990.6,'PAID',1,3);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id) values(4,'17-02-27',17.47,3,0,'PAID',1,3);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id) values(5,'17-02-18',17.47,3,0,'NOTPAID',2,3);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status, reservation_id,projection_pr_id) values(6,'17-02-28',17.47,3,0,'NOTPAID',3,3);
 
 
 insert into grade(grd_id, grd_meal, grd_res,reservation_id, guest_user_id, projection_pr_id, institution_res_id) values (1, 3, 6,1, 1, 3, 1);

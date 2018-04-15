@@ -156,7 +156,8 @@ public class GuestController {
 	@RequestMapping(
 			value="/getGradeForUser/{userId}/{reservationId}",
 			method=RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
+			produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
 	public ResponseEntity<Grade> getGradeForUser(@PathVariable("userId")Long userId,@PathVariable("reservationId")Long reservationId){

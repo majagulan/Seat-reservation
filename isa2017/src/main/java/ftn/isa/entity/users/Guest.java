@@ -1,5 +1,6 @@
 package ftn.isa.entity.users;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ftn.isa.entity.Grade;
+import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.Reservation;
 
 @Entity
@@ -40,6 +42,19 @@ public class Guest extends User {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "people", cascade=CascadeType.ALL)
 	@JsonIgnore
 	private Set<Reservation> reservations;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bidder", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private Set<RequisiteOffer> bidderOffers = new HashSet<RequisiteOffer>();
+	
+	@JsonIgnore
+	public Set<RequisiteOffer> getBidderOffers() {
+		return bidderOffers;
+	}
+	@JsonProperty
+	public void setBidderOffers(Set<RequisiteOffer> bidderOffers) {
+		this.bidderOffers = bidderOffers;
+	}
 	
 	
 	@JsonIgnore

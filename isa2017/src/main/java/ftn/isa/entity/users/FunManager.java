@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import ftn.isa.entity.BidderOffer;
+import ftn.isa.entity.RequestOffer;
 
 @Entity
 @Table(name = "BIDDER")
@@ -24,22 +24,24 @@ public class FunManager extends User {
 	 */
 	private static final long serialVersionUID = 7346796776981937378L;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bidder", cascade = CascadeType.ALL, orphanRemoval = true)
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "funManager", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
-	private Set<BidderOffer> bidderOffers = new HashSet<BidderOffer>();
+	private Set<RequestOffer> requestOffers = new HashSet<RequestOffer>();
+
+	@JsonIgnore
+	public Set<RequestOffer> getRequestOffers() {
+		return requestOffers;
+	}
+	@JsonProperty
+	public void setRequestOffers(Set<RequestOffer> requestOffers) {
+		this.requestOffers = requestOffers;
+	}
 
 	@Column(name = "FIRST_LOGIN", columnDefinition = "boolean default true", insertable = true)
 	private boolean firstLogIn;
 
 	public FunManager() {
-	}
-	@JsonIgnore
-	public Set<BidderOffer> getBidderOffers() {
-		return bidderOffers;
-	}
-	@JsonProperty
-	public void setBidderOffers(Set<BidderOffer> bidderOffers) {
-		this.bidderOffers = bidderOffers;
 	}
 
 	public void setFirstLogIn(boolean firstLogIn) {

@@ -6,12 +6,12 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import ftn.isa.entity.BidderOffer;
 import ftn.isa.entity.Institution;
 import ftn.isa.entity.InstitutionTable;
 import ftn.isa.entity.Order;
 import ftn.isa.entity.Projection;
 import ftn.isa.entity.RequestOffer;
+import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.FunManager;
 import ftn.isa.entity.users.InstitutionManager;
@@ -52,7 +52,7 @@ public interface InstitutionManagerService {
 
 	ResponseEntity<List<RequestOffer>> getAllRequestOffersForManager(Long id);
 
-	ResponseEntity<List<BidderOffer>> getAllBidderOffersForRequestOffer(Long id);
+	ResponseEntity<List<RequisiteOffer>> getAllBidderOffersForRequestOffer(Long id);
 
 	ResponseEntity<List<Segment>> getAllSegmentsForInstitution(Long id);
 
@@ -63,8 +63,6 @@ public interface InstitutionManagerService {
 	ResponseEntity<List<Projection>> getAllProjectionsForInstitution(Long id);
 
 	ResponseEntity<RequestOffer> acceptBidderOffer(Long r_id, Long q_id);
-
-	ResponseEntity<List<Projection>> getAllProjectionsForRequestOffer(Long id);
 	
 	ResponseEntity<List<Projection>> getAllProjectionsByNameAndInstitution(Long id, String name);
 
@@ -85,7 +83,7 @@ public interface InstitutionManagerService {
 
 	ResponseEntity<InstitutionTable> getInstitutionTable(Long id);
 
-	ResponseEntity<BidderOffer> getBidderOffer(Long id);
+	ResponseEntity<RequisiteOffer> getBidderOffer(Long id);
 
 	ResponseEntity<List<Order>> getReservationsForWeek(Long id, String d) throws ParseException;
 

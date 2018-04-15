@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import ftn.isa.entity.users.FunManager;
 
-public interface BidderRepository extends CrudRepository<FunManager, Long> {
+public interface FunManagerRepository extends CrudRepository<FunManager, Long> {
 
 	
 }

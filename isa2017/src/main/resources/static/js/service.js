@@ -223,6 +223,7 @@ app.factory('GuestService', function guestService($http) {
 	guestService.getGradeForUser = function(userId,reservationId){
 		return $http({
 			method : 'GET',
+			headers: { 'Content-Type': 'application/json; charset=UTF-8'},
 			url: 'guests/getGradeForUser/'+userId+'/' +reservationId
 		});
 	}
