@@ -10,12 +10,9 @@
 			<button type="button" class="btn btn-primary" ng-click=showView(15)>All
 				your request offers</button>
 			<button type="button" class="btn btn-primary" ng-click=showView(10)>Your
-				bidder offer</button>
+				bidder offer - notifications</button>
 		</div>
-		<div id="waiterButtons" ng-if="loggedUser.userRole=='WAITER'">
-			<button type="button" class="btn btn-primary" ng-click=showView(4)>Segments</button>
-			<button type="button" class="btn btn-primary" ng-click=showView(6)>Orders</button>
-		</div>
+		
 		<div id="systemButtons" ng-if="loggedUser.userRole=='SYSTEMMANAGER'">
 			<button type="button" class="btn btn-primary" ng-click=showView(7)>Institutions</button>
 			<button type="button" class="btn btn-primary" ng-click=showView(8)>System managers</button>
@@ -23,6 +20,7 @@
 		<div id="bidderButtons" ng-if="loggedUser.userRole=='FUNMANAGER'">
 			<button type="button" class="btn btn-primary" ng-click=showView(15)>All
 				your requisite offers</button>
+				<button type="button" class="btn btn-primary" ng-click=showView(17)>Publish an offer</button>
 		</div>
 		<div id="institutionManagerButtons"
 			ng-if="loggedUser.userRole=='INSTITUTIONMANAGER'">
@@ -39,10 +37,6 @@
 	<div ng-if="show==2" ng-include src="'pages/guestInstitutions.html'"></div>
 
 	<div ng-if="show==3" ng-include src="'pages/friends.html'"></div>
-
-	<div ng-if="show==4" ng-include src="'pages/tables.html'"></div>
-
-	<div ng-if="show==6" ng-include src="'pages/order.html'"></div>
 
 	<div ng-if="show==7" ng-include src="'institutions.html'"></div>
 
@@ -64,5 +58,7 @@
 	<div ng-if="show==15" ng-include src="'managersRequestOffers.html'">
 	</div>
 	<div ng-if="show==16" ng-include src="'pages/institutionReports.html'"></div>
+	
+	<div ng-if="show==17" ng-include src="'pages/publishOffer.html'"></div>
 
 </div>
