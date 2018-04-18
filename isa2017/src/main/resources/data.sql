@@ -1,26 +1,26 @@
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (1,'16-10-15','darko.tacic@gmail.com','sifra','Darko','Tacic','GUEST');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (2,'16-10-15','milica.govedarica@gmail.com','sifra','Milca','Govedarica','GUEST');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (13,'16-10-15','test13.test@gmail.com','sifra','Test','Test','GUEST');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (14,'16-10-15','test14.test@gmail.com','sifra','Test','Test','GUEST');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (15,'16-10-15','test15.test@gmail.com','sifra','Test','Test','GUEST');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (16,'16-10-15','test16.test@gmail.com','sifra','Test','Test','GUEST');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (1,'16-10-15','maja.gulan@gmail.com','sifra','Maja','Gulan','GUEST');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (2,'16-10-15','smiljana.tedic@gmail.com','sifra','Smiljana','Tedic','GUEST');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (13,'16-10-15','guest13@gmail.com','sifra','Test','Test','GUEST');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (14,'16-10-15','guest14@gmail.com','sifra','Test','Test','GUEST');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (15,'16-10-15','guest15@gmail.com','sifra','Test','Test','GUEST');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (16,'16-10-15','guest16@gmail.com','sifra','Test','Test','GUEST');
 
 
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (7,'16-10-15','aleksandar.petrovic@gmail.com','sifra','Aca','Petrovic','SYSTEMMANAGER');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (7,'16-10-15','admin@gmail.com','sifra','Milena','Markovic','SYSTEMMANAGER');
 
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (9,'16-10-15','tamara.mrskic@gmail.com','sifra','Tamara','Mrksic','INSTITUTIONMANAGER');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (10,'16-10-15','stefan.varajic@gmail.com','sifra','Stevan','Varaja','INSTITUTIONMANAGER');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (9,'16-10-15','filip.visnjic@gmail.com','sifra','Filip','Visnjic','INSTITUTIONMANAGER');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (10,'16-10-15','miroslav.ilic@gmail.com','sifra','Miroslav','Ilic','INSTITUTIONMANAGER');
 
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (11,'16-10-15','bider.bidic@gmail.com','sifra','Batko','Batkic','FUNMANAGER');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (12,'16-10-15','bider2.bidic@gmail.com','sifra','Batko','Batkic','FUNMANAGER');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (11,'16-10-15','fun.manager@gmail.com','sifra','Batko','Batkic','FUNMANAGER');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (12,'16-10-15','funny.manager@gmail.com','sifra','Pera','Peric','FUNMANAGER');
 
 
 
 insert into bidder(user_id) values(11);
 insert into bidder(user_id) values(12);
 
-insert into institution(res_id, res_desc, res_name, ins_type, adr_ins) values(1,'Kineski restoran','Dva stapica', 'CINEMA','Milovana Glisica 1');
-insert into institution(res_id, res_desc, res_name, ins_type, adr_ins) values(2,'Restoran domace kuhinje','Kod cice', 'THEATER', 'Kisacka 25');
+insert into institution(res_id, res_desc, res_name, ins_type, adr_ins) values(1,'Opis bioskopa','Arena cineplex', 'CINEMA','Bulevar Despota Stefana 25');
+insert into institution(res_id, res_desc, res_name, ins_type, adr_ins) values(2,'Opis pozorista','Narodno pozoriste Novi Sad', 'THEATER', 'Kisacka 25');
 
 
 insert into guest (user_id,status) values (1,'ACTIVE');
@@ -45,16 +45,15 @@ insert into friend(sender_id,reciever_id,status) values(13,1,false);
 insert into institution_manager (user_id,institution_res_id) values (9,1);
 insert into institution_manager (user_id,institution_res_id) values (10,1);
 
-insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(1,'description','Coca cola','Ana Mihajlovski', '2h',120.3,'MOVIE');
-insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(2,'description1','Karadjordjeva snicla','Ana Mihajlovski', '2h',750.0,'MOVIE');
-insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(3,'description1','Ruska salata','Ana Mihajlovski', '2h',150.0,'PLAY');
-insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(4,'description3','Kineska supa','Ana Mihajlovski', '2h',350.0,'PLAY');
+insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(1,'description1','Star Wars 1','Harison Ford', '2h',120.3,'MOVIE');
+insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(2,'description2','Hobit','Martin Freeman', '2h',750.0,'MOVIE');
+insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(3,'description3','Labudovo jezero','Ana Mihajlovski', '2h',150.0,'PLAY');
+insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(4,'description4','Pop Cira i pop Spira','Dragan Bjelogrlic', '2h',350.0,'PLAY');
 
 insert into institution_projections(pr_id, res_id) values (1, 1);
 insert into institution_projections(pr_id, res_id) values (2, 1);
 insert into institution_projections(pr_id, res_id) values (3, 2);
-insert into institution_projections(pr_id, res_id) values (2, 2);
-insert into institution_projections(pr_id, res_id) values (4, 1);
+insert into institution_projections(pr_id, res_id) values (4, 2);
 
 insert into request_offer(id, expiration_date, start_date, status, fun_manager_user_id)  values (1, '12-12-17', '10-12-15', true, 11);
 insert into request_offer(id, expiration_date, start_date, status, fun_manager_user_id)  values (2, '12-12-15', '10-12-15', true, 11);

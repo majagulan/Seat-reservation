@@ -380,4 +380,10 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Integer getFreeTablesCountForInstitution(Long institutionId) {
+		Institution i = institutionRepository.findOne(institutionId);
+		return institutionTableRepository.getFreeTablesCountForInstitution(i);
+	}
 }

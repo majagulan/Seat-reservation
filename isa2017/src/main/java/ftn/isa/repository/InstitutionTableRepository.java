@@ -15,6 +15,9 @@ public interface InstitutionTableRepository extends CrudRepository<InstitutionTa
 
 	@Query("select t from Segment s inner join s.tables as t where s.institution = ?1")
 	List<InstitutionTable> getTablesForInstitution(Institution r);
+	
+	@Query("select count(t) from Segment s inner join s.tables as t where s.institution = ?1 and t.free = true")
+	Integer getFreeTablesCountForInstitution(Institution r);
 
 	@Query("select t from Segment s inner join s.tables as t where s.id = ?1 and t.free = 'true'")
 	List<InstitutionTable> seeIfCanDeleteSegment(Long id);

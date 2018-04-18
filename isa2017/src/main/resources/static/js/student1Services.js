@@ -104,6 +104,13 @@ app.factory('GuestService', function guestService($http) {
 		});
 	}
 	
+	guestService.getFreeTablesCountForInstitution = function(institutionId){
+		return $http({
+			method : 'GET',
+			url: '../guests/getFreeTablesCountForInstitution/'+institutionId
+		});
+	}
+	
 	guestService.createReservation = function(reservation,resId){
 		return $http({
 			method : 'POST',

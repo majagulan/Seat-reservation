@@ -28,6 +28,7 @@ import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Guest;
 import ftn.isa.mail.SendEmail;
 import ftn.isa.service.GuestService;
+import ftn.isa.service.InstitutionManagerService;
 import ftn.isa.service.WaiterService;
 
 @RestController
@@ -39,6 +40,9 @@ public class GuestController {
 	
 	@Autowired
 	private WaiterService waiterService;
+	
+	@Autowired
+	private InstitutionManagerService institutionManagerService;
 	
 	@Autowired
 	private HttpSession session;
@@ -72,6 +76,16 @@ public class GuestController {
 	public Iterable<InstitutionTable> getTablesForSegment(@PathVariable("segmentId") Long seg_id){
 		Iterable<InstitutionTable> tables = this.waiterService.getAllTablesForSegment(seg_id);	
 		return tables;
+	}
+	
+	@RequestMapping(
+			value = "/getFreeTablesCountForInstitution/{institutionId}",
+			method = RequestMethod.GET)
+	@ResponseBody
+	@Transactional
+	public Integer getFreeTablesCountForInstitution(@PathVariable("institutionId") Long institutionId){
+		Integer count = institutionManagerService.getFreeTablesCountForInstitution(institutionId);
+		return count;
 	}
 	
 	@RequestMapping(

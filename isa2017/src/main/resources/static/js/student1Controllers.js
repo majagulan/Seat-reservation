@@ -49,7 +49,7 @@ app.controller('appController',['$rootScope','$scope','$location','SessionServic
 	}
 }]);
 
-app.controller('loginController',['$rootScope','$scope','$location','SystemManagerService','SessionService',function($rootScope,$scope,$location,systemManagerService,sessionService){
+app.controller('loginController',['$rootScope','$scope','$location','institutionManagerService','GuestService','SystemManagerService','SessionService',function($rootScope,$scope,$location,institutionManagerService,guestService,systemManagerService,sessionService){
 		
 	
 	if (!$rootScope.loggedUser) {
@@ -93,14 +93,36 @@ app.controller('loginController',['$rootScope','$scope','$location','SystemManag
     	$location.path('/register')
     }
     
-	$scope.showView = function(number){
-		$scope.show = number;
+	$scope.showView = function(type){
+		$scope.type = type;
+		$scope.selected = null;
+	}
+	
+	$scope.setSelected = function(selected){
+		if($scope.selected == selected){
+			$scope.selected = null;
+		} else {
+			$scope.selected = selected;
+			institutionManagerService.getProjectionsForInstitution($scope.selected.id).then(
+					function(response) {
+						$scope.institutionProjections = response.data;
+					});
+		}
+		
+
 	}
 	
 	systemManagerService.getinstitutions().then(
 			function(response) {
 				$scope.institutions = response.data;
+				angular.forEach($scope.institutions, function(value, key){
+						guestService.getFreeTablesCountForInstitution(value.id).then(function(response){
+							value.freeSpace=response.data;
+						});
+				});
 			});
+	
+	
 }]);
 
 app.controller('registerController',['$rootScope','$scope','$location','$http','SessionService',function($rootScope,$scope,$location,$http,sessionService) {
@@ -146,9 +168,6 @@ app.controller('homeController',['$rootScope','$scope','$location','$http', 'ins
 	switch($rootScope.loggedUser.userRole) {
 	    case 'GUEST':
 	    	$scope.show = 1;
-	        break;
-	    case 'WAITER':
-	    	$scope.show = 6;
 	        break;
 	}
 	

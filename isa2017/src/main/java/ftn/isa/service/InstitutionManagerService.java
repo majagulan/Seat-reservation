@@ -29,6 +29,8 @@ public interface InstitutionManagerService {
 	ResponseEntity<Segment> addSegmentToRestaurnat(Segment s, Long r_id);
 
 	ResponseEntity<InstitutionTable> addInstitutionTableToSegment(InstitutionTable t, Long segment_id);
+	
+	Integer getFreeTablesCountForInstitution(Long institutionId);
 
 	ResponseEntity<Segment> removeSegment(Long id);
 
