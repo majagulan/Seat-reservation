@@ -287,7 +287,9 @@ public class GuestServiceImpl implements GuestService {
 			g.setProjection(order.getProjection());
 			g.setinstitution(order.getTable().getSegment().getinstitution());
 			g.setGuest((Guest)user);
+			g.setReservation(reservation);
 			gradeRepository.save(g);
+			break;
 		}
 		return new ResponseEntity<Grade>(grade, HttpStatus.OK);
 	}
@@ -305,7 +307,9 @@ public class GuestServiceImpl implements GuestService {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			g.setGradeOfOrderItem(grade.getGradeOfOrderItem());
 			g.setgradeOfInstitution(grade.getgradeOfInstitution());
+			g.setReservation(reservation);
 			gradeRepository.save(g);
+			break;
 		}
 		return new ResponseEntity<Grade>(grade, HttpStatus.OK);
 	}

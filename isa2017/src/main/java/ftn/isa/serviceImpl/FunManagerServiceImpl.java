@@ -16,11 +16,11 @@ import ftn.isa.repository.FunManagerRepository;
 import ftn.isa.repository.GuestRepository;
 import ftn.isa.repository.RequestOfferRepository;
 import ftn.isa.repository.RequisiteOfferRepository;
-import ftn.isa.service.BidderService;
+import ftn.isa.service.FunManagerService;
 
 @Service
 @Transactional
-public class FunManagerServiceImpl implements BidderService {
+public class FunManagerServiceImpl implements FunManagerService {
 
 	@Autowired
 	private FunManagerRepository bidderRepository;
@@ -48,7 +48,7 @@ public class FunManagerServiceImpl implements BidderService {
 
 	@Override
 	public ResponseEntity<List<RequisiteOffer>> getAllBiddingsForThisBidder(Long bidder_id) {
-		FunManager b = this.bidderRepository.findOne(bidder_id);
+		Guest b = this.guestRepository.findOne(bidder_id);
 		return new ResponseEntity<List<RequisiteOffer>>(this.bidderOfferRepository.findByBidder(b), HttpStatus.OK);
 	}
 

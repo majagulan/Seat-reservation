@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.users.FunManager;
-import ftn.isa.service.BidderService;
+import ftn.isa.service.FunManagerService;
 
 @RestController
 @RequestMapping(value="/bidders")
 public class FunManagerController {
 	
 	@Autowired
-	private BidderService bidderService;
+	private FunManagerService bidderService;
 	
 	@Autowired
 	private HttpSession session;

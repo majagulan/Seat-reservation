@@ -8,7 +8,7 @@ import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.users.FunManager;
 
-public interface BidderService {
+public interface FunManagerService {
 	
 	ResponseEntity<FunManager> updateProfile(FunManager b);
 

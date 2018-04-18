@@ -49,7 +49,7 @@ app.controller('appController',['$rootScope','$scope','$location','SessionServic
 	}
 }]);
 
-app.controller('loginController',['$rootScope','$scope','$location','SessionService',function($rootScope,$scope,$location,sessionService){
+app.controller('loginController',['$rootScope','$scope','$location','SystemManagerService','SessionService',function($rootScope,$scope,$location,systemManagerService,sessionService){
 		
 	
 	if (!$rootScope.loggedUser) {
@@ -92,6 +92,15 @@ app.controller('loginController',['$rootScope','$scope','$location','SessionServ
     $scope.register = function(){
     	$location.path('/register')
     }
+    
+	$scope.showView = function(number){
+		$scope.show = number;
+	}
+	
+	systemManagerService.getinstitutions().then(
+			function(response) {
+				$scope.institutions = response.data;
+			});
 }]);
 
 app.controller('registerController',['$rootScope','$scope','$location','$http','SessionService',function($rootScope,$scope,$location,$http,sessionService) {
@@ -156,8 +165,6 @@ app.controller('profileController',['$rootScope','$scope','$location','$http','S
 		$location.path('/login');
 	} else if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
 		$location.path('/changePassword');
-	else
-		$location.path('/home');
 	
 	
 	sessionService.getLoggedUser().then(function(response){
