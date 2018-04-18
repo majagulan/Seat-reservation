@@ -31,6 +31,8 @@ public interface InstitutionManagerService {
 	ResponseEntity<InstitutionTable> addInstitutionTableToSegment(InstitutionTable t, Long segment_id);
 	
 	Integer getFreeTablesCountForInstitution(Long institutionId);
+	
+	Projection getProjection(Long id);
 
 	ResponseEntity<Segment> removeSegment(Long id);
 

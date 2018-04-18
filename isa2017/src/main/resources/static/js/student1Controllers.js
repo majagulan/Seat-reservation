@@ -206,7 +206,7 @@ app.controller('profileController',['$rootScope','$scope','$location','$http','S
 
 }]);
 
-app.controller('institutionController',['$rootScope','$scope','$location','$http','SessionService','SystemManagerService','WaiterService','GuestService',function($rootScope,$scope,$location,$http,sessionService,systemManagerService,waiterService,guestService) {
+app.controller('institutionController',['$rootScope','$scope','$location','$http','SessionService','institutionManagerService','SystemManagerService','WaiterService','GuestService',function($rootScope,$scope,$location,$http,sessionService,institutionManagerService,systemManagerService,waiterService,guestService) {
 	
 	if (!$rootScope.loggedUser) {
 		$location.path('/login');
@@ -228,6 +228,8 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 	
 	$scope.show = null;
 	
+	$scope.institutionProjections = [];
+	
 	$scope.invite = function(friend){
 		var friendIndex = $scope.selectedFriends.indexOf(friend.id);
 		if(friendIndex == -1){
@@ -243,7 +245,7 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 		guestService.createReservation($scope.reservation,$scope.selected.id).then(function(response){
 			   var reservation = response.data
 			   angular.forEach($scope.selectedTables, function(value, key){
-				      guestService.createOrder(value,reservation.id,$scope.reservation.date).then(function(response){
+				      guestService.createOrder(value,reservation.id,$scope.reservation.date,$scope.selectedinstitutionProjection.id).then(function(response){
 				    	 $scope.lastAddedOrder = response.data; 
 				      });
 			   });
@@ -279,6 +281,20 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 	
 	$scope.cancel = function(){
 		$scope.show = null;
+	}
+	
+	$scope.setSelectedinstitutionProjection = function(projection) {
+		if($scope.selectedinstitutionProjection == projection){
+			$scope.selectedinstitutionProjection = null;
+			$scope.makeReservation = false;
+			$scope.selctedSegment = null;
+			$scope.reservation = null;
+			$scope.show = null;
+		} else {
+			$scope.selectedinstitutionProjection = projection;
+		}
+		
+		
 	}
 	
 	
@@ -326,8 +342,13 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 	$scope.setSelected = function(selected){
 		if($scope.selected == selected){
 			$scope.selected = null;
+			$scope.selectedinstitutionProjection = null;
 		} else {
 			$scope.selected = selected;
+			institutionManagerService.getProjectionsForInstitution($scope.selected.id).then(
+					function(response) {
+						$scope.institutionProjections = response.data;
+					});
 		}
 		
 		$scope.makeReservation = false;
@@ -378,6 +399,9 @@ app.controller('historyController',['$rootScope','$scope','$location','$http','G
 				guestService.getFriendsForHistory(value.id).then(function(response){
 					value.friends=response.data;
 				});
+				guestService.getProjectionForReservation(value.id).then(function(response){
+					value.projection=response.data;
+				});
 				guestService.getGradeForUser($rootScope.loggedUser.id,value.id).then(function(response){
 					value.gradeOfProjection=response.data.gradeOfOrderItem;
 					value.gradeOfInstitution=response.data.gradeOfInstitution;
@@ -413,12 +437,17 @@ app.controller('historyController',['$rootScope','$scope','$location','$http','G
 			$scope.addGrade=null;
 			$scope.editGrade=null;
 			
-			guestService.getAverageGradeForInstitution($scope.selected.institution.id).then(function(response){
-				$scope.selected.averageGradeForInstitution=response.data;
-			});
-			guestService.getAverageGradeForProjection($scope.selected.id).then(function(response){
-				$scope.selected.averageGradeForProjection=response.data;
-			});
+			 angular.forEach($scope.histories, function(value, key){
+				 if(value.institution.id === $scope.selected.institution.id)
+					guestService.getAverageGradeForInstitution($scope.selected.institution.id).then(function(response){
+						value.averageGradeForInstitution=response.data;
+					});
+				 
+				if(value.projection.id == $scope.selected.projection.id)
+					guestService.getAverageGradeForProjection($scope.selected.id).then(function(response){
+						value.averageGradeForProjection=response.data;
+					});
+			 });
 			
 			swal({
 				  title: "Delete grade",
@@ -434,6 +463,18 @@ app.controller('historyController',['$rootScope','$scope','$location','$http','G
 			$scope.addGrade=null;
 			$scope.selected.gradeOfProjection = $scope.grade.gradeOfProjection;
 			$scope.selected.gradeOfInstitution = $scope.grade.gradeOfInstitution;
+			
+			 angular.forEach($scope.histories, function(value, key){
+				 if(value.institution.id === $scope.selected.institution.id)
+					guestService.getAverageGradeForInstitution($scope.selected.institution.id).then(function(response){
+						value.averageGradeForInstitution=response.data;
+					});
+				 
+				if(value.projection.id == $scope.selected.projection.id)
+					guestService.getAverageGradeForProjection($scope.selected.id).then(function(response){
+						value.averageGradeForProjection=response.data;
+					});
+			 });
 			
 			guestService.getAverageGradeForInstitution($scope.selected.institution.id).then(function(response){
 				$scope.selected.averageGradeForInstitution=response.data;
@@ -459,13 +500,18 @@ app.controller('historyController',['$rootScope','$scope','$location','$http','G
 			$scope.selected.gradeOfProjection = $scope.grade.gradeOfProjection;
 			$scope.selected.gradeOfInstitution = $scope.grade.gradeOfInstitution;
 			
-			guestService.getAverageGradeForInstitution($scope.selected.institution.id).then(function(response){
-				$scope.selected.averageGradeForInstitution=response.data;
-			});
-			
-			guestService.getAverageGradeForProjection($scope.selected.id).then(function(response){
-				$scope.selected.averageGradeForProjection=response.data;
-			});
+			 angular.forEach($scope.histories, function(value, key){
+				 if(value.institution.id === $scope.selected.institution.id)
+					guestService.getAverageGradeForInstitution($scope.selected.institution.id).then(function(response){
+						value.averageGradeForInstitution=response.data;
+					});
+				 
+				if(value.projection.id == $scope.selected.projection.id)
+					guestService.getAverageGradeForProjection($scope.selected.id).then(function(response){
+						value.averageGradeForProjection=response.data;
+					});
+			 });
+			 
 		}).catch(function(response) {
 			swal({
 				  title: "Edit grade",

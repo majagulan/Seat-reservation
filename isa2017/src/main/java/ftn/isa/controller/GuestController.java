@@ -23,6 +23,7 @@ import ftn.isa.entity.Grade;
 import ftn.isa.entity.InstitutionTable;
 import ftn.isa.entity.Order;
 import ftn.isa.entity.OrderStatus;
+import ftn.isa.entity.Projection;
 import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Guest;
@@ -187,6 +188,17 @@ public class GuestController {
 		return new ResponseEntity<Grade>(g,HttpStatus.OK);
 	}
 	
+	@RequestMapping(
+			value="/getProjectionForReservation/{reservationId}",
+			method=RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<Projection> getGradeForUser(@PathVariable("reservationId")Long reservationId){
+		Projection p = guestService.getProjectionForReservation(reservationId);
+		return new ResponseEntity<Projection>(p,HttpStatus.OK);
+	}
+	
 	
 	
 	@RequestMapping(
@@ -273,16 +285,18 @@ public class GuestController {
 			consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
-	public ResponseEntity<Order> createOrder(@RequestParam("tableId")Long tableId,@RequestBody Order order,@RequestParam("resId")Long resId){
+	public ResponseEntity<Order> createOrder(@RequestBody Order order,@RequestParam("tableId")Long tableId,@RequestParam("resId")Long resId,@RequestParam("proId")Long proId){
 		Reservation r = guestService.getReservation(resId);
+		Projection p = institutionManagerService.getProjection(proId);
 		System.out.println(order.getDate());
 		Calendar calendar=Calendar.getInstance();
 		calendar.setTime(order.getDate());
 		InstitutionTable rt=waiterService.getTable(tableId);
 		order.setTable(rt);
-		order.setReservation(r);
 		order.setTime(r.getStartTime());
-		order.setPrice(0);
+		order.setReservation(r);
+		order.setPrice(p.getPrice());
+		order.setProjection(p);
 		order.setOrderStatus(OrderStatus.PAID);
 		Order o=waiterService.addOrder(order);
 		return new ResponseEntity<Order>(o, HttpStatus.OK);	

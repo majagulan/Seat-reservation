@@ -5,7 +5,7 @@
 				<thead>
 					<tr>
 						<th>Institution name</th>
-						<th>Institution type</th>
+						<th>Projection name</th>
 						<th>People</th>
 						<th>My grade(Institution & Projection)</th>
 						<th>Average grade of institution</th>
@@ -17,7 +17,7 @@
 						ng-click="selectHistory(history)"
 						ng-class="{'info' : selected===history}">
 						<td>{{history.institution.institutionName}}</td>
-						<td>{{history.institution.institutionType}}</td>
+						<td>{{history.projection.projectionName}}</td>
 						<td><p ng-repeat="friend in history.friends">{{friend.userName}} {{friend.surname}}</p></td>
 						<td> {{history.gradeOfInstitution}}     {{history.gradeOfProjection}}</td>
 						<td>{{history.averageGradeForInstitution}}</td>
@@ -51,11 +51,11 @@
 					</tr>
 					<tr>
 						<td>Grade for institution</td>
-						<td><input class="form-control" type="number" ng-model="grade.gradeOfInstitution" min="1" max="5"/></td>
+						<td><input class="form-control" type="number" ng-model="grade.gradeOfInstitution" min="1" max="5" required/></td>
 					</tr>
 					<tr>
 						<td>Grade for projection</td>
-						<td><input class="form-control" type="number" ng-model="grade.gradeOfProjection" min="1" max="5"/></td>
+						<td><input class="form-control" type="number" ng-model="grade.gradeOfProjection" min="1" max="5" required/></td>
 					</tr>
 					<tr>
 						<td></td>

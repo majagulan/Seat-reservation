@@ -282,13 +282,13 @@ public class GuestServiceImpl implements GuestService {
 		if(user==null || user.getUserRole()!=UserRole.GUEST)
 			return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
 		Reservation reservation=reservationRepository.findOne(reservationId);
+		
+		Grade g=gradeRepository.findGradeByReservation(reservation, (Guest)user);
+		
+		if(g!=null)
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		for(Order order:reservation.getOrders()){
-			Grade g=gradeRepository.findGradeByProjection(order.getProjection(), (Guest)user);
-			if(g!=null)
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		for(Order order:reservation.getOrders()){
-			Grade g=new Grade(grade.getGradeOfOrderItem(), grade.getgradeOfInstitution());
+			g=new Grade(grade.getGradeOfOrderItem(), grade.getgradeOfInstitution());
 			g.setProjection(order.getProjection());
 			g.setinstitution(order.getTable().getSegment().getinstitution());
 			g.setGuest((Guest)user);
@@ -306,16 +306,13 @@ public class GuestServiceImpl implements GuestService {
 		if(user==null || user.getUserRole()!=UserRole.GUEST)
 			return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
 		Reservation reservation=reservationRepository.findOne(reservationId);
-		for(Order order:reservation.getOrders()){
-			Grade g=gradeRepository.findGradeByProjection(order.getProjection(), (Guest)user);
+			Grade g=gradeRepository.findGradeByReservation(reservation, (Guest)user);
 			if(g==null)
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			g.setGradeOfOrderItem(grade.getGradeOfOrderItem());
 			g.setgradeOfInstitution(grade.getgradeOfInstitution());
 			g.setReservation(reservation);
 			gradeRepository.save(g);
-			break;
-		}
 		return new ResponseEntity<Grade>(grade, HttpStatus.OK);
 	}
 
@@ -326,12 +323,9 @@ public class GuestServiceImpl implements GuestService {
 		if(user==null || user.getUserRole()!=UserRole.GUEST)
 			return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
 		Reservation reservation=reservationRepository.findOne(reservationId);
-		for(Order order:reservation.getOrders()){
-			Grade g=gradeRepository.findGradeByProjection(order.getProjection(), (Guest)user);
-			if(g==null)
-				continue;
+		Grade g=gradeRepository.findGradeByReservation(reservation, (Guest)user);
+		if(g!=null)
 			gradeRepository.delete(g);
-		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
@@ -439,6 +433,13 @@ public class GuestServiceImpl implements GuestService {
 		Reservation r = reservationRepository.findOne(reservationId);
 		Projection p = projectionRepository.findProjectionByReservation(r);
 		return gradeRepository.getAverageGradeForProjection(p);
+	}
+
+
+	@Override
+	public Projection getProjectionForReservation(Long reservationId) {
+		Reservation r = reservationRepository.findOne(reservationId);
+		return projectionRepository.findProjectionByReservation(r);
 	}
 
 }

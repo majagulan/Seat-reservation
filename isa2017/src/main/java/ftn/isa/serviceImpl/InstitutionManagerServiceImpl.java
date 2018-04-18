@@ -386,4 +386,9 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 		Institution i = institutionRepository.findOne(institutionId);
 		return institutionTableRepository.getFreeTablesCountForInstitution(i);
 	}
+
+	@Override
+	public Projection getProjection(Long id) {
+		return projectionRepository.findOne(id);
+	}
 }

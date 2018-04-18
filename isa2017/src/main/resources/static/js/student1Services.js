@@ -78,10 +78,10 @@ app.factory('GuestService', function guestService($http) {
 		});
 	}
 	
-	guestService.createOrder = function(tableNum,resId,date){
+	guestService.createOrder = function(tableNum,resId,date,proId){
 		return $http({
 			method : 'POST',
-			url: '../guests/createOrder?tableId='+tableNum+"&resId="+resId,
+			url: '../guests/createOrder?tableId='+tableNum+"&resId="+resId+'&proId='+proId,
 			data: {
 				"date": date
 			}
@@ -93,6 +93,14 @@ app.factory('GuestService', function guestService($http) {
 		return $http({
 			method : 'GET',
 			url: '../guests/getReservations/'+userId
+		
+		});
+	}
+	
+	guestService.getProjectionForReservation = function(reservationId){
+		return $http({
+			method : 'GET',
+			url: '../guests/getProjectionForReservation/'+reservationId
 		
 		});
 	}

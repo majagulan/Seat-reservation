@@ -13,8 +13,8 @@ public interface GradeRepository extends CrudRepository<Grade, Long> {
 	
 	Grade findOne(Long id);
 
-	@Query("select g from Grade g where g.projection=?1 and g.guest=?2")
-	public Grade findGradeByProjection(Projection p,Guest guest);
+	@Query("select g from Grade g where g.reservation=?1 and g.guest=?2")
+	public Grade findGradeByReservation(Reservation r,Guest guest);
 	
 	@Query("select sum(g.gradeOfInstitution)/count(g.gradeOfInstitution) from Grade g where g.institution=?1")
 	public Double getAverageGradeForInstitution(Institution i);

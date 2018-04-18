@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import ftn.isa.entity.Grade;
+import ftn.isa.entity.Projection;
 import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Guest;
@@ -25,6 +26,8 @@ public interface GuestService {
 	List<Segment> getSegments(Date date,Reservation r, Long resId);
 	
 	Reservation getReservation(Long id);
+	
+	Projection getProjectionForReservation(Long reservationId);
 	
 	Reservation createReservation(Reservation reservation,Long institutionId);
 	
