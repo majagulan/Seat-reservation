@@ -17,6 +17,7 @@ import ftn.isa.entity.Institution;
 import ftn.isa.entity.InstitutionTable;
 import ftn.isa.entity.Order;
 import ftn.isa.entity.OrderStatus;
+import ftn.isa.entity.Projection;
 import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Friend;
@@ -30,6 +31,7 @@ import ftn.isa.repository.FriendRepository;
 import ftn.isa.repository.GradeRepository;
 import ftn.isa.repository.GuestRepository;
 import ftn.isa.repository.InstitutionRepository;
+import ftn.isa.repository.ProjectionRepository;
 import ftn.isa.repository.ReservationRepository;
 import ftn.isa.repository.SegmentRepository;
 import ftn.isa.service.GuestService;
@@ -57,6 +59,9 @@ public class GuestServiceImpl implements GuestService {
 
 	@Autowired
 	private GradeRepository gradeRepository;
+	
+	@Autowired
+	private ProjectionRepository projectionRepository;
 	
 	@Autowired
 	private InstitutionRepository institutionRepository;
@@ -426,6 +431,14 @@ public class GuestServiceImpl implements GuestService {
 		Reservation r = reservationRepository.findOne(reservationId);
 		Grade gg = gradeRepository.getGradeForUser(g,r);
 		return gg;
+	}
+
+
+	@Override
+	public Double getAverageGradeForProjection(Long reservationId) {
+		Reservation r = reservationRepository.findOne(reservationId);
+		Projection p = projectionRepository.findProjectionByReservation(r);
+		return gradeRepository.getAverageGradeForProjection(p);
 	}
 
 }

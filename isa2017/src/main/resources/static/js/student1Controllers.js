@@ -379,11 +379,14 @@ app.controller('historyController',['$rootScope','$scope','$location','$http','G
 					value.friends=response.data;
 				});
 				guestService.getGradeForUser($rootScope.loggedUser.id,value.id).then(function(response){
-					value.userGrade=data;
-					alert("CAO");
+					value.gradeOfProjection=response.data.gradeOfOrderItem;
+					value.gradeOfInstitution=response.data.gradeOfInstitution;
 				});
 				guestService.getAverageGradeForInstitution(value.institution.id).then(function(response){
-					value.averageGrade=response.data;
+					value.averageGradeForInstitution=response.data;
+				});
+				guestService.getAverageGradeForProjection(value.id).then(function(response){
+					value.averageGradeForProjection=response.data;
 				});
 		 });
 	});
@@ -405,9 +408,18 @@ app.controller('historyController',['$rootScope','$scope','$location','$http','G
 	
 	$scope.deleteGrade=function(){
 		guestService.deleteGrade($scope.selected.id).then(function(response){
-			$scope.selected=null;
+			$scope.selected.gradeOfProjection = "";
+			$scope.selected.gradeOfInstitution = "";
 			$scope.addGrade=null;
 			$scope.editGrade=null;
+			
+			guestService.getAverageGradeForInstitution($scope.selected.institution.id).then(function(response){
+				$scope.selected.averageGradeForInstitution=response.data;
+			});
+			guestService.getAverageGradeForProjection($scope.selected.id).then(function(response){
+				$scope.selected.averageGradeForProjection=response.data;
+			});
+			
 			swal({
 				  title: "Delete grade",
 				  text: "You have successfully deleted grade for this reservation.",
@@ -420,6 +432,17 @@ app.controller('historyController',['$rootScope','$scope','$location','$http','G
 	$scope.confirmAddGrade=function(){
 		guestService.addGrade($scope.grade,$scope.addGrade.id).then(function(response){
 			$scope.addGrade=null;
+			$scope.selected.gradeOfProjection = $scope.grade.gradeOfProjection;
+			$scope.selected.gradeOfInstitution = $scope.grade.gradeOfInstitution;
+			
+			guestService.getAverageGradeForInstitution($scope.selected.institution.id).then(function(response){
+				$scope.selected.averageGradeForInstitution=response.data;
+			});
+			
+			guestService.getAverageGradeForProjection($scope.selected.id).then(function(response){
+				$scope.selected.averageGradeForProjection=response.data;
+			});
+			
 		}).catch(function(response) {
 			swal({
 				  title: "Add grade",
@@ -433,6 +456,16 @@ app.controller('historyController',['$rootScope','$scope','$location','$http','G
 	$scope.confirmEditGrade=function(){
 		guestService.editGrade($scope.grade,$scope.editGrade.id).then(function(response){
 			$scope.editGrade=null;
+			$scope.selected.gradeOfProjection = $scope.grade.gradeOfProjection;
+			$scope.selected.gradeOfInstitution = $scope.grade.gradeOfInstitution;
+			
+			guestService.getAverageGradeForInstitution($scope.selected.institution.id).then(function(response){
+				$scope.selected.averageGradeForInstitution=response.data;
+			});
+			
+			guestService.getAverageGradeForProjection($scope.selected.id).then(function(response){
+				$scope.selected.averageGradeForProjection=response.data;
+			});
 		}).catch(function(response) {
 			swal({
 				  title: "Edit grade",

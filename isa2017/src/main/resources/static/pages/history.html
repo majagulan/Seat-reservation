@@ -7,7 +7,7 @@
 						<th>Institution name</th>
 						<th>Institution type</th>
 						<th>People</th>
-						<th>My grade(P & I)</th>
+						<th>My grade(Institution & Projection)</th>
 						<th>Average grade of institution</th>
 						<th>Average grade of projection</th>
 					</tr>
@@ -19,9 +19,9 @@
 						<td>{{history.institution.institutionName}}</td>
 						<td>{{history.institution.institutionType}}</td>
 						<td><p ng-repeat="friend in history.friends">{{friend.userName}} {{friend.surname}}</p></td>
-						<td>{{history.userGrade.gradeOfProjection}}  {{history.userGrade.gradeOfIntitution}}</td>
-						<td>{{history.averageGrade}}</td>
-						<td>{{grade.gradeOfProjection}}</td>
+						<td> {{history.gradeOfInstitution}}     {{history.gradeOfProjection}}</td>
+						<td>{{history.averageGradeForInstitution}}</td>
+						<td>{{history.averageGradeForProjection}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -50,12 +50,12 @@
 						<td>{{selected.institution.institutionType}}</td>
 					</tr>
 					<tr>
-						<td>Grade for order items</td>
-						<td><input class="form-control" type="number" ng-model="grade.gradeOfProjection" min="1" max="5"/></td>
-					</tr>
-					<tr>
 						<td>Grade for institution</td>
 						<td><input class="form-control" type="number" ng-model="grade.gradeOfInstitution" min="1" max="5"/></td>
+					</tr>
+					<tr>
+						<td>Grade for projection</td>
+						<td><input class="form-control" type="number" ng-model="grade.gradeOfProjection" min="1" max="5"/></td>
 					</tr>
 					<tr>
 						<td></td>

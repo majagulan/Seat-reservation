@@ -168,16 +168,26 @@ public class GuestController {
 	}
 	
 	@RequestMapping(
+			value="/getAverageGradeForProjection/{reservationId}",
+			method=RequestMethod.GET)
+	@ResponseBody
+	@Transactional
+	public Double getAverageGradeForProjection(@PathVariable("reservationId")Long reservationId){
+		return guestService.getAverageGradeForProjection(reservationId);
+	}
+	
+	@RequestMapping(
 			value="/getGradeForUser/{userId}/{reservationId}",
 			method=RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE,
-			consumes = MediaType.APPLICATION_JSON_VALUE)
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional
 	public ResponseEntity<Grade> getGradeForUser(@PathVariable("userId")Long userId,@PathVariable("reservationId")Long reservationId){
 		Grade g = guestService.getGradeForUser(userId,reservationId);
-		return new ResponseEntity<Grade>(g,HttpStatus.FOUND);
+		return new ResponseEntity<Grade>(g,HttpStatus.OK);
 	}
+	
+	
 	
 	@RequestMapping(
 			value="/deleteGrade/{reservationId}",
