@@ -33,6 +33,8 @@ public interface GuestService {
 	
 	List<ProjectionTime> getProjectionTimeForProjection(Long projectionId);
 	
+	List<ProjectionTime> getAllTimes();
+	
 	List<Order> getFastCardsForInstitution(Long institutionId);
 	
 	Reservation createReservation(Reservation reservation,Long institutionId);

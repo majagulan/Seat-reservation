@@ -118,12 +118,12 @@ insert into reservation(id, RESERVATION_START, RESERVATION_END,institution_res_i
 insert into guest_reservations(user_id,res_id) values (1,1);
 insert into guest_reservations(user_id,res_id) values (2,1);
 
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_pr_id,fast_reservation) values(1,'17-03-02',10.0,1,0,'NOTPAID',1,true);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_pr_id,fast_reservation) values(2,'17-03-02',17.47,3,0,'NOTPAID',2,true);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id,fast_reservation) values(3,'17-02-28',12.0,11,990.6,'PAID',1,3,true);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id,fast_reservation) values(4,'17-02-27',17.47,4,0,'PAID',1,3,true);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id,fast_reservation) values(5,'17-02-18',17.47,5,0,'NOTPAID',2,3,true);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status, reservation_id,projection_pr_id,fast_reservation) values(6,'17-02-28',17.47,6,0,'NOTPAID',3,3,true);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_pr_id,fast_reservation,discount) values(1,'17-03-02',10.0,1,0,'NOTPAID',1,true,10);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_pr_id,fast_reservation,discount) values(2,'17-03-02',17.47,3,0,'NOTPAID',2,true,20);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id,fast_reservation,discount) values(3,'17-02-28',12.0,11,990.6,'PAID',1,3,true,30);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id,fast_reservation,discount) values(4,'17-02-27',17.47,4,0,'PAID',1,3,true,40);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id,fast_reservation,discount) values(5,'17-02-18',17.47,5,0,'NOTPAID',2,3,true,50);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status, reservation_id,projection_pr_id,fast_reservation,discount) values(6,'17-02-28',17.47,6,0,'NOTPAID',3,3,true,60);
 
 
 insert into grade(grd_id, grd_meal, grd_res,reservation_id, guest_user_id, projection_pr_id, institution_res_id) values (1, 3, 6,1, 1, 3, 1);

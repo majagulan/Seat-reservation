@@ -32,6 +32,17 @@ public class Order implements Serializable {
 	@Column(name = "ORDER_TIME")
 	private double time;
 	
+	@Column(name = "DISCOUNT")
+	private double discount;
+	
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
+
 	@Column(name = "FAST_RESERVATION")
 	private boolean fastReservation;
 	

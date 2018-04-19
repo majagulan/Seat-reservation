@@ -322,6 +322,30 @@ public class GuestController {
 	}
 	
 	@RequestMapping(
+			value="/createCard",
+			method=RequestMethod.POST,
+			produces=MediaType.APPLICATION_JSON_VALUE,
+			consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<Order> createCard(@RequestBody Order order,@RequestParam("tableId")Long tableId,@RequestParam("resId")Long resId,@RequestParam("proId")Long proId){
+		Reservation r = guestService.getReservation(resId);
+		Projection p = institutionManagerService.getProjection(proId);
+		System.out.println(order.getDate());
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(order.getDate());
+		InstitutionTable rt=waiterService.getTable(tableId);
+		order.setTable(rt);
+		order.setReservation(r);
+		order.setPrice(p.getPrice());
+		order.setProjection(p);
+		order.setOrderStatus(OrderStatus.PAID);
+		order.setFastReservation(true);
+		Order o=waiterService.addOrder(order);
+		return new ResponseEntity<Order>(o, HttpStatus.OK);	
+	}
+	
+	@RequestMapping(
 			value="/inviteFriend",
 			method=RequestMethod.POST,
 			produces=MediaType.APPLICATION_JSON_VALUE)
@@ -359,6 +383,16 @@ public class GuestController {
 	@Transactional
 	public ResponseEntity<List<ProjectionTime>> getAllProjectionTimesForProjection(@PathVariable("projectionId")Long id){
 		return new ResponseEntity<List<ProjectionTime>>(this.guestService.getProjectionTimeForProjection(id), HttpStatus.OK);	
+	}
+	
+	@RequestMapping(
+			value="/getAllTimes",
+			method=RequestMethod.GET,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<List<ProjectionTime>> getAllTimes(){
+		return new ResponseEntity<List<ProjectionTime>>(this.guestService.getAllTimes(), HttpStatus.OK);	
 	}
 	
 	@RequestMapping(

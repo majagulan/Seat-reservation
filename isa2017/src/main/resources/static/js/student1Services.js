@@ -90,6 +90,21 @@ app.factory('GuestService', function guestService($http) {
 		});
 	}
 	
+	guestService.createCard = function(discount,time,tableNum,resId,date,proId){
+		return $http({
+			method : 'POST',
+			url: '../guests/createCard?tableId='+tableNum+"&resId="+resId+'&proId='+proId,
+			data: {
+				"date": date,
+				"time": time,
+				"discount": discount
+			}
+		
+		});
+	}
+	
+	
+	
 	guestService.getFastCardsForInstitution = function(institutionId){
 		return $http({
 			method : 'GET',
@@ -154,6 +169,13 @@ app.factory('GuestService', function guestService($http) {
 		return $http({
 			method : 'GET',
 			url: '../guests/getAllProjectionTimesForProjection/'+projectionid
+		});
+	}
+	
+	guestService.getAllTimes = function(){
+		return $http({
+			method : 'GET',
+			url: '../guests/getAllTimes/'
 		});
 	}
 	

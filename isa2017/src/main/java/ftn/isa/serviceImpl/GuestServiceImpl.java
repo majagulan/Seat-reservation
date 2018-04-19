@@ -478,4 +478,11 @@ public class GuestServiceImpl implements GuestService {
 		return o;
 	}
 
+
+	@Override
+	public List<ProjectionTime> getAllTimes() {
+		
+		return (List<ProjectionTime>) projectionTimeRepository.findAll();
+	}
+
 }

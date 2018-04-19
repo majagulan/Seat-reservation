@@ -648,9 +648,9 @@ app
 						'$rootScope',
 						'$scope',
 						'$location','ngNotify',
-						'institutionManagerService',
+						'institutionManagerService','GuestService',
 						function($rootScope, $scope, $location,ngNotify,
-								institutionManagerService) {
+								institutionManagerService,guestService) {
 							$scope.currentMonth=0;
 							$scope.display = function(tab) {
 								$scope.show = tab;
@@ -673,6 +673,9 @@ app
 								$scope.showS = tab;
 								
 							}
+							
+							
+							
 							$scope.displayRequest = function(tab) {
 								$scope.showR = tab;
 								if(tab == 1)
@@ -754,6 +757,46 @@ app
 								$scope.selectedTable = selected;
 								$scope.editTable = selected;
 							}
+							
+							$scope.getAllFastCards = function() {
+								guestService.getFastCardsForInstitution($scope.institution.id).then(function(response){
+									$scope.fastInstitutionCards = response.data;
+									$scope.show = 5;
+								});
+							}
+							
+							$scope.setUpFields = function(number) {
+								$scope.add = number;
+								institutionManagerService
+								.getAllProjections()
+								.then(
+										function(response) {
+											if (response.data) {
+												$scope.allProjections = response.data;
+											}
+										});
+								
+								guestService
+								.getAllTimes()
+								.then(
+										function(response) {
+											if (response.data) {
+												$scope.projectionTimes = response.data;
+											}
+										});
+							}
+							
+							$scope.createFastCard = function(newCard) {
+								
+								newCard.time = parseFloat(newCard.time);
+								newCard.projection.id = parseInt(newCard.projection.id);
+								guestService.createCard(newCard.discount,newCard.time,1,$scope.institution.id,newCard.date,newCard.projection.id).then(function(response){
+									$scope.fastInstitutionCards.push(response.data);
+								});
+							}
+							
+							
+							
 							
 							institutionManagerService
 									.getinstitution($rootScope.loggedUser.id)

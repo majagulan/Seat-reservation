@@ -10,7 +10,9 @@
 					<th>Projection name</th>
 					<th>Projection price</th>
 					<th>Projection type</th>
-					<th>Reserve</th>
+					<th ng-if="$rootScope.loggedUser.userType == 'GUEST'">Reserve</th>
+					<th>Discount(%)</th>
+					<th>Real price</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,9 +25,13 @@
 					<td>{{fastCard.projection.projectionName}}</td>
 					<td>{{fastCard.projection.price}}</td>
 					<td>{{fastCard.projection.projectionType}}</td>
-					<td><input class="btn btn-primary" type="button" value="Fast reserve" ng-click="fastReserve(fastCard)" /></td>
+					<td ng-if="$rootScope.loggedUser.userType == 'GUEST'"><input class="btn btn-primary" type="button" value="Fast reserve" ng-click="fastReserve(fastCard)" /></td>
+					<td>{{fastCard.discount}}</td>
+					<td>{{fastCard.projection.price - (fastCard.projection.price*fastCard.discount)/100}}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	<input class="btn btn-primary" type="button" value="AddCard" ng-click=setUpFields(1)>
+	<div ng-show="add==1" ng-include src="'pages/AddFastCard.html'"></div>
 </div>
