@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import ftn.isa.entity.Grade;
+import ftn.isa.entity.Order;
 import ftn.isa.entity.Projection;
+import ftn.isa.entity.ProjectionTime;
 import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Guest;
@@ -29,7 +31,13 @@ public interface GuestService {
 	
 	Projection getProjectionForReservation(Long reservationId);
 	
+	List<ProjectionTime> getProjectionTimeForProjection(Long projectionId);
+	
+	List<Order> getFastCardsForInstitution(Long institutionId);
+	
 	Reservation createReservation(Reservation reservation,Long institutionId);
+	
+	Order createFastReservation(Guest g,Reservation reservation,Long institutionId,Long fastCardId);
 	
 	Guest inviteFriend(Long friendId,Long resId);
 	

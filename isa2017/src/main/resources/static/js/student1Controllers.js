@@ -225,6 +225,7 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 	$scope.selectedFriends = [];
 	
 	$scope.makeReservation = false;
+	$scope.fastReservation = false
 	
 	$scope.show = null;
 	
@@ -241,11 +242,26 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 		}
 	}
 	
+	$scope.fastReserve = function(fastReserve){
+		guestService.createFastReservation(fastReserve,$scope.selected.id).then(function(response){
+				var index = $scope.fastInstitutionCards.indexOf($scope.selectedFastCard);
+				$scope.fastInstitutionCards.splice(index,1);
+				
+	    		swal({
+	    			  title: "Success!",
+	    			  text: "Fast Card Reservation made",
+	    			  type: "success",
+	    			  timer: 2000
+	 
+	    			});			   
+		});
+	}
+	
 	$scope.confirm = function(){
 		guestService.createReservation($scope.reservation,$scope.selected.id).then(function(response){
 			   var reservation = response.data
 			   angular.forEach($scope.selectedTables, function(value, key){
-				      guestService.createOrder(value,reservation.id,$scope.reservation.date,$scope.selectedinstitutionProjection.id).then(function(response){
+				      guestService.createOrder($scope.reservation.selectedProjectionTime,value,reservation.id,$scope.reservation.date,$scope.selectedinstitutionProjection.id).then(function(response){
 				    	 $scope.lastAddedOrder = response.data; 
 				      });
 			   });
@@ -292,7 +308,11 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 			$scope.show = null;
 		} else {
 			$scope.selectedinstitutionProjection = projection;
+		     guestService.getProjectionTimesForProjection($scope.selectedinstitutionProjection.id).then(function(response){
+		    	 $scope.selectedinstitutionProjection.projectionTimes = response.data; 
+			 });
 		}
+		$scope.fastReservation = false
 		
 		
 	}
@@ -304,6 +324,12 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 	
 	$scope.showMake = function(){
 		$scope.makeReservation = true;
+		$scope.fastReservation = false;
+	}
+	
+	$scope.showFast = function(){
+		$scope.fastReservation = true;
+		$scope.makeReservation = false;
 	}
 	
 	$scope.getTablesForSegment=function(id,index){
@@ -349,12 +375,25 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 					function(response) {
 						$scope.institutionProjections = response.data;
 					});
+			
+			guestService.getFastCardsForInstitution($scope.selected.id).then(
+					function(response) {
+						$scope.fastInstitutionCards = response.data;
+					});
 		}
 		
 		$scope.makeReservation = false;
 		$scope.selctedSegment = null;
 		$scope.reservation = null;
 		$scope.show = null;
+	}
+	
+	$scope.setSelectedFastCard = function(fastCard){
+		if($scope.selectedFastCard == fastCard){
+			$scope.selectedFastCard = null;
+		} else {
+			$scope.selectedFastCard = fastCard;
+		}
 	}
 	
 	systemManagerService.getinstitutions($rootScope.loggedUser.id).then(function(response){

@@ -1,6 +1,7 @@
 package ftn.isa.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -56,7 +57,7 @@ public class Reservation  implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "GUEST_RESERVATIONS", joinColumns = @JoinColumn(name = "RES_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID"))
 	@JsonIgnore
-	private Set<Guest> people;
+	private Set<Guest> people = new HashSet<Guest>();
 	
 	@DecimalMin("00.00")
 	@DecimalMax("24.00")

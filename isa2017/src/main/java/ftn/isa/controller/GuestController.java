@@ -24,9 +24,12 @@ import ftn.isa.entity.InstitutionTable;
 import ftn.isa.entity.Order;
 import ftn.isa.entity.OrderStatus;
 import ftn.isa.entity.Projection;
+import ftn.isa.entity.ProjectionTime;
 import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Guest;
+import ftn.isa.entity.users.User;
+import ftn.isa.entity.users.UserRole;
 import ftn.isa.mail.SendEmail;
 import ftn.isa.service.GuestService;
 import ftn.isa.service.InstitutionManagerService;
@@ -279,6 +282,23 @@ public class GuestController {
 	}
 	
 	@RequestMapping(
+			value="/createFastReservation/{fastCardId}/{institutionId}", 
+			method=RequestMethod.POST,
+			produces=MediaType.APPLICATION_JSON_VALUE,
+			consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<Order> createFastReservation(@RequestBody Reservation r,@PathVariable("fastCardId") Long fastCardId,@PathVariable("institutionId") Long institutionId){
+		User user = (User) session.getAttribute("user");
+		
+		if(user==null || user.getUserRole()!=UserRole.GUEST)
+			return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+		
+		Order order = guestService.createFastReservation((Guest)user,r,fastCardId,institutionId);
+		return new ResponseEntity<Order>(order, HttpStatus.OK);	
+	}
+	
+	@RequestMapping(
 			value="/createOrder",
 			method=RequestMethod.POST,
 			produces=MediaType.APPLICATION_JSON_VALUE,
@@ -293,7 +313,6 @@ public class GuestController {
 		calendar.setTime(order.getDate());
 		InstitutionTable rt=waiterService.getTable(tableId);
 		order.setTable(rt);
-		order.setTime(r.getStartTime());
 		order.setReservation(r);
 		order.setPrice(p.getPrice());
 		order.setProjection(p);
@@ -320,6 +339,26 @@ public class GuestController {
 	@Transactional
 	public ResponseEntity<List<Reservation>> getHistory(@PathVariable("id")Long id){
 		return new ResponseEntity<List<Reservation>>(this.guestService.getHistory(id), HttpStatus.OK);	
+	}
+	
+	@RequestMapping(
+			value="/getFastCardsForInstitution/{institutionid}",
+			method=RequestMethod.GET,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<List<Order>> getFastCardsForInstitution(@PathVariable("institutionid")Long institutionid){
+		return new ResponseEntity<List<Order>>(this.guestService.getFastCardsForInstitution(institutionid), HttpStatus.OK);	
+	}
+	
+	@RequestMapping(
+			value="/getAllProjectionTimesForProjection/{projectionId}",
+			method=RequestMethod.GET,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<List<ProjectionTime>> getAllProjectionTimesForProjection(@PathVariable("projectionId")Long id){
+		return new ResponseEntity<List<ProjectionTime>>(this.guestService.getProjectionTimeForProjection(id), HttpStatus.OK);	
 	}
 	
 	@RequestMapping(

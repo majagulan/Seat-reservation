@@ -27,10 +27,10 @@
 	</div>
 	
 	<div ng-if="selected != null" ng-include src="'pages/tableProjections.html'"></div>
+	<input ng-if="selected != null && selectedinstitutionProjection == null" class="btn btn-primary" type="button" value="Fast reservation" ng-click="showFast()"/>
 	
 	<div ng-if="selectedinstitutionProjection != null">
 		<input class="btn btn-primary" type="button" value="Make reservation" ng-click="showMake()"/>
-		<input class="btn btn-primary" type="button" value="Fast reservation -- U doradi"/>
 	</div>
 	<form name="myForm" novalidate>
 		<div ng-show="makeReservation!=false">
@@ -57,6 +57,19 @@
 							placeholder="Enter start time" required />
 							<span ng-show="!myForm.myDecimal2.$valid" style="color:red">Valid format is 00-24h with 1 decimal</span>
 					</div>
+					
+					<div class="form-group">
+						<label>Projection time(H in decimals):</label> 
+						<div class="styled-select blue semi-square">
+				   			<select  ng-model="reservation.selectedProjectionTime">
+								<option ng-repeat="projTime in selectedinstitutionProjection.projectionTimes" ng-selected="reservation.selectedProjectionTime == projTime.Id" value="{{projTime.startTime}}">{{projTime.startTime}}</option>
+							</select>
+				      	</div>
+					</div>
+		</div>
+		
+		<div ng-show="fastReservation!=false">
+			<div ng-include src="'pages/fastCards.html'"></div>
 		</div>
 	</form>
 	<div class="container" ng-if="myForm.$valid && makeReservation!=false">

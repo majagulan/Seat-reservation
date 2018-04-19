@@ -32,6 +32,17 @@ public class Order implements Serializable {
 	@Column(name = "ORDER_TIME")
 	private double time;
 	
+	@Column(name = "FAST_RESERVATION")
+	private boolean fastReservation;
+	
+	public boolean isFastReservation() {
+		return fastReservation;
+	}
+
+	public void setFastReservation(boolean fastReservation) {
+		this.fastReservation = fastReservation;
+	}
+
 	@ManyToOne(optional = false)
 	private InstitutionTable table;
 	

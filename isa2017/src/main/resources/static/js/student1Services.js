@@ -78,13 +78,22 @@ app.factory('GuestService', function guestService($http) {
 		});
 	}
 	
-	guestService.createOrder = function(tableNum,resId,date,proId){
+	guestService.createOrder = function(time,tableNum,resId,date,proId){
 		return $http({
 			method : 'POST',
 			url: '../guests/createOrder?tableId='+tableNum+"&resId="+resId+'&proId='+proId,
 			data: {
-				"date": date
+				"date": date,
+				"time": time
 			}
+		
+		});
+	}
+	
+	guestService.getFastCardsForInstitution = function(institutionId){
+		return $http({
+			method : 'GET',
+			url: '../guests/getFastCardsForInstitution/'+institutionId
 		
 		});
 	}
@@ -127,6 +136,24 @@ app.factory('GuestService', function guestService($http) {
 					"startTime": reservation.startTime,
 					"endTime": reservation.endTime
 			}	
+		});
+	}
+	
+	guestService.createFastReservation = function(fastCard,insId){
+		return $http({
+			method : 'POST',
+			url: '../guests/createFastReservation/'+ fastCard.id +'/'+insId,
+			data: {
+					"startTime": fastCard.time,
+					"endTime": fastCard.time
+			}	
+		});
+	}
+	
+	guestService.getProjectionTimesForProjection = function(projectionid){
+		return $http({
+			method : 'GET',
+			url: '../guests/getAllProjectionTimesForProjection/'+projectionid
 		});
 	}
 	

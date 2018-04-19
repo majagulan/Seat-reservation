@@ -23,4 +23,7 @@ public interface OrderRepository extends CrudRepository<Order, Long>{
 	@Query("select o from Reservation r inner join r.orders as o where r.institution = ?1 and o.date between ?2 and ?3")
 	List<Order> getReservationsOfInstitutionForWeek(Institution rest, Date date, Date end);
 	
+	@Query("select o from Order o inner join o.table as table inner join table.segment as segment inner join segment.institution as ins where ins=?1 and o.fastReservation=true")
+	List<Order> getFastCardsForInstitution(Institution i);
+	
 }

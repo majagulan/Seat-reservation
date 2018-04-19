@@ -85,6 +85,18 @@ public class Projection implements Serializable {
 	@JsonIgnore
 	private Set<Grade> grades = new HashSet<Grade>();
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "projection", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private Set<ProjectionTime> projectionTimes = new HashSet<ProjectionTime>();
+	
+	@JsonIgnore
+	public Set<ProjectionTime> getProjectionTimes() {
+		return projectionTimes;
+	}
+	@JsonProperty
+	public void setProjectionTimes(Set<ProjectionTime> projectionTimes) {
+		this.projectionTimes = projectionTimes;
+	}
 	@JsonIgnore
 	public Set<Grade> getGrades() {
 		return grades;

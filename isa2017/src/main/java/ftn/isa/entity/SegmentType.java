@@ -4,6 +4,6 @@ import java.io.Serializable;
 
 public enum SegmentType implements Serializable{
 	
-	VIP,BOX,PARTERRE
+	VIP,BOX,PARTERRE,SEGMENT1,SEGMENT2,SEGMENT3
 
 }

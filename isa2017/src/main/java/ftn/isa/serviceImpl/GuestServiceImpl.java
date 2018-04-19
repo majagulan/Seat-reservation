@@ -18,6 +18,7 @@ import ftn.isa.entity.InstitutionTable;
 import ftn.isa.entity.Order;
 import ftn.isa.entity.OrderStatus;
 import ftn.isa.entity.Projection;
+import ftn.isa.entity.ProjectionTime;
 import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Friend;
@@ -31,7 +32,9 @@ import ftn.isa.repository.FriendRepository;
 import ftn.isa.repository.GradeRepository;
 import ftn.isa.repository.GuestRepository;
 import ftn.isa.repository.InstitutionRepository;
+import ftn.isa.repository.OrderRepository;
 import ftn.isa.repository.ProjectionRepository;
+import ftn.isa.repository.ProjectionTimeRepository;
 import ftn.isa.repository.ReservationRepository;
 import ftn.isa.repository.SegmentRepository;
 import ftn.isa.service.GuestService;
@@ -61,10 +64,16 @@ public class GuestServiceImpl implements GuestService {
 	private GradeRepository gradeRepository;
 	
 	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
 	private ProjectionRepository projectionRepository;
 	
 	@Autowired
 	private InstitutionRepository institutionRepository;
+	
+	@Autowired
+	private ProjectionTimeRepository projectionTimeRepository;
 	
 	@Autowired
 	private HttpSession session;
@@ -440,6 +449,33 @@ public class GuestServiceImpl implements GuestService {
 	public Projection getProjectionForReservation(Long reservationId) {
 		Reservation r = reservationRepository.findOne(reservationId);
 		return projectionRepository.findProjectionByReservation(r);
+	}
+
+
+	@Override
+	public List<ProjectionTime> getProjectionTimeForProjection(Long projectionId) {
+		Projection p = projectionRepository.findOne(projectionId);
+		return projectionTimeRepository.getAllProjectionTimeForProjection(p);
+	}
+
+	@Override
+	public List<Order> getFastCardsForInstitution(Long institutionId) {
+		Institution i = institutionRepository.findOne(institutionId);
+		return orderRepository.getFastCardsForInstitution(i);
+	}
+
+
+	@Override
+	public Order createFastReservation(Guest g,Reservation reservation, Long institutionId, Long fastCardId) {
+		Order o = orderRepository.findOne(fastCardId);
+		Institution i = institutionRepository.findOne(institutionId);
+		reservation.setinstitution(i);
+		reservation.getPeople().add(g);
+		o.setReservation(reservation);
+		o.setOrderStatus(OrderStatus.PAID);
+		o.setFastReservation(false);
+		reservationRepository.save(reservation);
+		return o;
 	}
 
 }

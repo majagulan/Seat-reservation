@@ -65,6 +65,10 @@ insert into segment(id, sgm_pos, institution_res_id, height, width) values(1,'VI
 insert into segment(id, sgm_pos, institution_res_id, height, width) values(2,'BOX',1,5,3);
 insert into segment(id, sgm_pos, institution_res_id, height, width) values(3,'PARTERRE',1,4,6);
 
+insert into segment(id, sgm_pos, institution_res_id, height, width) values(4,'SEGMENT1',2,4,3);
+insert into segment(id, sgm_pos, institution_res_id, height, width) values(5,'SEGMENT2',2,5,3);
+insert into segment(id, sgm_pos, institution_res_id, height, width) values(6,'SEGMENT3',2,4,6);
+
 insert into institution_table(id, res_free,segment_id, table_row, table_column) values(1,true,1,0,0);
 insert into institution_table(id, res_free, segment_id, table_row, table_column) values(2,true,1,0,2);
 insert into institution_table(id, res_free ,segment_id, table_row, table_column) values(3,true,1,1,1);
@@ -76,8 +80,28 @@ insert into institution_table(id, res_free,  segment_id, table_row, table_column
 insert into institution_table(id, res_free, segment_id, table_row, table_column) values(6,true,2,1,2);
 insert into institution_table(id, res_free,  segment_id, table_row, table_column) values(7,true,3,1,3);
 insert into institution_table(id, res_free,  segment_id, table_row, table_column) values(8,true,3,1,4);
+insert into institution_table(id, res_free,segment_id, table_row, table_column) values(12,true,4,0,0);
+insert into institution_table(id, res_free, segment_id, table_row, table_column) values(13,true,4,0,2);
+insert into institution_table(id, res_free ,segment_id, table_row, table_column) values(14,true,4,1,1);
+insert into institution_table(id, res_free, segment_id, table_row, table_column) values(15,true,4,2,1);
+insert into institution_table(id, res_free,  segment_id, table_row, table_column) values(16,true,4,2,0);
+insert into institution_table(id, res_free,  segment_id, table_row, table_column) values(17,true,4,2,2);
+insert into institution_table(id, res_free,  segment_id, table_row, table_column) values(18,true,5,0,0);
+insert into institution_table(id, res_free,  segment_id, table_row, table_column) values(19,true,5,0,1);
+insert into institution_table(id, res_free, segment_id, table_row, table_column) values(20,true,5,1,2);
+insert into institution_table(id, res_free,  segment_id, table_row, table_column) values(21,true,6,1,3);
+insert into institution_table(id, res_free,  segment_id, table_row, table_column) values(22,true,6,1,4);
 
-
+insert into projection_time(id,start_time,projection_pr_id) values (1,10.0,1);
+insert into projection_time(id,start_time,projection_pr_id) values (2,12.0,1);
+insert into projection_time(id,start_time,projection_pr_id) values (3,14.0,1);
+insert into projection_time(id,start_time,projection_pr_id) values (4,16.0,1);
+insert into projection_time(id,start_time,projection_pr_id) values (5,18.0,1);
+insert into projection_time(id,start_time,projection_pr_id) values (6,20.0,1);
+insert into projection_time(id,start_time,projection_pr_id) values (7,11.0,2);
+insert into projection_time(id,start_time,projection_pr_id) values (8,13.0,2);
+insert into projection_time(id,start_time,projection_pr_id) values (9,15.0,2);
+insert into projection_time(id,start_time,projection_pr_id) values (10,17.0,2);
 
 insert into reservation(id,reservation_start,reservation_end,institution_res_id) values (1,12.0,13.30,1);
 insert into reservation(id, RESERVATION_START, RESERVATION_END,institution_res_id) values (2, 20.20, 21.20,1);
@@ -89,12 +113,12 @@ insert into reservation(id, RESERVATION_START, RESERVATION_END,institution_res_i
 insert into guest_reservations(user_id,res_id) values (1,1);
 insert into guest_reservations(user_id,res_id) values (2,1);
 
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_pr_id) values(1,'17-03-02',10.0,1,0,'NOTPAID',1);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_pr_id) values(2,'17-03-02',17.47,3,0,'NOTPAID',2);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id) values(3,'17-02-28',12.0,11,990.6,'PAID',1,3);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id) values(4,'17-02-27',17.47,3,0,'PAID',1,3);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id) values(5,'17-02-18',17.47,3,0,'NOTPAID',2,3);
-insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status, reservation_id,projection_pr_id) values(6,'17-02-28',17.47,3,0,'NOTPAID',3,3);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_pr_id,fast_reservation) values(1,'17-03-02',10.0,1,0,'NOTPAID',1,true);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status,projection_pr_id,fast_reservation) values(2,'17-03-02',17.47,3,0,'NOTPAID',2,true);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id,fast_reservation) values(3,'17-02-28',12.0,11,990.6,'PAID',1,3,true);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id,fast_reservation) values(4,'17-02-27',17.47,4,0,'PAID',1,3,true);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id, price,order_status, reservation_id,projection_pr_id,fast_reservation) values(5,'17-02-18',17.47,5,0,'NOTPAID',2,3,true);
+insert into res_ord(res_ord_id, res_ord_date, order_time, table_id,price,order_status, reservation_id,projection_pr_id,fast_reservation) values(6,'17-02-28',17.47,6,0,'NOTPAID',3,3,true);
 
 
 insert into grade(grd_id, grd_meal, grd_res,reservation_id, guest_user_id, projection_pr_id, institution_res_id) values (1, 3, 6,1, 1, 3, 1);
