@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     
-    working_directory: ~/Seat-reservation
+    working_directory: ~/Seat-reservation/isa2017
 
     docker:
       - image: circleci/openjdk:8-jdk-browsers
@@ -16,14 +16,14 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: Seat-reservation-{{ checksum "pom.xml" }}
+          key: Seat-reservation/isa2017-{{ checksum "pom.xml" }}
       
       - run: mvn dependency:go-offline
       
       - save_cache:
           paths:
             - ~/.m2
-          key: Seat-reservation-{{ checksum "pom.xml" }}
+          key: Seat-reservation/isa2017-{{ checksum "pom.xml" }}
       
       - run: mvn package
       
@@ -31,4 +31,4 @@ jobs:
           path: target/surefire-reports
       
       - store_artifacts:
-path: target/Seat-reservation-0.0.1-SNAPSHOT.jar
+path: target/Seat-reservation/isa2017-0.0.1-SNAPSHOT.jar
