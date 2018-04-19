@@ -1,11 +1,11 @@
-<h2 class="page-header">Register bidder</h2>
+<h2 class="page-header">Register fun manager</h2>
 <div class="alert alert-danger" ng-show="error">
 	<p>Code or name already exists!</p>
 </div>
 <form name="myForm" novalidate>
 	<div class="form-group">
 		<label>Name:</label> <input type="text" name="name"
-			ng-Model="$parent.newBidder.userName" class="form-control"
+			ng-Model="$parent.funManager.userName" class="form-control"
 			placeholder="Enter name" required pattern = "^[A-Z][a-z A-Z]*"/>
 	</div>
 		<div role="alert" style="color:red">
@@ -14,7 +14,7 @@
     </div>
 	<div class="form-group">
 		<label>Surname:</label> <input type="text" name="surname"
-			ng-Model="$parent.newBidder.surname" class="form-control"
+			ng-Model="$parent.funManager.surname" class="form-control"
 			placeholder="Enter surname" required pattern = "^[A-Z][a-z A-Z]*"/>
 	</div>
 		<div role="alert" style="color:red">
@@ -23,7 +23,7 @@
     </div>
 	<div class="form-group">
 		<label>Email:</label> <input type="text" name="email"
-			ng-Model="$parent.newBidder.email" class="form-control"
+			ng-Model="$parent.funManager.email" class="form-control"
 			placeholder="Enter email" required />
 	</div>
 		<div role="alert" style="color:red">
@@ -32,17 +32,17 @@
     </div>
 	<div class="form-group">
 		<label>Password:</label> <input type="password" name="pas"
-			ng-Model="$parent.newBidder.password" class="form-control"
+			ng-Model="$parent.funManager.password" class="form-control"
 			placeholder="Enter password" required />
 	</div>
 	<div class="form-group">
 		<label>Date of birth:</label> <input type="date"
-			ng-Model="$parent.newBidder.dateOfBirth" class="form-control"
+			ng-Model="$parent.funManager.dateOfBirth" class="form-control"
 			placeholder="Enter date of birth" />
 	</div>
 	<div class="form-group">
 		<button type="submit"
-			class="btn btn-success" ng-Click="$parent.registerBidder()" ng-disabled="myForm.$invalid"
+			class="btn btn-success" ng-Click="$parent.registerFunManager()" ng-disabled="myForm.$invalid"
 			>Submit</button>
 	</div>
 </form>

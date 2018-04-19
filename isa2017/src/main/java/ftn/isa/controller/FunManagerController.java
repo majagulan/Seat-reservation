@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.RequestOffer;
+import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.users.FunManager;
 import ftn.isa.service.FunManagerService;
 
@@ -44,6 +44,13 @@ public class FunManagerController {
 	@Transactional
 	public ResponseEntity<List<RequisiteOffer>> getBiddings(@RequestParam(value = "id") Long bidder_id) {
 		return bidderService.getAllBiddingsForThisBidder(bidder_id);
+	}
+	
+	@RequestMapping(value = "/getAllFunManagers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<Iterable<FunManager>> getAllFunManagers() {
+		return bidderService.getAllFunManagers();
 	}
 	
 	@RequestMapping(value = "/getRequestOffer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

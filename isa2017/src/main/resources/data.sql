@@ -23,13 +23,18 @@ insert into institution(res_id, res_desc, res_name, ins_type, adr_ins) values(1,
 insert into institution(res_id, res_desc, res_name, ins_type, adr_ins) values(2,'Opis pozorista','Narodno pozoriste Novi Sad', 'THEATER', 'Kisacka 25');
 
 
-insert into guest (user_id,status) values (1,'ACTIVE');
-insert into guest (user_id,status) values (2,'ACTIVE');
-insert into guest (user_id,status) values (13,'ACTIVE');
-insert into guest (user_id,status) values (14,'ACTIVE');
-insert into guest (user_id,status) values (15,'ACTIVE');
-insert into guest (user_id,status) values (16,'ACTIVE');
+insert into user_rank(user_rank_id,user_rank_type,user_rank_scale) values(1,'GOLD',200);
+insert into user_rank(user_rank_id,user_rank_type,user_rank_scale) values(2,'SILVER',100);
+insert into user_rank(user_rank_id,user_rank_type,user_rank_scale) values(3,'BRONZE',50);
+
+insert into guest (user_id,status,guest_points,user_rank_user_rank_id) values (1,'ACTIVE',220,1);
+insert into guest (user_id,status,guest_points,user_rank_user_rank_id) values (2,'ACTIVE',150,2);
+insert into guest (user_id,status,guest_points,user_rank_user_rank_id) values (13,'ACTIVE',30,3);
+insert into guest (user_id,status,guest_points,user_rank_user_rank_id) values (14,'ACTIVE',20,3);
+insert into guest (user_id,status,guest_points,user_rank_user_rank_id) values (15,'ACTIVE',11,3);
+insert into guest (user_id,status,guest_points,user_rank_user_rank_id) values (16,'ACTIVE',23,3);
 insert into system_manager (user_id, predefined) values (7, true);
+
 
 insert into friend(sender_id,reciever_id,status) values(1,2,false);
 insert into friend(sender_id,reciever_id,status) values(1,14,false);

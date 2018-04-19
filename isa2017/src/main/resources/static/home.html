@@ -16,6 +16,8 @@
 		<div id="systemButtons" ng-if="loggedUser.userRole=='SYSTEMMANAGER'">
 			<button type="button" class="btn btn-primary" ng-click=showView(7)>Institutions</button>
 			<button type="button" class="btn btn-primary" ng-click=showView(8)>System managers</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(19)>Fun managers</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(18)>User ranks</button>
 		</div>
 		<div id="bidderButtons" ng-if="loggedUser.userRole=='FUNMANAGER'">
 			<button type="button" class="btn btn-primary" ng-click=showView(15)>All
@@ -60,5 +62,9 @@
 	<div ng-if="show==16" ng-include src="'pages/institutionReports.html'"></div>
 	
 	<div ng-if="show==17" ng-include src="'pages/publishOffer.html'"></div>
+	
+	<div ng-if="show==18" ng-include src="'pages/userRanks.html'"></div>
+	
+	<div ng-if="show==19" ng-include src="'funManagers.html'"></div>
 
 </div>

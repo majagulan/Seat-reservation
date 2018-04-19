@@ -24,6 +24,13 @@ app.factory('SystemManagerService', function systemManagerService($http) {
 		});
 	}
 	
+	systemManagerService.getUserRanks = function() {
+		return $http({
+			method : 'GET',
+			url : '../systemmanagers/getAllUserRanks'
+		});
+	}
+	
 	systemManagerService.registerInstitution = function(institution) {
 		return $http({
 			method : 'POST',
@@ -106,6 +113,21 @@ app.factory('SystemManagerService', function systemManagerService($http) {
 					+ system_manager_id
 		});
 	}
+	
+	systemManagerService.deleteFunManager = function(fun_manager_id) {
+		return $http({
+			method : 'DELETE',
+			url : '../systemmanagers/deleteFunManager?id='
+					+ fun_manager_id
+		});
+	}
+	
+	systemManagerService.changeScale = function(userRankId,newScale) {
+		return $http({
+			method : 'PUT',
+			url : '../systemmanagers/changeScale/'+userRankId+'/'+newScale
+		});
+	}	
 
 	return systemManagerService;
 
@@ -117,6 +139,13 @@ app.factory('BidderService', function bidderService($http) {
 		return $http({
 			method : 'GET',
 			url : '../bidders/getActiveRequestOffers'
+		});
+	}
+	
+	bidderService.getAllFunManagers = function() {
+		return $http({
+			method : 'GET',
+			url : '../bidders/getAllFunManagers'
 		});
 	}
 
@@ -375,7 +404,7 @@ app
 								"email" : b.email,
 								"password" : b.password,
 								"dateOfBirth" : b.dateOfBirth,
-								"userRole" : "BIDDER"
+								"userRole" : "FUNMANAGER"
 							}
 						});
 					}

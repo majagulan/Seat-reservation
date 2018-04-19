@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.isa.entity.Institution;
+import ftn.isa.entity.users.FunManager;
 import ftn.isa.entity.users.InstitutionManager;
 import ftn.isa.entity.users.SystemManager;
+import ftn.isa.entity.users.UserRank;
 import ftn.isa.service.SystemManagerService;
 
 @RestController
@@ -44,6 +47,20 @@ public class SystemManagerController {
 	@Transactional
 	public ResponseEntity<List<Institution>> getAllinstitutions() {
 		return systemManagerService.getAllinstitutions();
+	}
+	
+	@RequestMapping(value = "/getAllUserRanks", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<Iterable<UserRank>> getAllUserRanks() {
+		return systemManagerService.getAllUserRanks();
+	}
+	
+	@RequestMapping(value = "/changeScale/{userRankId}/{newScale}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<UserRank> getAllUserRanks(@PathVariable("userRankId") Long userRankId, @PathVariable("newScale") Double newScale) {
+		return systemManagerService.changeScale(userRankId, newScale);
 	}
 	
 	@RequestMapping(value = "/getinstitutionManagersForinstitution", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -100,6 +117,14 @@ public class SystemManagerController {
 	public ResponseEntity<SystemManager>  deleteSystemManager(@RequestParam(value="id") Long r_id) {
 		return systemManagerService.removeSystemManager(r_id);
 	}
+	
+	@RequestMapping(value = "/deleteFunManager", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<FunManager>  deleteFunManager(@RequestParam(value="id") Long fun_manager_id) {
+		return systemManagerService.removeFunManager(fun_manager_id);
+	}
+	
 	@RequestMapping(value = "/deleteinstitutionManager", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional

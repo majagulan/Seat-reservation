@@ -9,11 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ftn.isa.entity.Institution;
+import ftn.isa.entity.users.FunManager;
 import ftn.isa.entity.users.InstitutionManager;
 import ftn.isa.entity.users.SystemManager;
+import ftn.isa.entity.users.UserRank;
+import ftn.isa.repository.FunManagerRepository;
 import ftn.isa.repository.InstitutionManagerRepository;
 import ftn.isa.repository.InstitutionRepository;
 import ftn.isa.repository.SystemManagerRepository;
+import ftn.isa.repository.UserRankRepository;
 import ftn.isa.service.SystemManagerService;
 import ftn.isa.service.UserRepository;
 
@@ -26,9 +30,15 @@ public class SystemManagerServiceImpl implements SystemManagerService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserRankRepository userRankRepository;
 
 	@Autowired
 	private InstitutionManagerRepository institutionManagerRepository;
+	
+	@Autowired
+	private FunManagerRepository funManagerRepository;
 
 	@Autowired
 	private InstitutionRepository institutionRepository;
@@ -111,6 +121,27 @@ public class SystemManagerServiceImpl implements SystemManagerService {
 	public ResponseEntity<List<SystemManager>> getAllSystemManager() {
 		return new ResponseEntity<List<SystemManager>>((List<SystemManager>) this.systemManagerRepository.findAll(),
 				HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<Iterable<UserRank>> getAllUserRanks() {
+		return new ResponseEntity<Iterable<UserRank>>(this.userRankRepository.findAll(),HttpStatus.OK);
+		
+	}
+
+	@Override
+	public ResponseEntity<UserRank> changeScale(Long userRankId, Double scale) {
+		UserRank userRank = userRankRepository.findOne(userRankId);
+		userRank.setUserRankScale(scale);
+		userRankRepository.save(userRank);
+		return new ResponseEntity<UserRank>(userRank,HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<FunManager> removeFunManager(Long fm_id) {
+		
+		this.funManagerRepository.delete(fm_id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

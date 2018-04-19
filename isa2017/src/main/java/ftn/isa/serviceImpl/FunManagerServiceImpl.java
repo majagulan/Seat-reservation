@@ -98,4 +98,9 @@ public class FunManagerServiceImpl implements FunManagerService {
 		return new ResponseEntity<RequisiteOffer>(this.bidderOfferRepository.findOne(id), HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<Iterable<FunManager>> getAllFunManagers() {
+		return new ResponseEntity<Iterable<FunManager>>(this.bidderRepository.findAll(),HttpStatus.OK);
+	}
+
 }

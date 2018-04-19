@@ -31,7 +31,159 @@ app.directive('ngConfirmClick', [
                 }
             };
     }]);
+
+
+app
+.controller(
+		'userRankController',
+		[
+				'$rootScope',
+				'$scope',
+				'$location','ngNotify',
+				'SystemManagerService',
+				function($rootScope, $scope, $location,
+						ngNotify, systemManagerService) {
+					
+					$scope.showEditUserRank = false;
+					
+					systemManagerService.getUserRanks().then(
+							function(response) {
+								$scope.userRanks = response.data;
+								angular.forEach($scope.userRanks, function(value, key){
+									switch(value.userRankType) {
+								    case 'GOLD':
+								    	$scope.goldScale = value.userPointsRankScale;
+								        break;
+								    case 'SILVER':
+								    	$scope.silverScale = value.userPointsRankScale;
+								        break;
+								    case 'BRONZE':
+								    	$scope.bronzeScale = value.userPointsRankScale;
+								        break;
+									}
+								});
+					});
+
+					$scope.setSelectedUserRank = function(userRank) {
+						if($scope.selectedUserRank == userRank){
+							$scope.selectedUserRank = null;
+							$scope.showEditUserRank = false;
+						}else {
+							$scope.selectedUserRank = userRank;
+							
+							switch(userRank.userRankType) {
+						    case 'GOLD':
+						    	$scope.max = 1000;
+						    	$scope.newScale = userRank.userPointsRankScale;
+						    	$scope.min = $scope.silverScale+1;
+						        break;
+						    case 'SILVER':
+						    	$scope.max = $scope.goldScale-1;
+						    	$scope.newScale = userRank.userPointsRankScale;
+						    	$scope.min = $scope.bronzeScale+1;
+						        break;
+						    case 'BRONZE':
+						    	$scope.max = $scope.silverScale-1;
+						    	$scope.newScale = userRank.userPointsRankScale;
+						    	$scope.min = 0
+						        break;
+							}
+							
+						}
+					}
+					
+					
+					$scope.confirmEdit = function(newScale){
+						systemManagerService.changeScale($scope.selectedUserRank.id,newScale).then(
+								function(response) {
+									var index = $scope.userRanks.indexOf($scope.selectedUserRank);
+									$scope.userRanks[index] = response.data;
+									switch(response.data.userRankType) {
+								    case 'GOLD':
+								    	$scope.goldScale = response.data.userPointsRankScale;
+								        break;
+								    case 'SILVER':
+								    	$scope.silverScale = response.data.userPointsRankScale;
+								        break;
+								    case 'BRONZE':
+								    	$scope.bronzeScale = response.data.userPointsRankScale;
+								        break;
+									}
+									$scope.selectedUserRank = null;
+								});
+					}
+					
+					
+		} ]);
     
+
+app
+.controller(
+		'funManagersController',
+		[
+				'$rootScope',
+				'$scope',
+				'$location','ngNotify','SystemManagerService',
+				'institutionManagerService','BidderService',
+				function($rootScope, $scope, $location,
+						ngNotify, systemManagerService,institutionManagerService,bidderService) {
+					
+
+					
+					bidderService.getAllFunManagers().then(
+							function(response) {
+								$scope.funManagers = response.data;
+							});
+
+					$scope.setSelectedFunManager = function(funManager) {
+						if($scope.selectedFunManager == funManager){
+							$scope.selectedFunManager = null;
+						}else {
+							$scope.selectedFunManager = funManager;
+						}
+					}
+					$scope.display = function(number){
+						$scope.show = number;
+					}
+					
+					$scope.registerFunManager = function(){
+						institutionManagerService.registerBidder($scope.funManager).then(
+								function(response) {
+									$scope.funManagers.push(response.data);
+									$scope.show = null;
+								});
+					}
+					$scope.deleteFunManager = function() {
+						systemManagerService
+								.deleteFunManager(
+										$scope.selectedFunManager.id)
+								.then(
+										function(response) {
+											if (response.status == 200) {
+												var index = $scope.funManagers
+														.indexOf($scope.selectedFunManager);
+												$scope. funManagers
+														.splice(index,
+																1);
+												$scope.show = null;
+												ngNotify.set('Successfuly deleted' , {
+													type : 'success',
+													theme : 'pitchy'
+												});
+												$selectedFunManager = null;
+											} 
+										}).catch(function(response) {
+											ngNotify.set('Delete error' , {
+												type : 'error',
+											    sticky: true
+											});
+											   console.error('Gists error', response.status, response.data)
+										  });
+
+					}
+					
+					
+} ]);
 app
 		.controller(
 				'systemManagerController',
@@ -42,6 +194,8 @@ app
 						'SystemManagerService',
 						function($rootScope, $scope, $location,
 								ngNotify, systemManagerService) {
+							
+
 
 							$scope.display = function(tab) {
 								if(tab == 1)

@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.RequestOffer;
+import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.users.FunManager;
 
 public interface FunManagerService {
@@ -27,6 +27,8 @@ public interface FunManagerService {
 	ResponseEntity<RequestOffer> getRequestOffer(Long id);
 
 	ResponseEntity<RequisiteOffer> getBidderOffer(Long id);
+	
+	ResponseEntity<Iterable<FunManager>> getAllFunManagers();
 	
 	
 }

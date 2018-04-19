@@ -4,11 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -39,6 +41,25 @@ public class Guest extends User {
 	@JsonIgnore
 	private Set<Grade> grades;
 	
+	@ManyToOne
+	private UserRank userRank;
+	
+	@Column(name = "guest_points")
+	private double guestPoints;
+	
+	public double getGuestPoints() {
+		return guestPoints;
+	}
+	public void setGuestPoints(double guestPoints) {
+		this.guestPoints = guestPoints;
+	}
+	public UserRank getUserRank() {
+		return userRank;
+	}
+	public void setUserRank(UserRank userRank) {
+		this.userRank = userRank;
+	}
+
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "people", cascade=CascadeType.ALL)
 	@JsonIgnore
 	private Set<Reservation> reservations;

@@ -1,0 +1,34 @@
+<h1 class="page-header">User ranks</h1>
+<div class="container" ng-controller="userRankController">
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Type</th>
+					<th>Scale</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="userRank in userRanks"
+					ng-click="setSelectedUserRank(userRank)"
+					ng-class="{'info' : selectedUserRank===userRank}">
+					<td>{{userRank.id}}</td>
+					<td>{{userRank.userRankType}}</td>
+					<td>{{userRank.userPointsRankScale}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div ng-if='selectedUserRank !=null'>
+				<div class="slidecontainer">
+		  <input type="range" name="range" ng-model="newScale" value="{{newScale}}" min="{{min}}" class="slider" max="{{max}}">
+ 			 New scale value: {{newScale}}
+ 			 <input class="btn btn-primary" type="button" value="Confirm change" ng-click="confirmEdit(newScale)"/>
+		</div>
+	</div>
+	
+</div>
+
+
