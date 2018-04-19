@@ -1,4 +1,4 @@
-package ftn.isa.service;
+package ftn.isa;
 
 import static org.junit.Assert.assertEquals;
 
