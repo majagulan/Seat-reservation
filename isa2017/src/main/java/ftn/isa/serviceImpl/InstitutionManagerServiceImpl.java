@@ -22,8 +22,12 @@ import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.RequisiteOfferStatus;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.FunManager;
+import ftn.isa.entity.users.Guest;
 import ftn.isa.entity.users.InstitutionManager;
+import ftn.isa.entity.users.User;
+import ftn.isa.entity.users.UserRole;
 import ftn.isa.repository.FunManagerRepository;
+import ftn.isa.repository.GuestRepository;
 import ftn.isa.repository.InstitutionManagerRepository;
 import ftn.isa.repository.InstitutionRepository;
 import ftn.isa.repository.InstitutionTableRepository;
@@ -46,6 +50,9 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 
 	@Autowired
 	private InstitutionRepository institutionRepository;
+	
+	@Autowired
+	private GuestRepository guestRepository;
 
 	@Autowired
 	private ProjectionRepository projectionRepository;
@@ -190,12 +197,22 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 		if (ro.getExpirationDate().before(ro.getStartDate()))
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		if (!date.equals(now)) {
-			ro.setStatus(false);
 			if (ro.getStartDate().before(new Date()))
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		FunManager rm = this.bidderRepository.findOne(r_id);
-		ro.setFunManager(rm);
+		
+		
+		User u = this.userRepository.findOne(r_id);
+		
+		if(u.getUserRole().equals(UserRole.GUEST)) {
+			Guest g = (Guest)u;
+			ro.setGuest(g);
+			ro.setStatus(false);
+		} else if (u.getUserRole().equals(UserRole.FUNMANAGER)) {
+			FunManager f = (FunManager)u;
+			ro.setFunManager(f);
+			ro.setStatus(true);
+		}
 		return new ResponseEntity<RequestOffer>(this.requestOfferRepository.save(ro), HttpStatus.OK);
 	}
 
@@ -407,5 +424,12 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 		temp.setFirstLogIn(im.isFirstLogIn());
 		return new ResponseEntity<InstitutionManager>(this.institutionManagerRepository.save(temp),HttpStatus.OK);
 		
+	}
+
+	@Override
+	public ResponseEntity<List<RequestOffer>> getAllRequestOffersForGuest(Long id) {
+		return new ResponseEntity<List<RequestOffer>>(
+				this.requestOfferRepository.findByGuest(this.guestRepository.findOne(id)),
+				HttpStatus.OK);
 	}
 }

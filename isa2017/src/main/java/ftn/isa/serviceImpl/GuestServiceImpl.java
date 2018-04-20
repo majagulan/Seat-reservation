@@ -19,6 +19,7 @@ import ftn.isa.entity.Order;
 import ftn.isa.entity.OrderStatus;
 import ftn.isa.entity.Projection;
 import ftn.isa.entity.ProjectionTime;
+import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Friend;
@@ -35,6 +36,7 @@ import ftn.isa.repository.InstitutionRepository;
 import ftn.isa.repository.OrderRepository;
 import ftn.isa.repository.ProjectionRepository;
 import ftn.isa.repository.ProjectionTimeRepository;
+import ftn.isa.repository.RequestOfferRepository;
 import ftn.isa.repository.ReservationRepository;
 import ftn.isa.repository.SegmentRepository;
 import ftn.isa.service.GuestService;
@@ -56,6 +58,9 @@ public class GuestServiceImpl implements GuestService {
 	
 	@Autowired
 	private SegmentRepository segmentRepository;
+	
+	@Autowired
+	private RequestOfferRepository requestOfferRepository;
 	
 	@Autowired
 	private ReservationRepository reservationRepository;
@@ -491,6 +496,29 @@ public class GuestServiceImpl implements GuestService {
 		Projection p = projectionRepository.findOne(projectionId);
 		Double d = gradeRepository.getAverageGradeForProjection(p);
 		return d;
+	}
+
+
+	@Override
+	public ResponseEntity<List<RequestOffer>> getAllNonActiveRequestOffers() {
+		List<RequestOffer> requestOffers = requestOfferRepository.getAllNonActiveRequestOffers();
+		return new ResponseEntity<List<RequestOffer>>(requestOffers,HttpStatus.OK);
+	}
+
+
+	@Override
+	public ResponseEntity<RequestOffer> activateRequestOffer(Long reqId) {
+		RequestOffer rq = requestOfferRepository.findOne(reqId);
+		rq.setStatus(true);
+		return new ResponseEntity<RequestOffer>(this.requestOfferRepository.save(rq),HttpStatus.OK);
+	}
+
+
+	@Override
+	public ResponseEntity<RequestOffer> destroyRequestOffer(Long reqId) {
+		RequestOffer rq = requestOfferRepository.findOne(reqId);
+		this.requestOfferRepository.delete(reqId);
+		return new ResponseEntity<RequestOffer>(rq,HttpStatus.OK);
 	}
 
 }

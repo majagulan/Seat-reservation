@@ -169,6 +169,13 @@ public class InstitutionManagerController {
 	public ResponseEntity<List<RequestOffer>> getAllRequestOffersForManager(@RequestParam(value = "id") Long id) {
 		return institutionManagerService.getAllRequestOffersForManager(id);
 	}
+	
+	@RequestMapping(value = "/getAllRequestOffersForGuest", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<List<RequestOffer>> getAllRequestOffersForGuest(@RequestParam(value = "id") Long id) {
+		return institutionManagerService.getAllRequestOffersForGuest(id);
+	}
 
 	@RequestMapping(value = "/getAllBidderOffersForRequestOffer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

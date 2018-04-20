@@ -5,14 +5,26 @@
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>Name</th>
-						<th>Description</th>
+						<th><a href="#!/home" ng-click="sortInstitutionType = 'name'; sortInstitutionReverse = !sortInstitutionReverse">
+            Name
+            <span ng-show="sortInstitutionType == 'name' && !sortInstitutionReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortInstitutionType == 'name' && sortInstitutionReverse" class="fa fa-caret-up"></span>
+          </a></th>
+						<th><a href="#!/home" ng-click="sortInstitutionType = 'description'; sortInstitutionReverse = !sortInstitutionReverse">
+            Description
+            <span ng-show="sortInstitutionType == 'description' && !sortInstitutionReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortInstitutionType == 'description' && sortInstitutionReverse" class="fa fa-caret-up"></span>
+          </a></th>
 						<th>Type of institution</th>
-						<th>Address</th>
+						<th><a href="#!/home" ng-click="sortInstitutionType = 'adress'; sortInstitutionReverse = !sortInstitutionReverse">
+            Address
+            <span ng-show="sortInstitutionType == 'adress' && !sortInstitutionReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortInstitutionType == 'adress' && sortInstitutionReverse" class="fa fa-caret-up"></span>
+          </a></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="institution in institutions"
+					<tr ng-repeat="institution in institutions | orderBy:sortInstitutionType:sortInstitutionReverse "
 						ng-click="setSelected(institution)"
 						ng-class="{'info' : selected===institution}">
 						<td>{{institution.id}}</td>

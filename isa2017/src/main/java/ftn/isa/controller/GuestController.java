@@ -25,6 +25,7 @@ import ftn.isa.entity.Order;
 import ftn.isa.entity.OrderStatus;
 import ftn.isa.entity.Projection;
 import ftn.isa.entity.ProjectionTime;
+import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Guest;
@@ -69,6 +70,36 @@ public class GuestController {
 	@Transactional
 	public ResponseEntity<List<Guest>> getNonFriends(@PathVariable("id") Long user_id){
 		return this.guestService.getNonFriendsForGuest(user_id);
+	}
+	
+	@RequestMapping(
+			value = "/getAllNonActiveRequestOffers/",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<List<RequestOffer>> getAllNonActiveRequestOffers(){
+		return this.guestService.getAllNonActiveRequestOffers();
+	}
+	
+	@RequestMapping(
+			value = "/activateRequestOffer/{requestOfferId}",
+			method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<RequestOffer> activateRequestOffer(@PathVariable("requestOfferId") Long reqId){
+		return this.guestService.activateRequestOffer(reqId);
+	}
+	
+	@RequestMapping(
+			value = "/destroyRequestOffer/{requestOfferId}",
+			method = RequestMethod.DELETE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<RequestOffer> destroyRequestOffer(@PathVariable("requestOfferId") Long reqId){
+		return this.guestService.destroyRequestOffer(reqId);
 	}
 	
 	@RequestMapping(
@@ -428,6 +459,8 @@ public class GuestController {
 		temp.setSurname(guest.getSurname());
 		temp.setPassword(guest.getPassword());
 		temp.setDateOfBirth(guest.getDateOfBirth());
+		temp.setPhone(guest.getPhone());
+		temp.setCity(guest.getCity());
 		Guest g=guestService.updateGuestInformation(temp);
 		session.setAttribute("user", temp);
 		return new ResponseEntity<Guest>(g, HttpStatus.OK);

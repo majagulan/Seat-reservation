@@ -1,18 +1,18 @@
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (1,'16-10-15','maja.gulan@gmail.com','sifra','Maja','Gulan','GUEST');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (2,'16-10-15','smiljana.tedic@gmail.com','sifra','Smiljana','Tedic','GUEST');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (13,'16-10-15','guest13@gmail.com','sifra','Test','Test','GUEST');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (14,'16-10-15','guest14@gmail.com','sifra','Test','Test','GUEST');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (15,'16-10-15','guest15@gmail.com','sifra','Test','Test','GUEST');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (16,'16-10-15','guest16@gmail.com','sifra','Test','Test','GUEST');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (1,'16-10-15','maja.gulan@gmail.com','sifra','Maja','Gulan','GUEST','Novi Sad','063212121');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (2,'16-10-15','smiljana.tedic@gmail.com','sifra','Smiljana','Tedic','GUEST','Beograd','123123123');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (13,'16-10-15','guest13@gmail.com','sifra','Test','Test','GUEST','Subotica','123123123');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (14,'16-10-15','guest14@gmail.com','sifra','Test','Test','GUEST','Novi Sad','123123123');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (15,'16-10-15','guest15@gmail.com','sifra','Test','Test','GUEST','Sombor','123123123');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (16,'16-10-15','guest16@gmail.com','sifra','Test','Test','GUEST','Pec','123123123');
 
 
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (7,'16-10-15','admin@gmail.com','sifra','Milena','Markovic','SYSTEMMANAGER');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (7,'16-10-15','admin@gmail.com','sifra','Milena','Markovic','SYSTEMMANAGER','Nis','123123123');
 
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (9,'16-10-15','filip.visnjic@gmail.com','sifra','Filip','Visnjic','INSTITUTIONMANAGER');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (10,'16-10-15','miroslav.ilic@gmail.com','sifra','Miroslav','Ilic','INSTITUTIONMANAGER');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (9,'16-10-15','filip.visnjic@gmail.com','sifra','Filip','Visnjic','INSTITUTIONMANAGER','Kragujevac','123123123');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (10,'16-10-15','miroslav.ilic@gmail.com','sifra','Miroslav','Ilic','INSTITUTIONMANAGER','Bor','123123123');
 
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (11,'16-10-15','fun.manager@gmail.com','sifra','Batko','Batkic','FUNMANAGER');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role) values (12,'16-10-15','funny.manager@gmail.com','sifra','Pera','Peric','FUNMANAGER');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (11,'16-10-15','fun.manager@gmail.com','sifra','Batko','Batkic','FUNMANAGER','Trebinje','123123123');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (12,'16-10-15','funny.manager@gmail.com','sifra','Pera','Peric','FUNMANAGER','Modrica','123123123');
 
 
 
@@ -50,18 +50,20 @@ insert into friend(sender_id,reciever_id,status) values(13,1,false);
 insert into institution_manager (user_id,institution_res_id) values (9,1);
 insert into institution_manager (user_id,institution_res_id) values (10,1);
 
-insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(1,'description1','Star Wars 1','Harison Ford', '2h',120.3,'MOVIE');
-insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(2,'description2','Hobit','Martin Freeman', '2h',750.0,'MOVIE');
-insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(3,'description3','Labudovo jezero','Ana Mihajlovski', '2h',150.0,'PLAY');
-insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type) values(4,'description4','Pop Cira i pop Spira','Dragan Bjelogrlic', '2h',350.0,'PLAY');
+insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type,pr_director) values(1,'description1','Star Wars 1','Harison Ford', '2h',120.3,'MOVIE','Stiven Spilberg');
+insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type,pr_director) values(2,'description2','Hobit','Martin Freeman', '2h',750.0,'MOVIE','J.J. Abrams');
+insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type,pr_director) values(3,'description3','Labudovo jezero','Ana Mihajlovski', '2h',150.0,'PLAY','Tarantino');
+insert into projection(pr_id, pr_des, pr_name, pr_actor, pr_duration, pr_price, projection_type,pr_director) values(4,'description4','Pop Cira i pop Spira','Dragan Bjelogrlic', '2h',350.0,'PLAY','Jack Sparrow');
 
 insert into institution_projections(pr_id, res_id) values (1, 1);
 insert into institution_projections(pr_id, res_id) values (2, 1);
 insert into institution_projections(pr_id, res_id) values (3, 2);
 insert into institution_projections(pr_id, res_id) values (4, 2);
 
-insert into request_offer(id, expiration_date, start_date, status, fun_manager_user_id)  values (1, '12-12-17', '10-12-15', true, 11);
-insert into request_offer(id, expiration_date, start_date, status, fun_manager_user_id)  values (2, '12-12-15', '10-12-15', true, 11);
+insert into request_offer(id, name,description,expiration_date, start_date, status, fun_manager_user_id,guest_user_id)  values (1,'Requisite1','Description1', '12-12-17', '10-12-15', true, 11,null);
+insert into request_offer(id,name,description, expiration_date, start_date, status, fun_manager_user_id,guest_user_id)  values (2,'Requisite2','Description2', '12-12-15', '10-12-15', true, 11,null);
+insert into request_offer(id,name,description, expiration_date, start_date, status, fun_manager_user_id,guest_user_id)  values (3,'Requisite3','Description3', '12-12-15', '10-12-15', true, null,1);
+insert into request_offer(id,name,description, expiration_date, start_date, status, fun_manager_user_id,guest_user_id)  values (4,'Requisite4','Description4', '12-12-15', '10-12-15', true, null,1);
 
 insert into bidder_offer(id, bo_dod, bo_garanty, bo_price, bidder_user_id, request_offer_id) values (1, '13-12-15', 'Return money', 300.3, 1, 1);
 insert into bidder_offer(id, bo_dod, bo_garanty, bo_price, bidder_user_id, request_offer_id) values (2, '13-12-15', 'Return money', 300.3, 1, 2);

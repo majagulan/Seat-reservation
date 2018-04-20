@@ -7,7 +7,7 @@
 			<button type="button" class="btn btn-primary" ng-click=showView(3)>Friends</button>
 			<button type="button" class="btn btn-primary" ng-click=showView(9)>Active
 				request offers</button>
-			<button type="button" class="btn btn-primary" ng-click=showView(15)>All
+			<button type="button" class="btn btn-primary" ng-click=showView(20)>All
 				your request offers</button>
 			<button type="button" class="btn btn-primary" ng-click=showView(10)>Your
 				bidder offer - notifications</button>
@@ -66,5 +66,7 @@
 	<div ng-if="show==18" ng-include src="'pages/userRanks.html'"></div>
 	
 	<div ng-if="show==19" ng-include src="'funManagers.html'"></div>
+	
+	<div ng-if="show==20" ng-include src="'guestRequestOffers.html'"></div>
 
 </div>

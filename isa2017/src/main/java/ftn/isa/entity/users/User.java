@@ -42,6 +42,29 @@ public class User implements Serializable {
 	@Column(name="USER_NAME",unique=false,nullable=false)
 	private String userName;
 	
+	@Pattern(regexp="^[A-Z][a-z A-Z]*")
+	@Column(name="CITY")
+	private String city;
+	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	@Column(name="PHONE")
+	private String phone;
+	
 	public long getId() {
 		return id;
 	}

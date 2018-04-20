@@ -1,5 +1,5 @@
 <h1 class="page-header">All your offers for theme requisites</h1>
-<div class="container" ng-controller="institutionManagerController">
+<div class="container" ng-controller="guestRequestOfferController">
 	<div class="container">
 		<div class="table-responsive">
 			<table class="table">
@@ -14,7 +14,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="requestOffer in managerOffers"
+					<tr ng-repeat="requestOffer in guestOffers"
 						ng-click="setSelectedRequestOffer(requestOffer)"
 						ng-class="{'info' : selectedRequestOffer===requestOffer}">
 						<td>{{requestOffer.id}}</td>
@@ -41,8 +41,6 @@
 					<button type="button" class="btn btn-primary" ng-click="getBidderOffersForRequest()"
 						ng-disabled="!selectedRequestOffer">Show all requisite offers</button>
 						
-						
-							
 				</div>
 			</div>
 		</div>

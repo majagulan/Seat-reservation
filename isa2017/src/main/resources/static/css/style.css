@@ -206,3 +206,7 @@ div.authTabs:hover {
     background: #4CAF50;
     cursor: pointer;
 }
+
+input[name=radi] {
+    pointer-events: none;
+ }

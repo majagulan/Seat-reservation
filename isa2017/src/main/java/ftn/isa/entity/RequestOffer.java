@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ftn.isa.entity.users.FunManager;
+import ftn.isa.entity.users.Guest;
 
 @Entity
 @Table(name = "REQUEST_OFFER")
@@ -47,6 +50,32 @@ public class RequestOffer implements Serializable {
 	@DateTimeFormat(pattern="mm.dd.yyyy") 
 	@Column(name = "START_DATE", unique = false, nullable = false)
 	private Date startDate;
+	
+	@Column(name = "NAME", unique = false, nullable = true)
+	@Pattern(regexp="^[A-Z][a-z_ A-Z0-9]*")
+	@Size(max=50)
+	private String name;
+	
+	@Column(name = "DESCRIPTION", unique = false, nullable = true)
+	@Pattern(regexp="^[A-Z][a-z_ A-Z0-9]*")
+	@Size(max=50)
+	private String description;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="mm.dd.yyyy") 
@@ -60,6 +89,17 @@ public class RequestOffer implements Serializable {
 
 	@ManyToOne
 	private FunManager funManager;
+	
+	@ManyToOne
+	private Guest guest;
+
+	public Guest getGuest() {
+		return guest;
+	}
+
+	public void setGuest(Guest guest) {
+		this.guest = guest;
+	}
 
 	public RequestOffer() {
 

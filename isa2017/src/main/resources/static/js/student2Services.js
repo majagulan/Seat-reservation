@@ -28,7 +28,7 @@ app.factory('SystemManagerService', function systemManagerService($http) {
 		return $http({
 			method : 'GET',
 			url : '../systemmanagers/getAllUserRanks'
-		});
+		});ge
 	}
 	
 	systemManagerService.registerInstitution = function(institution) {
@@ -232,7 +232,9 @@ app.factory('BidderService', function bidderService($http) {
 				"email" : bidder.email,
 				"password" : bidder.password,
 				"dateOfBirth" : bidder.dateOfBirth,
-				"firstLogIn" : bidder.firstLogIn
+				"firstLogIn" : bidder.firstLogIn,
+				"city" : bidder.city,
+				"phone": bidder.phone
 			}
 		});
 	}
@@ -540,6 +542,14 @@ app
 						});
 					}
 					
+					institutionManagerService.getRequestOffersForGuest = function(id) {
+						return $http({
+							method : 'GET',
+							url : '../institutionmanagers//getAllRequestOffersForGuest?id='
+									+ id
+						});
+					}
+					
 					institutionManagerService.registerRequestOffer = function(
 							rq, id) {
 						return $http({
@@ -547,7 +557,9 @@ app
 							url : '../institutionmanagers/registerRequestOffer?rm_id=' + id,
 							data : {
 								"startDate" : rq.startDate,
-								"expirationDate" : rq.expirationDate
+								"expirationDate" : rq.expirationDate,
+								"name": rq.name,
+								"description": rq.description
 							}
 						});
 					}

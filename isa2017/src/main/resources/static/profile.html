@@ -21,11 +21,14 @@
 				<tr>
 					<td>Birthday</td><td><input class="form-control" type="date" ng-model="user.dateOfBirth" required/></td>
 				</tr>
-				<tr ng-if="loggedUser.userRole=='WAITER'">
-					<td>Shoe number</td><td><input class="form-control" name="shoeNumber" type="text" ng-model="user.shoeNumber" ng-pattern="/^[0-9]*$/" required/><span style="color:red" ng-show="profileForm.shoeNumber.$invalid"> Shoe number must be a number!</span></td>
+				<tr>
+					<td>Phone number</td><td><input class="form-control" type="text" ng-model="user.phone" required/></td>
 				</tr>
-				<tr ng-if="loggedUser.userRole=='WAITER'">
-					<td>Shirt size</td><td><input class="form-control" type="text" name="shirtSize" ng-model="user.shirtSize" ng-pattern="/^[a-zA-Z]*$/" required/><span style="color:red" ng-show="profileForm.shirtSize.$invalid"> Shirt size is not valid!</span></td>
+				<tr>
+					<td>City</td><td><input class="form-control" type="text" ng-model="user.city" required/></td>
+				</tr>
+				<tr name= "radi" ng-if="loggedUser.userRole=='GUEST'" ng-disabled=true>
+					<td>Guest points</td><td>{{user.guestPoints}}</td>
 				</tr>
 				<tr>
 					<td></td><td><input ng-disabled="profileForm.$invalid" class="btn btn-primary" type="button" value="Confirm" ng-click="confirmEditProfile()"/></td>

@@ -40,11 +40,29 @@
 	  </div>
 	  
 	  <div class="form-group error">
-	    <label class="control-label col-sm-3" for="pwd">Repeat password:</label>
+	    <label class="control-label col-sm-3" for="da">Repeat password:</label>
 	    <div class="col-sm-9"> 
-	      	<input type="password" class="form-control" id="pwd" name="repeat" placeholder="Repeat password"
+	      	<input type="password" class="form-control" id="da" name="repeat" placeholder="Repeat password"
 	      	required ng-Model="user.repeat" compare-to="user.password">
 	     	<div ng-messages="myForm.repeat.$error" ng-messages-include="messages.html"></div>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label class="control-label col-sm-3" for="pwd">Phone number:</label>
+	    <div class="col-sm-9"> 
+	       <input type="text" name="phone" class="form-control" id="pn" placeholder="Enter phone number"
+	       required ng-Model="user.phone">
+	       <div ng-messages="myForm.password.$error" ng-messages-include="messages.html"></div>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label class="control-label col-sm-3" for="c">City:</label>
+	    <div class="col-sm-9"> 
+	       <input type="text" name="city" class="form-control" id="pc" placeholder="Enter city"
+	       required ng-Model="user.city">
+	       <div ng-messages="myForm.password.$error" ng-messages-include="messages.html"></div>
 	    </div>
 	  </div>
 

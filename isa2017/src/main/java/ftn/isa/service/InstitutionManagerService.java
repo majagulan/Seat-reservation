@@ -55,6 +55,8 @@ public interface InstitutionManagerService {
 	ResponseEntity<RequestOffer> removeRequestOffer(Long ro);
 
 	ResponseEntity<List<RequestOffer>> getAllRequestOffersForManager(Long id);
+	
+	ResponseEntity<List<RequestOffer>> getAllRequestOffersForGuest(Long id);
 
 	ResponseEntity<List<RequisiteOffer>> getAllBidderOffersForRequestOffer(Long id);
 

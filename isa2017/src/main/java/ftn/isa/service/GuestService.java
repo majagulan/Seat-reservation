@@ -9,6 +9,7 @@ import ftn.isa.entity.Grade;
 import ftn.isa.entity.Order;
 import ftn.isa.entity.Projection;
 import ftn.isa.entity.ProjectionTime;
+import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Guest;
@@ -31,9 +32,15 @@ public interface GuestService {
 	
 	Projection getProjectionForReservation(Long reservationId);
 	
+	ResponseEntity<List<RequestOffer>> getAllNonActiveRequestOffers();
+	
 	List<ProjectionTime> getProjectionTimeForProjection(Long projectionId);
 	
 	List<ProjectionTime> getAllTimes();
+	
+	ResponseEntity<RequestOffer> activateRequestOffer(Long reqId);
+	
+	ResponseEntity<RequestOffer> destroyRequestOffer(Long reqId);
 	
 	List<Order> getFastCardsForInstitution(Long institutionId);
 	

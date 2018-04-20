@@ -4,7 +4,24 @@
 </div>
 
 <form class="form-horizontal" name="myForm" novalidate
-	style="width: 50%">
+	style="width: 70%">
+	
+	<div class="form-group">
+		<label class="control-label col-sm-3" for="nm">Name:</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control"
+				ng-model="$parent.editRequestOffer.name" id="nm" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-sm-3" for="des">Description:</label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control"
+				ng-model="$parent.editRequestOffer.description" id="des" required>
+		</div>
+	</div>
+	
 	<div class="form-group">
 		<label class="control-label col-sm-3" for="rn">Start date:</label>
 		<div class="col-sm-9">
@@ -17,7 +34,7 @@
 			date:</label>
 		<div class="col-sm-9">
 			<input type="date" class="form-control" id="des"
-				ng-model="$parent.editRequestOffer.startDate" required/>
+				ng-model="$parent.editRequestOffer.expirationDate" required/>
 		</div>
 	</div>
 	<div class="form-group">

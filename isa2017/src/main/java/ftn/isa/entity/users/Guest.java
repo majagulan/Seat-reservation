@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ftn.isa.entity.Grade;
+import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.Reservation;
 
@@ -44,6 +45,19 @@ public class Guest extends User {
 	@ManyToOne
 	private UserRank userRank;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "guest", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private Set<RequestOffer> requestOffers = new HashSet<RequestOffer>();
+	
+	@JsonIgnore
+	public Set<RequestOffer> getRequestOffers() {
+		return requestOffers;
+	}
+	@JsonProperty
+	public void setRequestOffers(Set<RequestOffer> requestOffers) {
+		this.requestOffers = requestOffers;
+	}
+
 	@Column(name = "guest_points")
 	private double guestPoints;
 	

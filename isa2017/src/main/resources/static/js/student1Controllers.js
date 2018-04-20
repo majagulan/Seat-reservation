@@ -206,6 +206,217 @@ app.controller('profileController',['$rootScope','$scope','$location','$http','S
 		});
 	}
 
+
+}]);
+
+
+app.controller('publishController',['$rootScope','$scope','$location','$http','GuestService','SessionService','ngNotify',function($rootScope,$scope,$location,$http,guestService,sessionService,ngNotify) {
+	
+	guestService
+	.getAllNonActiveRequestOffers()
+	.then(
+			function(response) {
+				if (response.data) {
+					$scope.requestOffers = response.data;
+				} 
+			});
+	
+	$scope.setSelectedRequestOffer=function(selected){
+		if($scope.selectedRequestOffer == selected){
+			$scope.selectedRequestOffer = null;
+		} else {
+			$scope.selectedRequestOffer = selected;
+		}
+	}
+	
+	$scope.activate=function(){
+		guestService.activateRequestOffer($scope.selectedRequestOffer.id).then(function(response){
+			var index = $scope.requestOffers.indexOf($scope.selectedRequestOffer);
+			$scope.requestOffers.splice(index, 1);
+			$scope.selectedRequestOffer = null;
+			ngNotify.set('Successfuly activated request offer' , {
+				type : 'success'
+			});
+		});
+	}
+	
+	$scope.erase = function(){
+		guestService.destroyRequestOffer($scope.selectedRequestOffer.id).then(function(response){
+			var index = $scope.requestOffers.indexOf($scope.selectedRequestOffer);
+			$scope.requestOffers.splice(index, 1);
+			$scope.selectedRequestOffer = null;
+			ngNotify.set('Successfuly declined request offer' , {
+				type : 'success'
+			});
+		});
+
+	}
+
+}]);
+
+app.controller('guestRequestOfferController',['$rootScope','$scope','ngNotify','$location','$http','institutionManagerService','SessionService',function($rootScope,$scope,ngNotify,$location,$http,institutionManagerService,sessionService) {
+	
+	if (!$rootScope.loggedUser) {
+		$location.path('/login');
+	} else if(($rootScope.loggedUser.userRole == 'FUNMANAGER') && $rootScope.loggedUser.firstLogIn)
+		$location.path('/changePassword');
+	
+	
+	institutionManagerService
+	.getRequestOffersForGuest($rootScope.loggedUser.id)
+	.then(
+			function(response) {
+				if (response.data) {
+					$scope.guestOffers = response.data;
+				} 
+			});
+	
+	$scope.setSelectedRequestOffer = function(requestOffer){
+		$scope.showR = null;
+		if($scope.selectedRequestOffer == requestOffer){
+			$scope.selectedRequestOffer = null;
+		} else {
+			$scope.selectedRequestOffer = requestOffer;
+		}
+	}
+	
+	$scope.registerRequestOffer  = function() {
+		institutionManagerService
+				.registerRequestOffer($scope.requestOffer, $rootScope.loggedUser.id)
+				.then(
+						function(response) {
+							if (response.data) {
+								response.data.startDate =  moment(response.data.startDate).format('YYYY-MM-DD');
+								response.data.expirationDate =  moment(response.data.expirationDate).format('YYYY-MM-DD');
+								$scope.guestOffers.push(response.data);
+								$scope.showR = null;
+								ngNotify.set('Successfuly registrated request offer' , {
+									type : 'success'
+								});
+							} 
+						}).catch(function(response) {
+							ngNotify.set('Date must be today, or future, expiration date must be after start date' , {
+								type : 'error',
+								sticky : 'true'
+							});
+							   console.error('Gists error', response.status, response.data)
+						  });
+	}
+	
+	$scope.deleteRequestOffer  = function() {
+		institutionManagerService
+				.deleteRequestOffer($scope.selectedRequestOffer.id)
+				.then(
+						function(response) {
+							if (response.status == 200) {
+								$scope.error = false;
+								var index = $scope.guestOffers
+								.indexOf($scope.selectedRequestOffer);
+						$scope.guestOffers.splice(index, 1);
+								$scope.showR = null;
+								$scope.selectedBid = null;
+								$scope.selectedinstitutionProjection = null;
+								$scope.selectedRequestOfferProjection = null;
+								ngNotify.set('Successfuly deleted request offer' , {
+									type : 'success'
+								});
+							}
+						}).catch(function(response) {
+							ngNotify.set('Error delete' , {
+								type : 'error',
+								sticky : 'true'
+							});
+							   console.error('Gists error', response.status, response.data)
+						  });
+	}
+	
+	$scope.setSelectedBid = function(bid){
+		$scope.selectedBid = bid;
+	}
+	
+	$scope.acceptBid = function() {
+		institutionManagerService
+				.acceptBid($scope.selectedRequestOffer.id, $scope.selectedBid.id)
+				.then(
+						function(response) {
+							if (response.data) {
+								$scope.selectedBid = null;
+								$scope.selectedinstitutionProjection = null;
+								$scope.selectedRequestOfferProjection = null;
+								$scope.selectedRequestOffer.status = false;
+								$scope.showR = null;
+								ngNotify.set('Successfuly accepted bidder offer' , {
+									type : 'success'
+								});
+							}
+						});
+	}
+	
+	$scope.editRequestOfferData  = function() {
+		institutionManagerService
+				.editRequestOfferData($scope.editRequestOffer)
+				.then(
+						function(response) {
+							if (response.data) {
+								response.data.startDate =  moment(response.data.startDate).format('YYYY-MM-DD');
+								response.data.expirationDate =  moment(response.data.expirationDate).format('YYYY-MM-DD');
+								var index = $scope.guestOffers
+								.indexOf($scope.selectedRequestOffer);
+						$scope.guestOffers[index] = response.data;
+								$scope.showR = null;
+
+							} 
+						}).catch(function(response) {
+							ngNotify.set('Date must be today, or future, expiration date must be after start date' , {
+								type : 'error',
+								sticky : 'true'
+							});
+							   console.error('Gists error', response.status, response.data)
+						  });
+	}
+	
+	$scope.displayRequest = function(tab) {
+		$scope.showR = tab;
+		if(tab == 1)
+			$scope.selectedRequestOffer = null; 
+		if(tab == 2) {
+			$scope.editRequestOffer = $scope.selectedRequestOffer;
+			institutionManagerService.getRequestOffer(
+					$scope.selectedRequestOffer.id).then(
+					function(response) {
+						if (response.data) {
+							if($scope.selectedRequestOffer.status != response.data.status){
+								var index = $scope.managerOffers
+								.indexOf($scope.selectedRequestOffer);
+								$scope.managerOffers[index] = response.data;
+								$scope.showR = null;
+								$scope.selectedShift = response.data;
+								ngNotify.set('Sorry this request can not be edited.' );
+							}
+							else 		
+								$scope.showR = 2;
+						}
+					});
+			}
+		
+	}
+	
+	$scope.getBidderOffersForRequest = function() {
+		institutionManagerService
+				.getBidderOffersForRequest($scope.selectedRequestOffer.id)
+				.then(
+						function(response) {
+							if (response.data) {
+								$scope.biddings = response.data;
+								$scope.showR = 3;
+								$scope.selectedBid = null;
+								$scope.selectedinstitutionProjection = null;
+								$scope.selectedRequestOfferProjection = null;
+							} 
+						});
+	}
+	
+
 }]);
 
 app.controller('institutionController',['$rootScope','$scope','$location','$http','SessionService','institutionManagerService','SystemManagerService','WaiterService','GuestService',function($rootScope,$scope,$location,$http,sessionService,institutionManagerService,systemManagerService,waiterService,guestService) {
@@ -230,6 +441,13 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 	$scope.fastReservation = false
 	
 	$scope.show = null;
+	
+	
+	  $scope.sortInstitutionType     = 'name'; // set the default sort type
+	  $scope.sortInstitutionReverse  = false;  // set the default sort order
+	  
+	  $scope.sortProjectionType     = 'name'; // set the default sort type
+	  $scope.sortPojectionReverse  = false;  // set the default sort order
 	
 	$scope.institutionProjections = [];
 	

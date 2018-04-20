@@ -41,6 +41,19 @@ public class Projection implements Serializable {
 	@NotNull
 	@Column(name = "PR_NAME", nullable = false)
 	private String projectionName;
+	
+	@Size(min = 3, max = 30)
+	@Pattern(regexp = "^[A-Z][a-z_ A-Z]*")
+	@NotNull
+	@Column(name = "PR_DIRECTOR", nullable = false)
+	private String director;
+
+	public String getDirector() {
+		return director;
+	}
+	public void setDirector(String director) {
+		this.director = director;
+	}
 
 	@Column(name = "PR_DES")
 	@Pattern(regexp = "^[A-Z][a-z_ A-Z0-9]*")

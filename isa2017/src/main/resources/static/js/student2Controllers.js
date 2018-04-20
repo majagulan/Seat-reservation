@@ -615,7 +615,7 @@ app
 								if ($scope.editBidder.email == null)
 									$scope.editBidder.email = $rootScope.loggedUser.email;
 								$scope.editBidder.id = $rootScope.loggedUser.id;
-								$scope.editBidder.firstLogIn = firstLog;
+								$scope.editBidder.firstLogIn = false;
 								var bidder = $scope.editBidder;
 								bidderService
 										.editBidder(bidder)

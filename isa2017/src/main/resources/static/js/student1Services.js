@@ -12,7 +12,9 @@ app.factory('SessionService', function sessionService($http) {
 				"surname": user.surname,
 				"email": user.email,
 				"userRole": 'GUEST',
-				"status": 'NOT_ACTIVE'
+				"status": 'NOT_ACTIVE',
+				"city": user.city,
+				"phone": user.phone
 			}
 		});
 	}
@@ -58,8 +60,8 @@ app.factory('SessionService', function sessionService($http) {
 				"userRole": user.userRole,
 				"email": user.email,
 				"dateOfBirth": user.dateOfBirth,
-				"shirtSize": user.shirtSize,
-				"shoeNumber": user.shoeNumber
+				"phone": user.phone,
+				"city": user.city
 			}
 		});
 	}
@@ -70,6 +72,27 @@ app.factory('SessionService', function sessionService($http) {
 });
 
 app.factory('GuestService', function guestService($http) {
+	
+	guestService.getAllNonActiveRequestOffers = function(){
+		return $http({
+			method : 'GET',
+			url: '../guests/getAllNonActiveRequestOffers/'
+		});
+	}
+	
+	guestService.activateRequestOffer = function(reqId){
+		return $http({
+			method : 'POST',
+			url: '../guests/activateRequestOffer/'+reqId
+		});
+	}
+	
+	guestService.destroyRequestOffer = function(reqId){
+		return $http({
+			method : 'DELETE',
+			url: '../guests/destroyRequestOffer/'+reqId
+		});
+	}
 	
 	guestService.getFriends = function(id){
 		return $http({

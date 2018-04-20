@@ -6,6 +6,8 @@
 				<thead>
 					<tr>
 						<th>Id</th>
+						<th>Name</th>
+						<th>Description</th>
 						<th>Start date</th>
 						<th>Expiration date</th>
 						<th>Who registrated this </th>
@@ -16,9 +18,11 @@
 						ng-click="setSelectedRequestOffer(requestOffer)"
 						ng-class="{'info' : selectedRequestOffer===requestOffer}">
 						<td>{{requestOffer.id}}</td>
+						<td>{{requestOffer.name}}</td>
+						<td>{{requestOffer.description}}</td>
 						<td>{{requestOffer.startDate}}</td>
 						<td>{{requestOffer.expirationDate}}</td>
-						<td>{{requestOffer.institutionManager.id}}</td>
+						<td>{{requestOffer.funManager.userName}} {{requestOffer.guest.userName}}</td>
 					</tr>
 				</tbody>
 			</table>
