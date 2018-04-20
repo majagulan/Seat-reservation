@@ -637,10 +637,11 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 	        input.push(i);
 	    }
 	    return input;
-	};
+	}
 	
 	$scope.trustSrc = function(url){
 		return $sce.trustAsResourceUrl(url);
+	};
 
 	
 }]);

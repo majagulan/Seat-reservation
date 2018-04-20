@@ -1575,10 +1575,11 @@ app
 							        input.push(i);
 							    }
 							    return input;
-							};
+							}
 							
 							$scope.trustSrc = function(url){
 								return $sce.trustAsResourceUrl(url);
+							};
 
 
 
