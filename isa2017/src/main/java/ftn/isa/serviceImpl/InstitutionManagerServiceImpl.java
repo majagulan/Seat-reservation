@@ -328,8 +328,8 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 
 	@Override
 	public ResponseEntity<List<Projection>> getAllProjectionsByNameAndInstitution(Long id, String name) {
-		return new ResponseEntity<List<Projection>>(this.projectionRepository.findProjectionByInstitutionAndName(name, id),
-				HttpStatus.OK);
+		List<Projection> p  = this.projectionRepository.findProjectionByInstitutionAndName(name, id);
+		return new ResponseEntity<List<Projection>>(p,HttpStatus.OK);
 	}
 	@Override
 	public ResponseEntity<InstitutionTable> getInstitutionTable(Long id) {

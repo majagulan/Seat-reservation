@@ -485,4 +485,12 @@ public class GuestServiceImpl implements GuestService {
 		return (List<ProjectionTime>) projectionTimeRepository.findAll();
 	}
 
+
+	@Override
+	public Double getAverageGradeForProjection1(Long projectionId) {
+		Projection p = projectionRepository.findOne(projectionId);
+		Double d = gradeRepository.getAverageGradeForProjection(p);
+		return d;
+	}
+
 }

@@ -31,7 +31,7 @@ app.controller('appController',['$rootScope','$scope','$location','SessionServic
 		if (!$rootScope.loggedUser) {
 			$location.path('/login');
 		} else {
-			if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
+			if(($rootScope.loggedUser.userRole == 'FUNMANAGER') && $rootScope.loggedUser.firstLogIn)
 				$location.path('/changePassword');
 			else
 				$location.path('/home');
@@ -56,7 +56,7 @@ app.controller('loginController',['$rootScope','$scope','$location','institution
 	if (!$rootScope.loggedUser) {
 		$location.path('/login');
 	} else {
-		if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
+		if(($rootScope.loggedUser.userRole == 'FUNMANAGER') && $rootScope.loggedUser.firstLogIn)
 			$location.path('/changePassword');
 		else
 			$location.path('/home');
@@ -80,7 +80,7 @@ app.controller('loginController',['$rootScope','$scope','$location','institution
     			  timer: 2000
  
     			});
-    		if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
+    		if(($rootScope.loggedUser.userRole == 'FUNMANAGER') && $rootScope.loggedUser.firstLogIn)
 				$location.path('/changePassword');
 			else
 				$location.path('/home');
@@ -155,7 +155,7 @@ app.controller('homeController',['$rootScope','$scope','$location','$http', 'ins
 	
 	if (!$rootScope.loggedUser) {
 		$location.path('/login');
-	}  else if(($rootScope.loggedUser.userRole == 'FUNMANAGER' ||  $rootScope.loggedUser.userRole == 'INSTITUTIONMANAGER') && $rootScope.loggedUser.firstLogIn)
+	}  else if(($rootScope.loggedUser.userRole == 'FUNMANAGER') && $rootScope.loggedUser.firstLogIn)
 		$location.path('/changePassword');
 	else
 		$location.path('/home');

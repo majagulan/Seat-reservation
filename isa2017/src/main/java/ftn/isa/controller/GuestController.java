@@ -181,6 +181,15 @@ public class GuestController {
 	}
 	
 	@RequestMapping(
+			value="/getAverageGradeForProjection1/{projectionId}",
+			method=RequestMethod.GET)
+	@ResponseBody
+	@Transactional
+	public Double getAverageGradeForProjection1(@PathVariable("projectionId")Long projectionId){
+		return guestService.getAverageGradeForProjection1(projectionId);
+	}
+	
+	@RequestMapping(
 			value="/getGradeForUser/{userId}/{reservationId}",
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)

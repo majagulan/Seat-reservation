@@ -47,6 +47,8 @@ public interface GuestService {
 	
 	Double getAverageGradeForProjection(Long reservationId);
 	
+	Double getAverageGradeForProjection1(Long projectionId);
+	
 	Grade getGradeForUser(Long userId,Long reservationId);
 	
 	ResponseEntity<List<Guest>> getNonFriendsForGuest(Long id);

@@ -291,6 +291,13 @@ app.factory('GuestService', function guestService($http) {
 		});
 	}
 	
+	guestService.getAverageGradeForProjection1 = function(projectionId){
+		return $http({
+			method : 'GET',
+			url: 'guests/getAverageGradeForProjection1/'+projectionId
+		});
+	}
+	
 	guestService.getGradeForUser = function(userId,reservationId){
 		return $http({
 			method : 'GET',

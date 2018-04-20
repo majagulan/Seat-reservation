@@ -1386,34 +1386,7 @@ app
 													}
 												});
 							}
-							$scope.getGradeOfWaiter = function() {
-							institutionManagerService
-							.getGradeOfWaiter($scope.selectedWaiter.id)
-							.then(
-									function(response) {
-										if(response.data) { 
-											if(response.data != -1)  
-												$scope.waiterGrade = response.data;
-											else 
-												$scope.waiterGrade = 'No grades yet'
-												
-													
-										}});
-							}
 							
-							$scope.getEarningForWaiter = function() {
-								institutionManagerService
-								.getEarningForWaiter($scope.selectedWorker.id)
-								.then(
-										function(response) {
-											if(response.data) {
-												if(response.data != -1)
-													$scope.waiterEarnings = response.data;
-												else 
-													$scope.waiterEarnings = 'No earnings yet'
-											}
-										});
-								}
 							
 							$scope.getinstitutionEarnings = function() {
 								var start =  moment($scope.institutionStart).format('MM-DD-YYYY');
@@ -1433,18 +1406,11 @@ app
 								}
 							
 							$scope.getProjectionGrade = function() {
-								institutionManagerService
-								.getProjectionGrade($scope.institution.id, $scope.selectedNamedProjection.id)
-								.then(
-										function(response) {
-											if(response.data) {
-												if(response.data != -1)
-													$scope.gradeProjection = response.data;
-												else 
-													$scope.gradeProjection = 'No grades yet'
-											}
-										});
-								}
+								
+								guestService.getAverageGradeForProjection1($scope.selectedNamedProjection.id).then(function(response){
+									$scope.gradeProjection = response.data;
+								})
+							}
 							$scope.onlyWithThatName = true;
 							$scope.getAllWaitersByNameAndInstitution = function() {
 								institutionManagerService
