@@ -25,7 +25,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="institution in institutions | orderBy:sortInstitutionType:sortInstitutionReverse "
+					<tr ng-repeat="institution in institutions | orderBy:sortInstitutionType:sortInstitutionReverse | filter:searchInstitionName""
 						ng-click="setSelected(institution)"
 						ng-class="{'info' : selected===institution}">
 						<td>{{institution.id}}</td>
@@ -40,7 +40,16 @@
 				</tbody>
 			</table>
 		</div>
+		<form>
+	    <div class="form-group">
+	      <div class="input-group">
+	        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+	        <input type="text" class="form-control" placeholder="Filter institutions by name" ng-model="searchInstitionName">
+	      </div>      
+	    </div>
+	  </form>
 	</div>
+	
 	
 	<div ng-if="selected != null" ng-include src="'pages/tableProjections.html'"></div>
 	<input ng-if="selected != null && selectedinstitutionProjection == null" class="btn btn-primary" type="button" value="Fast reservation" ng-click="showFast()"/>

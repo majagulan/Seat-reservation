@@ -463,6 +463,7 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 	
 	  $scope.sortInstitutionType     = 'name'; // set the default sort type
 	  $scope.sortInstitutionReverse  = false;  // set the default sort order
+	  $scope.searchInstitionName = '';
 	  
 	  $scope.sortProjectionType     = 'name'; // set the default sort type
 	  $scope.sortPojectionReverse  = false;  // set the default sort order
