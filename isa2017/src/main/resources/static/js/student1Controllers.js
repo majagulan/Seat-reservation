@@ -108,6 +108,12 @@ app.controller('loginController',['$rootScope','$scope','$location','$sce','inst
 			institutionManagerService.getProjectionsForInstitution($scope.selected.id).then(
 					function(response) {
 						$scope.institutionProjections = response.data;
+						angular.forEach($scope.institutionProjections, function(value, key){
+							guestService.getAverageGradeForProjection1(value.id).then(function(response){
+								value.averageGradeForProjection=response.data;
+							});
+						});
+						
 					});
 		}
 		
@@ -601,6 +607,7 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 		if($scope.selected == selected){
 			$scope.selected = null;
 			$scope.selectedinstitutionProjection = null;
+			$scope.fastReservation = false;
 		} else {
 			$scope.selected = selected;
 			institutionManagerService.getProjectionsForInstitution($scope.selected.id).then(

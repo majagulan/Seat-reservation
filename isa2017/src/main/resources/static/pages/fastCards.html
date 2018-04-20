@@ -13,6 +13,7 @@
 					<th ng-if="loggedUser.userRole  == 'GUEST'">Reserve</th>
 					<th>Discount(%)</th>
 					<th>Real price</th>
+					<th>Seat id</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,6 +29,7 @@
 					<td ng-if="loggedUser.userRole  == 'GUEST'"><input class="btn btn-primary" type="button" value="Fast reserve" ng-click="fastReserve(fastCard)" /></td>
 					<td>{{fastCard.discount}}</td>
 					<td>{{fastCard.projection.price - (fastCard.projection.price*fastCard.discount)/100}}</td>
+					<td>{{fastCard.table.id}}</td>
 				</tr>
 			</tbody>
 		</table>
