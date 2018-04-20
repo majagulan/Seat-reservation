@@ -49,7 +49,7 @@ app.controller('appController',['$rootScope','$scope','$location','SessionServic
 	}
 }]);
 
-app.controller('loginController',['$rootScope','$scope','$location','institutionManagerService','GuestService','SystemManagerService','SessionService',function($rootScope,$scope,$location,institutionManagerService,guestService,systemManagerService,sessionService){
+app.controller('loginController',['$rootScope','$scope','$location','$sce','institutionManagerService','GuestService','SystemManagerService','SessionService',function($rootScope,$scope,$location,$sce,institutionManagerService,guestService,systemManagerService,sessionService){
 	
 
 	
@@ -112,6 +112,10 @@ app.controller('loginController',['$rootScope','$scope','$location','institution
 		}
 		
 
+	}
+	
+	$scope.trustSrc = function(url){
+		return $sce.trustAsResourceUrl(url);
 	}
 	
 	systemManagerService.getinstitutions().then(

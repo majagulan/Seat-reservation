@@ -190,9 +190,9 @@ app
 				[
 						'$rootScope',
 						'$scope',
-						'$location','ngNotify',
+						'$location','$sce','ngNotify',
 						'SystemManagerService',
-						function($rootScope, $scope, $location,
+						function($rootScope, $scope, $location, $sce,
 								ngNotify, systemManagerService) {
 							
 
@@ -420,6 +420,11 @@ app
 												  });
 
 							}
+							
+							$scope.trustSrc = function(url){
+								return $sce.trustAsResourceUrl(url);
+							};
+
 		
 						} ]);
 
