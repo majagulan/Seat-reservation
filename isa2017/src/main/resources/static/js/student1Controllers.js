@@ -419,7 +419,7 @@ app.controller('guestRequestOfferController',['$rootScope','$scope','ngNotify','
 
 }]);
 
-app.controller('institutionController',['$rootScope','$scope','$location','$http','SessionService','institutionManagerService','SystemManagerService','WaiterService','GuestService',function($rootScope,$scope,$location,$http,sessionService,institutionManagerService,systemManagerService,waiterService,guestService) {
+app.controller('institutionController',['$rootScope','$scope','$location','$http','$sce','SessionService','institutionManagerService','SystemManagerService','WaiterService','GuestService',function($rootScope,$scope,$location,$http,$sce,sessionService,institutionManagerService,systemManagerService,waiterService,guestService) {
 	
 	if (!$rootScope.loggedUser) {
 		$location.path('/login');
@@ -638,6 +638,10 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 	    }
 	    return input;
 	};
+	
+	$scope.trustSrc = function(url){
+		return $sce.trustAsResourceUrl(url);
+
 	
 }]);
 

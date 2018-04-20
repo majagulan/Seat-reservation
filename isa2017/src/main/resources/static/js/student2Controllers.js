@@ -647,9 +647,9 @@ app
 				[
 						'$rootScope',
 						'$scope',
-						'$location','ngNotify',
+						'$location','$sce','ngNotify',
 						'institutionManagerService','GuestService',
-						function($rootScope, $scope, $location,ngNotify,
+						function($rootScope, $scope, $location, $sce, ngNotify,
 								institutionManagerService,guestService) {
 							$scope.currentMonth=0;
 							$scope.display = function(tab) {
@@ -1576,6 +1576,10 @@ app
 							    }
 							    return input;
 							};
+							
+							$scope.trustSrc = function(url){
+								return $sce.trustAsResourceUrl(url);
+
 
 
 						} ]);

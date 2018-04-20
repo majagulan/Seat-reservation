@@ -1,0 +1,57 @@
+<div class="container" ng-controller="institutionManagerController">
+	<h1 class="page-header">Segments of {{$parent.institution.institutionName}}</h1>
+	<div class="container">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Position</th>
+						<th> MaxSeats/Row </th>
+						<th> MaxSeats/Column </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="segment in institutionSegments"
+						ng-click="setSelectedSegment(segment)"
+						ng-class="{'info' : selectedSegment===segment}">
+						<td>{{segment.id}}</td>
+						<td>{{segment.position}}</td>
+						<td>{{segment.width}}</td>
+						<td>{{segment.height}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<div class="conteinter">
+		<div class="row">
+			<div class="col-xs-12 offset3">
+				<div class="text-left">
+					<button type="button" class="btn btn-primary"
+						ng-click="displaySegment(1)">Register segment</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="displaySegment(2)" ng-disabled="!selectedSegment">Edit
+						this</button>
+					<button type="button" class="btn btn-primary" ng-disabled="!canEditSegment" confirmed-click="deleteSegment()"
+						ng-confirm-click="Do you want to delete this segment? If yes , it will delete all content that is dependent on this.">Delete
+						this</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="showSegmentTables()" ng-disabled="!selectedSegment">Show
+						segment seats</button>
+					<button type="button" class="btn btn-primary" ng-click="displaySegment(4)"
+						ng-disabled="!selectedSegment">Add seat to segment</button>
+						<button type="button" class="btn btn-primary" ng-click="displaySegment(5)">Graphic view segments</button>
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
+	<div ng-show="showS==1" ng-include src="'pages/registerSegment.html'"></div>
+	<div ng-show="showS==2" ng-include src="'pages/editSegment.html'"></div>
+	<div ng-show="showS==3" ng-include src="'pages/segmentTables.html'"></div>
+	<div ng-show="showS==4" ng-include src="'pages/registerTable.html'"></div>
+	<div ng-show="showS==5" ng-include src="'pages/viewOfSegments.html'"></div>
+</div>

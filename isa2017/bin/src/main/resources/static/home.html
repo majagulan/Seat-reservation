@@ -1,0 +1,72 @@
+<div role="form" class="form-inline" ng-controller="homeController">
+	<h1 class="page-header">HOME</h1>
+	<div class="btn-group">
+		<div id="guestButtons" ng-if="loggedUser.userRole=='GUEST'">
+			<button type="button" class="btn btn-primary" ng-click=showView(1)>History</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(2)>Institutions</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(3)>Friends</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(9)>Active
+				request offers</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(20)>All
+				your request offers</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(10)>Your
+				bidder offer - notifications</button>
+		</div>
+		
+		<div id="systemButtons" ng-if="loggedUser.userRole=='SYSTEMMANAGER'">
+			<button type="button" class="btn btn-primary" ng-click=showView(7)>Institutions</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(8)>System managers</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(19)>Fun managers</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(18)>User ranks</button>
+		</div>
+		<div id="bidderButtons" ng-if="loggedUser.userRole=='FUNMANAGER'">
+			<button type="button" class="btn btn-primary" ng-click=showView(15)>All
+				your requisite offers</button>
+				<button type="button" class="btn btn-primary" ng-click=showView(17)>Publish an offer</button>
+		</div>
+		<div id="institutionManagerButtons"
+			ng-if="loggedUser.userRole=='INSTITUTIONMANAGER'">
+			<button type="button" class="btn btn-primary" ng-click=showView(11)>Managed
+				institution</button>
+			<button type="button" class="btn btn-primary" ng-click=showView(14)>All
+				institution segments</button>
+				<button type="button" class="btn btn-primary" ng-click=showView(16)>Reports</button>
+		</div>
+	</div>
+
+	<div ng-if="show==1" ng-include src="'pages/history.html'"></div>
+	
+	<div ng-if="show==2" ng-include src="'pages/guestInstitutions.html'"></div>
+
+	<div ng-if="show==3" ng-include src="'pages/friends.html'"></div>
+
+	<div ng-if="show==7" ng-include src="'institutions.html'"></div>
+
+	<div ng-if="show==8" ng-include src="'systemManagers.html'"></div>
+
+	<div ng-if="show==9" ng-include src="'activeRequestOffers.html'">
+	</div>
+
+	<div ng-if="show==10" ng-include src="'bidderOffersForBidder.html'">
+	</div>
+
+	<div ng-if="show==11" ng-include src="'institutionForManager.html'">
+	</div>
+
+	<div ng-if="show==13" ng-include src="'workersOfInstitution.html'">
+	</div>
+	<div ng-if="show==14" ng-include src="'segmentsOfInstitution.html'">
+	</div>
+	<div ng-if="show==15" ng-include src="'managersRequestOffers.html'">
+	</div>
+	<div ng-if="show==16" ng-include src="'pages/institutionReports.html'"></div>
+	
+	<div ng-if="show==17" ng-include src="'pages/publishOffer.html'"></div>
+	
+	<div ng-if="show==18" ng-include src="'pages/userRanks.html'"></div>
+	
+	<div ng-if="show==19" ng-include src="'funManagers.html'"></div>
+	
+	<div ng-if="show==20" ng-include src="'guestRequestOffers.html'"></div>
+
+</div>

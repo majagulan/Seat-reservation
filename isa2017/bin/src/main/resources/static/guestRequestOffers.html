@@ -1,0 +1,54 @@
+<h1 class="page-header">All your offers for theme requisites</h1>
+<div class="container" ng-controller="guestRequestOfferController">
+	<div class="container">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Start date</th>
+						<th>Expiration date</th>
+						<th> Active  </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="requestOffer in guestOffers"
+						ng-click="setSelectedRequestOffer(requestOffer)"
+						ng-class="{'info' : selectedRequestOffer===requestOffer}">
+						<td>{{requestOffer.id}}</td>
+						<td>{{requestOffer.name}}</td>
+						<td>{{requestOffer.description}}</td>
+						<td>{{requestOffer.startDate}}</td>
+						<td>{{requestOffer.expirationDate}}</td>
+						<td>{{!!requestOffer.status}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="conteinter">
+		<div class="row">
+			<div class="col-xs-12 offset3">
+				<div class="text-left">
+				<button type="button" class="btn btn-primary" ng-click="displayRequest(1)">Register new</button>
+				<button type="button" class="btn btn-primary" ng-click="displayRequest(2)"
+						ng-disabled="!selectedRequestOffer || !selectedRequestOffer.status">Edit this</button>
+						<button type="button" class="btn btn-primary" ng-click="deleteRequestOffer()"
+						ng-disabled="!selectedRequestOffer || !selectedRequestOffer.status">Delete this</button>
+					<button type="button" class="btn btn-primary" ng-click="getBidderOffersForRequest()"
+						ng-disabled="!selectedRequestOffer">Show all requisite offers</button>
+						
+				</div>
+			</div>
+		</div>
+	</div>
+	<br />
+
+	<div ng-show="showR==1" ng-include src="'pages/registerRequestOffer.html'"></div>
+	<div ng-show="showR==2" ng-include src="'pages/editRequestOffer.html'"></div>
+	<div ng-show="showR==3" ng-include src="'pages/biddingsForOffer.html'"></div>
+</div>
+</div>

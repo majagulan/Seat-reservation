@@ -1,6 +1,6 @@
 insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (1,'16-10-15','maja.gulan@gmail.com','sifra','Maja','Gulan','GUEST','Novi Sad','063212121');
 insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (2,'16-10-15','smiljana.tedic@gmail.com','sifra','Smiljana','Tedic','GUEST','Beograd','123123123');
-insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (13,'16-10-15','guest13@gmail.com','sifra','Test','Test','GUEST','Subotica','123123123');
+insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (13,'16-10-15','milana.carapic@gmail.com','sifra','Milana','Carapic','GUEST','Visegrad','123123123');
 insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (14,'16-10-15','guest14@gmail.com','sifra','Test','Test','GUEST','Novi Sad','123123123');
 insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (15,'16-10-15','guest15@gmail.com','sifra','Test','Test','GUEST','Sombor','123123123');
 insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,user_role,city,phone) values (16,'16-10-15','guest16@gmail.com','sifra','Test','Test','GUEST','Pec','123123123');
@@ -19,8 +19,8 @@ insert into user (user_id,user_date,user_email,user_pass,user_name,user_surname,
 insert into bidder(user_id) values(11);
 insert into bidder(user_id) values(12);
 
-insert into institution(res_id, res_desc, res_name, ins_type, adr_ins) values(1,'Opis bioskopa','Arena cineplex', 'CINEMA','Bulevar Despota Stefana 25');
-insert into institution(res_id, res_desc, res_name, ins_type, adr_ins) values(2,'Opis pozorista','Narodno pozoriste Novi Sad', 'THEATER', 'Kisacka 25');
+insert into institution(res_id, res_desc, res_name, ins_type, adr_ins, gmapsUrl) values(1,'Opis bioskopa','Arena cineplex', 'CINEMA','Bulevar Mihajla Pupina 3','https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2808.6982904757137!2d19.840478015955338!3d45.253893479099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475b1069ec9deca9%3A0xd7dc4b85b5fc753!2z0JHRg9C70LXQstCw0YAg0JzQuNGF0LDRmNC70LAg0J_Rg9C_0LjQvdCwIDMsINCd0L7QstC4INCh0LDQtA!5e0!3m2!1ssr!2srs!4v1524158968044');
+insert into institution(res_id, res_desc, res_name, ins_type, adr_ins, gmapsUrl) values(2,'Opis pozorista','Narodno pozoriste Novi Sad', 'THEATER', 'Sentandrejskiput 11','https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2809.1092174864743!2d19.83506441555019!3d45.245584179099005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475b1015b93d3229%3A0xe7b7f1b2bf36ec57!2z0JvQsNGB0LvQsCDQk9Cw0LvQsCAyMywg0J3QvtCy0Lgg0KHQsNC0IDIxMDAw!5e0!3m2!1ssr!2srs!4v1523445804304');
 
 
 insert into user_rank(user_rank_id,user_rank_type,user_rank_scale) values(1,'GOLD',200);

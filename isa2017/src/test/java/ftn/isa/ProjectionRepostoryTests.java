@@ -35,7 +35,7 @@ public class ProjectionRepostoryTests {
 	
 	@Test
 	public void findProjectionByInstitutionAndName() {
-		List<Projection> projections = pr.findProjectionByInstitutionAndName("Coca cola",(long) 1);
+		List<Projection> projections = pr.findProjectionByInstitutionAndName("Star Wars 1",(long) 1);
 		assertEquals(projections.size(), 1);
 	}
 }

@@ -21,6 +21,7 @@
             <span ng-show="sortInstitutionType == 'adress' && !sortInstitutionReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortInstitutionType == 'adress' && sortInstitutionReverse" class="fa fa-caret-up"></span>
           </a></th>
+          <th>Map</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,6 +33,9 @@
 						<td>{{institution.description}}</td>
 						<td>{{institution.institutionType}}</td>
 						<td>{{institution.adresaIns}}</td>
+							<iframe ng-src="{{trustSrc(institution.gmapsUrl)}}" width="200" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>						
+						</td>
+						
 					</tr>
 				</tbody>
 			</table>

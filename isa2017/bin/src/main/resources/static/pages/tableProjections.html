@@ -1,0 +1,47 @@
+<h1 class="page-header">Projections of  institution: {{$parent.selected.institutionName}}</h1>
+<div class="container">
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th><a href="#!/home" ng-click="sortProjectionType = 'name'; sortProjectionReverse = !sortProjectionReverse">
+            Name
+            <span ng-show="sortProjectionType == 'name' && !sortProjectionReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortProjectionType == 'name' && sortProjectionReverse" class="fa fa-caret-up"></span>
+          </a></th>
+					<th><a href="#!/home" ng-click="sortProjectionType = 'description'; sortProjectionReverse = !sortProjectionReverse">
+            Description
+            <span ng-show="sortProjectionType == 'description' && !sortProjectionReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortProjectionType == 'description' && sortProjectionReverse" class="fa fa-caret-up"></span>
+          </a></th>
+					<th><a href="#!/home" ng-click="sortProjectionType = 'actor'; sortProjectionReverse = !sortProjectionReverse">
+            Actor
+            <span ng-show="sortProjectionType == 'actor' && !sortProjectionReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortProjectionType == 'actor' && sortProjectionReverse" class="fa fa-caret-up"></span>
+          </a></th>
+					<th>Duration</th>
+					<th>Price</th>
+					<th>Projection type</th>
+					<th>Director</th>
+					<th>Average grade</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="projection in institutionProjections | orderBy:sortPojectionType:sortProjectionReverse "
+					ng-click="setSelectedinstitutionProjection(projection)"
+					ng-class="{'info' : selectedinstitutionProjection===projection}">
+					<td>{{projection.id}}</td>
+					<td>{{projection.projectionName}}</td>
+					<td>{{projection.description}}</td>
+					<td>{{projection.actor}}</td>
+					<td>{{projection.duration}}</td>
+					<td>{{projection.price}}</td>
+					<td>{{projection.projectionType}}</td>
+					<td>{{projection.director}}</td>
+					<td>{{projection.averageGrade}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

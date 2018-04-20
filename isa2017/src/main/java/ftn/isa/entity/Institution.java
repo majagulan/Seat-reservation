@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -53,6 +55,11 @@ public class Institution implements Serializable {
 	
 	@Column(name="ADR_INS")
 	private String adresaIns;
+	
+	@Column(name="GMAPSURL")
+	@Length(max=2084)
+	private String gmapsUrl;
+
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "institutions", cascade = { CascadeType.REMOVE, CascadeType.MERGE })
 	@JsonIgnore
@@ -79,11 +86,12 @@ public class Institution implements Serializable {
 
 	}
 	
-	public Institution(long id,String institutionName,String description, String adresa) {
+	public Institution(long id,String institutionName,String description, String adresa, String gmapsUrl) {
 		this.id=id;
 		this.institutionName=institutionName;
 		this.description=description;
 		this.adresaIns=adresa;
+		this.gmapsUrl=gmapsUrl;
 	}
 
 	public String getinstitutionName() {
@@ -164,6 +172,13 @@ public class Institution implements Serializable {
 		this.adresaIns = adresaIns;
 	}
 	
-	
+	public String getGmapsUrl() {
+		return gmapsUrl;
+	}
+
+	public void setGmapsUrl(String gmapsUrl) {
+		this.gmapsUrl = gmapsUrl;
+	}
+
 
 }

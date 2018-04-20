@@ -10,6 +10,7 @@
 						<th>Institution type</th>
 						<th>Description</th>
 						<th>Address</th>
+						<th>Map</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -19,6 +20,9 @@
 						<td>{{institution.institutionType}}</td>
 						<td>{{institution.description}}</td>
 						<td>{{institution.adresaIns}}</td>
+							<iframe ng-src="{{trustSrc(institution.gmapsUrl)}}" width="200" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>						
+						</td>
+						
 					</tr>
 				</tbody>
 			</table>

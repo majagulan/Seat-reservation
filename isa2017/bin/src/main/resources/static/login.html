@@ -1,0 +1,33 @@
+<div role="form" class="form-inline" ng-controller="loginController">
+	<h1 class="page-header">Login</h1>
+	<form name="myForm" novalidate>
+		<div class="form-group">
+			<label>Email:</label> <input type="text" ng-Model="user.email" class="form-control"
+			placeholder = "Enter username" required/>
+		</div>
+		<div class="form-group">
+			<label>Password:</label> <input type="password" ng-Model="user.password" class="form-control"
+			placeholder = "Enter password" required/>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-success" type="submit" ng-click="myForm.$valid ? login() : angular.noop()">Login</button>
+		</div>
+		
+		 <div class="form-group">
+			<button class="btn btn-success" type="submit" ng-click="register()">Sign up</button>
+		</div>
+		
+		<button type="button" class="btn btn-primary" ng-click=showView('THEATER')>Theatres</button>
+		<button type="button" class="btn btn-primary" ng-click=showView('CINEMA')>Cinemas</button>
+	</form>
+	
+	<div ng-if="type != undefined" ng-include src="'pages/tableInstitutionsNew.html'"></div>
+	
+	<div ng-if="selected != undefined" ng-include src="'pages/tableProjections.html'"></div>
+	
+	 <div id="map_canvas" ng-controller="mainCtrl">
+    <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+	</div>
+	
+	
+</div>

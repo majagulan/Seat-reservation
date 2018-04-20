@@ -1,0 +1,38 @@
+<h1 class="page-header">All not active offers</h1>
+<div class="container" ng-controller="publishController">
+	<div class="container">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Start date</th>
+						<th>Expiration date</th>
+						<th>Who registrated this </th>
+						<th>Status </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="requestOffer in requestOffers"
+						ng-click="setSelectedRequestOffer(requestOffer)"
+						ng-class="{'info' : selectedRequestOffer===requestOffer}">
+						<td>{{requestOffer.id}}</td>
+						<td>{{requestOffer.name}}</td>
+						<td>{{requestOffer.description}}</td>
+						<td>{{requestOffer.startDate}}</td>
+						<td>{{requestOffer.expirationDate}}</td>
+						<td>{{requestOffer.funManager.userName}} {{requestOffer.guest.userName}}</td>
+						<td>{{requestOffer.status}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div ng-if="selectedRequestOffer">
+		<input class="btn btn-primary" type="button" value="Accept" ng-click=activate()>
+		<input class="btn btn-primary" type="button" value="Decline" ng-click=erase()>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<div class="container">
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Institution type</th>
+					<th>Adress</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="institution in institutions"
+					ng-click="setSelected(institution)"
+					ng-class="{'info' : selected===institution}">
+					<td>{{institution.id}}</td>
+					<td>{{institution.institutionName}}</td>
+					<td>{{institution.description}}</td>
+					<td>{{institution.institutionType}}</td>
+					<td>{{institution.adresaIns}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

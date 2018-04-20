@@ -1,0 +1,19 @@
+<div ng-repeat="seg in institutionSegments">
+		<h2 ng-init="showSegmentViewTables(seg.id, $index)">{{seg.position}}</h2>
+		
+		<div class="row" ng-repeat="x in range(0,seg.height)">
+			<div class="thumbnail" style="display:inline-block;width:180px" ng-repeat="y in range(0,seg.width)">
+				<div class="caption" ng-if="seg.tables[x*seg.width+y].id!=null">
+					<h3><i>Seat</i></h3>
+					<p class="bg-primary">SeatID: {{seg.tables[x*seg.width+y].id}} </p>
+					<p class="bg-primary">Free: {{seg.tables[x*seg.width+y].free}} </p>
+				</div>
+				<div class="caption" ng-if="seg.tables[x*seg.width+y].id==null">
+					<h3><i>No seat</i></h3>
+					<p>There is no seat</p> 
+					<p>on this position</p>
+					<p>in the institution.</p>
+				</div>
+			</div>
+		</div>
+</div>
