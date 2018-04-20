@@ -17,10 +17,10 @@ import ftn.isa.entity.Institution;
 import ftn.isa.entity.InstitutionTable;
 import ftn.isa.entity.Order;
 import ftn.isa.entity.Projection;
+import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.RequisiteOffer;
 import ftn.isa.entity.RequisiteOfferStatus;
 import ftn.isa.entity.Segment;
-import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.users.FunManager;
 import ftn.isa.entity.users.InstitutionManager;
 import ftn.isa.repository.FunManagerRepository;
@@ -29,9 +29,9 @@ import ftn.isa.repository.InstitutionRepository;
 import ftn.isa.repository.InstitutionTableRepository;
 import ftn.isa.repository.OrderRepository;
 import ftn.isa.repository.ProjectionRepository;
+import ftn.isa.repository.RequestOfferRepository;
 import ftn.isa.repository.RequisiteOfferRepository;
 import ftn.isa.repository.SegmentRepository;
-import ftn.isa.repository.RequestOfferRepository;
 import ftn.isa.service.InstitutionManagerService;
 import ftn.isa.service.UserRepository;
 
@@ -365,8 +365,12 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 
 	@Override
 	public double institutionEarnings(Long id, Date startDate, Date endDate) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (this.institutionManagerRepository.getEarningsForInstitution(this.institutionRepository.findOne(id), startDate,
+				endDate) == null)
+			return -1;
+		
+		return this.institutionManagerRepository.getEarningsForInstitution(this.institutionRepository.findOne(id), startDate,
+				endDate);
 	}
 
 	@Override
@@ -390,5 +394,18 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 	@Override
 	public Projection getProjection(Long id) {
 		return projectionRepository.findOne(id);
+	}
+
+	@Override
+	public ResponseEntity<InstitutionManager> updateProfile(InstitutionManager im) {
+		InstitutionManager temp = this.institutionManagerRepository.findOne(im.getId());
+		temp.setDateOfBirth(im.getDateOfBirth());
+		temp.setEmail(im.getEmail());
+		temp.setUserName(im.getUserName());
+		temp.setPassword(im.getPassword());
+		temp.setSurname(im.getSurname());
+		temp.setFirstLogIn(im.isFirstLogIn());
+		return new ResponseEntity<InstitutionManager>(this.institutionManagerRepository.save(temp),HttpStatus.OK);
+		
 	}
 }

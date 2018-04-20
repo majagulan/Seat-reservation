@@ -1,4 +1,4 @@
-var app = angular.module('webApp');
+var app = angular.module('webApp' );
 
 
 var compareTo = function() {
@@ -50,7 +50,8 @@ app.controller('appController',['$rootScope','$scope','$location','SessionServic
 }]);
 
 app.controller('loginController',['$rootScope','$scope','$location','institutionManagerService','GuestService','SystemManagerService','SessionService',function($rootScope,$scope,$location,institutionManagerService,guestService,systemManagerService,sessionService){
-		
+	
+
 	
 	if (!$rootScope.loggedUser) {
 		$location.path('/login');
@@ -61,6 +62,7 @@ app.controller('loginController',['$rootScope','$scope','$location','institution
 			$location.path('/home');
 	}
 	
+	 $scope.map = {center: {latitude: 51.219053, longitude: 4.404418 }, zoom: 14 };
 	
 	$scope.login = function(){
 		var user = $scope.user;

@@ -25,5 +25,9 @@
 	
 	<div ng-if="selected != undefined" ng-include src="'pages/tableProjections.html'"></div>
 	
+	 <div id="map_canvas" ng-controller="mainCtrl">
+    <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+	</div>
+	
 	
 </div>

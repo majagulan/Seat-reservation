@@ -93,6 +93,8 @@ public interface InstitutionManagerService {
 
 	ResponseEntity<List<Order>> getReservationsForDay(Long id, String startDate) throws ParseException;
 
+	ResponseEntity<InstitutionManager> updateProfile(InstitutionManager im);
+
 	
 
 

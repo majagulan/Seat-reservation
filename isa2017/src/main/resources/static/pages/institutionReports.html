@@ -17,107 +17,11 @@
 		</div>
 	</form>
 	<div class="form-group">
-		<label>institution earnings:</label> <input type="text"
+		<label>Institution earnings:</label> <input type="text"
 			class="form-control" id="des" readonly=true
 			ng-value="institutionEarnings">
 	</div>
-	<h2 class="page-header">Enter waiter name, to get his grade:</h2>
-	<form name="myFormNew" novalidate>
-		<div class="form-group">
-			<input type="text" ng-Model="waiterName" class="form-control"
-				placeholder="Enter waiter" required />
-			<button type="submit" class="btn btn-success"
-				ng-disabled="myFormNew.$invalid"
-				ng-Click="getAllWaitersByNameAndInstitution()">Submit</button>
-		</div>
-	</form>
-	<div ng-if="!onlyWithThatName">
-		<h2 class="page-header">Waiters named {{waiterName}} :</h2>
-		<div class="container">
-			<div class="table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Name</th>
-							<th>Surname</th>
-							<th>Email</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="waiter in namedWaiters"
-							ng-click="setSelectedWaiter(waiter)"
-							ng-class="{'info' : selectedWaiter===waiter}">
-							<td>{{waiter.id}}</td>
-							<td>{{waiter.userName}}</td>
-							<td>{{waiter.surname}}</td>
-							<td>{{waiter.email}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="conteinter">
-			<div class="row">
-				<div class="col-xs-12 offset3">
-					<div class="text-left">
-						<button type="button" class="btn btn-success"
-							ng-Click="getGradeOfWaiter()" ng-disabled="!selectedWaiter">Waiter
-							grade</button>
-					</div>
-				</div>
-			</div>
-			<br />
-		</div>
-	</div>
-	<div class="form-group">
-		<label>Waiter grade:</label> <input type="text" class="form-control"
-			id="des" readonly=true ng-value="waiterGrade" />
-	</div>
 
-	<h2 class="page-header">institution waiters :</h2>
-	<div class="container">
-		<div class="table-responsive">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Name</th>
-						<th>Surname</th>
-						<th>Email</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-if="worker.userRole == 'WAITER'"
-						ng-repeat="worker in institutionWorkers"
-						ng-click="setSelectedWorker(worker)"
-						ng-class="{'info' : selectedWorker===worker}">
-						<td>{{worker.id}}</td>
-						<td>{{worker.userName}}</td>
-						<td>{{worker.surname}}</td>
-						<td>{{worker.email}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="conteinter">
-		<div class="row">
-			<div class="col-xs-12 offset3">
-				<div class="text-left">
-					<button type="button" class="btn btn-primary"
-						ng-click="getEarningForWaiter()" ng-disabled="!selectedWorker">Waiter
-						earnings</button>
-				</div>
-			</div>
-		</div>
-		<br />
-	</div>
-	<div class="form-group">
-		<label>Selected waiters earnings:</label> <input type="text"
-			class="form-control" id="des" readonly=true ng-value="waiterEarnings"
-			ng-model="waiterEarnings">
-	</div>
 	<br /> <br /> <br />
 	<h2 class="page-header">Enter projection name, to get his grade:</h2>
 	<form name="myFormPro" novalidate>
