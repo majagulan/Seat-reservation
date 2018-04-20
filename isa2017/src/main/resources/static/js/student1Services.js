@@ -80,6 +80,20 @@ app.factory('GuestService', function guestService($http) {
 		});
 	}
 	
+	guestService.getRankForUserPoints = function(userPoents){
+		return $http({
+			method : 'GET',
+			url: '../guests/getGuestRankForPoints/'+userPoents
+		});
+	}
+	guestService.getPointsForUser = function(userId){
+		return $http({
+			method : 'GET',
+			url: '../guests/getPointsForUser/'+userId
+		});
+	}
+	
+	
 	guestService.activateRequestOffer = function(reqId){
 		return $http({
 			method : 'POST',

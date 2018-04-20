@@ -443,7 +443,8 @@ app
 								"actor" : projection.actor,
 								"duration" : projection.duration,
 								"price" : projection.price, 
-								"projectionType" : projection.projectionType
+								"projectionType" : projection.projectionType,
+								"director": projection.director
 							}
 						});
 					}

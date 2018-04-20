@@ -876,6 +876,11 @@ app
 												function(response) {
 													if (response.data) {
 														$scope.institutionProjections = response.data;
+														angular.forEach($scope.institutionProjections, function(value, key){
+															guestService.getAverageGradeForProjection1(value.id).then(function(response){
+																value.averageGradeForProjection=response.data;
+															});
+														});
 														$scope.selectedBid = null;
 														$scope.selectedinstitutionProjection = null;
 														$scope.selectedRequestOfferProjection = null;
@@ -892,6 +897,11 @@ app
 												function(response) {
 													if (response.data) {
 														$scope.allProjections = response.data;
+														angular.forEach($scope.allProjections, function(value, key){
+															guestService.getAverageGradeForProjection1(value.id).then(function(response){
+																value.averageGradeForProjection=response.data;
+															});
+														});
 														$scope.show = 4;
 													}
 												});

@@ -30,6 +30,7 @@ import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Guest;
 import ftn.isa.entity.users.User;
+import ftn.isa.entity.users.UserRank;
 import ftn.isa.entity.users.UserRole;
 import ftn.isa.mail.SendEmail;
 import ftn.isa.service.GuestService;
@@ -62,6 +63,17 @@ public class GuestController {
 		return this.guestService.getFriendsForGuest(user_id);
 	}
 	
+	
+	@RequestMapping(
+			value = "/getPointsForUser/{userId}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public Double getPointsForUser(@PathVariable("userId") Long user_id){
+		return this.guestService.getPointsForUser(user_id);
+	}
+	
 	@RequestMapping(
 			value = "/nonFriends/{id}",
 			method = RequestMethod.GET,
@@ -70,6 +82,16 @@ public class GuestController {
 	@Transactional
 	public ResponseEntity<List<Guest>> getNonFriends(@PathVariable("id") Long user_id){
 		return this.guestService.getNonFriendsForGuest(user_id);
+	}
+	
+	@RequestMapping(
+			value = "/getGuestRankForPoints/{guestPoints}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<UserRank> getGuestRankForPoints(@PathVariable("guestPoints") Double guestPoints){
+		return this.guestService.getGuestRankForPoints(guestPoints);
 	}
 	
 	@RequestMapping(

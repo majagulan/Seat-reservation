@@ -20,6 +20,8 @@ public interface InstitutionManagerService {
 
 	ResponseEntity<Institution> updateInstitutionProfile(Institution r);
 
+	void deleteProjectionFromInstitution(Long projectionId,Long institutionId);
+	
 	ResponseEntity<Projection> removeProjectionFromMenu(Long projection, Long id);
 
 	ResponseEntity<Projection> addNewProjectionToMenu(Projection p, Long r_id);

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,6 +48,13 @@ public class InstitutionManagerController {
 	public ResponseEntity<InstitutionManager> update(@RequestBody @Valid InstitutionManager r) {
 		session.setAttribute("user", r);
 		return institutionManagerService.update(r);
+	}
+	
+	@RequestMapping(value = "/deleteProjectionFromInstitution/{projectionId}/{institutionId}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Transactional
+	public void deleteProjectionFromInstitution(@PathVariable("projectionId") Long projectionId,@PathVariable("institutionId") Long institutionId) {
+		 institutionManagerService.deleteProjectionFromInstitution(projectionId,institutionId);
 	}
 
 	@RequestMapping(value = "/updateinstitution", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

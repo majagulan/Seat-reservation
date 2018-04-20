@@ -432,4 +432,12 @@ public class InstitutionManagerServiceImpl implements InstitutionManagerService 
 				this.requestOfferRepository.findByGuest(this.guestRepository.findOne(id)),
 				HttpStatus.OK);
 	}
+
+	@Override
+	public void deleteProjectionFromInstitution(Long projectionId, Long institutionId) {
+		Projection p = projectionRepository.findOne(projectionId);
+		Institution i = institutionRepository.findOne(institutionId);
+		i.getMenu().remove(p);
+		institutionRepository.save(i);
+	}
 }

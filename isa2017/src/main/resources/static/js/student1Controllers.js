@@ -184,7 +184,7 @@ app.controller('homeController',['$rootScope','$scope','$location','$http', 'ins
 }]);
 
 
-app.controller('profileController',['$rootScope','$scope','$location','$http','SessionService',function($rootScope,$scope,$location,$http,sessionService) {
+app.controller('profileController',['$rootScope','$scope','$location','$http','SessionService','GuestService',function($rootScope,$scope,$location,$http,sessionService,guestService) {
 	
 	if (!$rootScope.loggedUser) {
 		$location.path('/login');
@@ -209,6 +209,14 @@ app.controller('profileController',['$rootScope','$scope','$location','$http','S
 	  			});
 		});
 	}
+	
+	guestService.getRankForUserPoints($rootScope.loggedUser.guestPoints).then(function(response){
+		$scope.user.userRank = response.data.userRankType;
+	});
+	
+	guestService.getPointsForUser($rootScope.loggedUser.id).then(function(response){
+		$scope.user.guestPoints = response.data;
+	});
 
 
 }]);
@@ -598,6 +606,11 @@ app.controller('institutionController',['$rootScope','$scope','$location','$http
 			institutionManagerService.getProjectionsForInstitution($scope.selected.id).then(
 					function(response) {
 						$scope.institutionProjections = response.data;
+						angular.forEach($scope.institutionProjections, function(value, key){
+							guestService.getAverageGradeForProjection1(value.id).then(function(response){
+								value.averageGradeForProjection=response.data;
+							});
+						});
 					});
 			
 			guestService.getFastCardsForInstitution($scope.selected.id).then(

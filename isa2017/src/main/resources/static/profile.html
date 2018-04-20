@@ -30,6 +30,9 @@
 				<tr name= "radi" ng-if="loggedUser.userRole=='GUEST'" ng-disabled=true>
 					<td>Guest points</td><td>{{user.guestPoints}}</td>
 				</tr>
+				<tr name= "rank" ng-if="loggedUser.userRole=='GUEST'" ng-disabled=true>
+					<td>User rank</td><td>{{user.userRank}}</td>
+				</tr>
 				<tr>
 					<td></td><td><input ng-disabled="profileForm.$invalid" class="btn btn-primary" type="button" value="Confirm" ng-click="confirmEditProfile()"/></td>
 				</tr>

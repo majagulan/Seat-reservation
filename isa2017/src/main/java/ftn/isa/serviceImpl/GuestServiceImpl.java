@@ -27,6 +27,8 @@ import ftn.isa.entity.users.FriendId;
 import ftn.isa.entity.users.Guest;
 import ftn.isa.entity.users.GuestStatus;
 import ftn.isa.entity.users.User;
+import ftn.isa.entity.users.UserRank;
+import ftn.isa.entity.users.UserRankType;
 import ftn.isa.entity.users.UserRole;
 import ftn.isa.mail.SendEmail;
 import ftn.isa.repository.FriendRepository;
@@ -39,6 +41,7 @@ import ftn.isa.repository.ProjectionTimeRepository;
 import ftn.isa.repository.RequestOfferRepository;
 import ftn.isa.repository.ReservationRepository;
 import ftn.isa.repository.SegmentRepository;
+import ftn.isa.repository.UserRankRepository;
 import ftn.isa.service.GuestService;
 import ftn.isa.service.UserRepository;
 
@@ -76,6 +79,9 @@ public class GuestServiceImpl implements GuestService {
 	
 	@Autowired
 	private InstitutionRepository institutionRepository;
+	
+	@Autowired
+	private UserRankRepository userRankRepository;
 	
 	@Autowired
 	private ProjectionTimeRepository projectionTimeRepository;
@@ -361,6 +367,7 @@ public class GuestServiceImpl implements GuestService {
 	@Override
 	public Guest inviteFriend(Long friendId, Long resId) {
 		Guest g = guestRepository.findOne(friendId);
+		g.addPoints(5);
 		Reservation r = reservationRepository.findOne(resId);
 		new SendEmail(g.getEmail(),"<a href=http://localhost:8000/#!/home>OVDE</a>", "Reservation invitation", "To accept click here:").start();
 		r.getPeople().add(g);
@@ -519,6 +526,54 @@ public class GuestServiceImpl implements GuestService {
 		RequestOffer rq = requestOfferRepository.findOne(reqId);
 		this.requestOfferRepository.delete(reqId);
 		return new ResponseEntity<RequestOffer>(rq,HttpStatus.OK);
+	}
+
+
+	@Override
+	public ResponseEntity<UserRank> getGuestRankForPoints(Double guestPoints) {
+		List<UserRank> userRanks = (List<UserRank>) userRankRepository.findAll();
+		UserRank myRank = new UserRank();
+		
+		double bronzeScale = 0.0;
+		double silverScale= 0.0;
+		double goldScale= 0.0;
+		
+		
+		UserRank bronze = new UserRank();
+		UserRank gold = new UserRank();
+		UserRank silver = new UserRank();
+		
+		for(UserRank uR : userRanks) {
+			if(uR.getUserRankType().equals(UserRankType.BRONZE)) {
+				bronzeScale = uR.getUserPointsRankScale();
+				bronze = uR;
+			}else if (uR.getUserRankType().equals(UserRankType.SILVER)) {
+				silverScale = uR.getUserPointsRankScale();
+				silver = uR;
+			}else if (uR.getUserRankType().equals(UserRankType.GOLD)) {
+				goldScale = uR.getUserPointsRankScale();
+				gold = uR;
+			}
+		}
+		
+		if(guestPoints > goldScale) {
+			myRank = gold;
+		} else if (guestPoints > silverScale) {
+			myRank = gold;
+		} else if(guestPoints > bronzeScale) {
+			myRank = silver;
+		} else {
+			myRank = bronze;
+		}
+		
+		return new ResponseEntity<UserRank>(myRank,HttpStatus.OK);
+	}
+
+
+	@Override
+	public Double getPointsForUser(Long userId) {
+		Guest g =guestRepository.findOne(userId);
+		return g.getGuestPoints();
 	}
 
 }

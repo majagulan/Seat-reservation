@@ -109,7 +109,9 @@ public class Guest extends User {
 		
 	}
 	
-	
+	public void addPoints(double points) {
+		 guestPoints+= points;
+	}
 
 	public GuestStatus getStatus() {
 		return status;

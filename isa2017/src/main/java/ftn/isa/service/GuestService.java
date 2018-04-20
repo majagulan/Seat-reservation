@@ -13,10 +13,13 @@ import ftn.isa.entity.RequestOffer;
 import ftn.isa.entity.Reservation;
 import ftn.isa.entity.Segment;
 import ftn.isa.entity.users.Guest;
+import ftn.isa.entity.users.UserRank;
 
 public interface GuestService {
 	
 	ResponseEntity<List<Guest>> getFriendsForGuest(Long id);
+	
+	Double getPointsForUser(Long userId);
 	
 	Guest register(Guest guest);
 	
@@ -31,6 +34,8 @@ public interface GuestService {
 	Reservation getReservation(Long id);
 	
 	Projection getProjectionForReservation(Long reservationId);
+	
+	ResponseEntity<UserRank> getGuestRankForPoints(Double guestPoints);
 	
 	ResponseEntity<List<RequestOffer>> getAllNonActiveRequestOffers();
 	

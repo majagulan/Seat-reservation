@@ -45,7 +45,6 @@ insert into friend(sender_id,reciever_id,status) values(13,2,true);
 insert into friend(sender_id,reciever_id,status) values(13,14,true);
 insert into friend(sender_id,reciever_id,status) values(13,15,false);
 insert into friend(sender_id,reciever_id,status) values(13,16,false);
-insert into friend(sender_id,reciever_id,status) values(13,1,false);
 
 insert into institution_manager (user_id,institution_res_id) values (9,1);
 insert into institution_manager (user_id,institution_res_id) values (10,1);
